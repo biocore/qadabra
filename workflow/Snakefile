@@ -1,0 +1,5 @@
+configfile: "config/config.yaml"
+include: "rules/diffab.smk"
+
+rule all:
+    input: "results/deseq2.tsv"

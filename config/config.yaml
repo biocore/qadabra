@@ -1,0 +1,3 @@
+covariate: sex
+target: F
+reference: M
