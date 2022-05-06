@@ -1,3 +1,7 @@
-covariate: sex
-target: F
-reference: M
+table: "/home/grahman/projects/qadabra/workflow/data/table.biom"
+metadata: "/home/grahman/projects/qadabra/workflow/data/metadata.tsv"
+model:
+    covariate: sex
+    target: F
+    reference: M
+save_rdata: True

@@ -1,5 +1,6 @@
 library(biomformat)
-library(DESeq2)
+library(ANCOMBC)
+library(phyloseq)
 
 table <- biomformat::read_biom(snakemake@input[["table"]])
 table <- as.matrix(biomformat::biom_data(table))
@@ -18,20 +19,13 @@ metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
 
-design.formula <- as.formula(paste0("~", snakemake@config[["model"]][["covariate"]]))
-dds <- DESeq2::DESeqDataSetFromMatrix(
-    countData=table,
-    colData=metadata,
-    design=design.formula
-)
-dds_results <- DESeq2::DESeq(dds, sfType="poscounts")
+taxa <- phyloseq::otu_table(table, taxa_are_rows=T)
+meta <- phyloseq::sample_data(metadata)
+physeq <- phyloseq::phyloseq(taxa, meta)
 
-results <- DESeq2::results(
-    dds_results,
-    format="DataFrame",
-    tidy=TRUE,
-    cooksCutoff=FALSE,
-    contrast=c(covariate, target, reference)
-)
-row.names(results) <- rownames(table)
+design.formula <- snakemake@config[["model"]][["covariate"]]
+ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula,
+                                    zero_cut=1.0)
+results <- ancombc.results$res$beta
+
 write.table(results, file=snakemake@output[[1]], sep="\t")
