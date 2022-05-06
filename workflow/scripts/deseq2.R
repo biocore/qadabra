@@ -24,10 +24,11 @@ dds <- DESeq2::DESeqDataSetFromMatrix(
     colData=metadata,
     design=design.formula
 )
-dds_results <- DESeq2::DESeq(dds, sfType="poscounts")
+dds.results <- DESeq2::DESeq(dds, sfType="poscounts")
+saveRDS(dds.results, snakemake@output[[2]])
 
 results <- DESeq2::results(
-    dds_results,
+    dds.results,
     format="DataFrame",
     tidy=TRUE,
     cooksCutoff=FALSE,

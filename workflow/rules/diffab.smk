@@ -3,9 +3,10 @@ rule deseq2:
         table=config["table"],
         metadata=config["metadata"]
     output:
-        "results/deseq2.tsv"
+        "results/deseq2/ranks.tsv",
+        "results/deseq2/results.rds"
     conda:
-        "../envs/qadabra-da-R.yml"
+        "../envs/qadabra-da-R.yaml"
     script:
         "../scripts/deseq2.R"
 
@@ -15,8 +16,9 @@ rule ancombc:
         table=config["table"],
         metadata=config["metadata"]
     output:
-        "results/ancombc.tsv"
+        "results/ancombc/ranks.tsv",
+        "results/ancombc/results.rds"
     conda:
-        "../envs/qadabra-da-R.yml"
+        "../envs/qadabra-da-R.yaml"
     script:
         "../scripts/ancombc.R"

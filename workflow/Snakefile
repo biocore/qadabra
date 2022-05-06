@@ -5,4 +5,4 @@ TOOLS = ["deseq2", "ancombc"]
 
 rule all:
     input:
-        expand("results/{tool}.tsv", tool=TOOLS)
+        expand("results/{tool}/ranks.tsv", tool=TOOLS)

@@ -26,6 +26,7 @@ physeq <- phyloseq::phyloseq(taxa, meta)
 design.formula <- snakemake@config[["model"]][["covariate"]]
 ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula,
                                     zero_cut=1.0)
+saveRDS(ancombc.results, snakemake@output[[2]])
 results <- ancombc.results$res$beta
 
 write.table(results, file=snakemake@output[[1]], sep="\t")

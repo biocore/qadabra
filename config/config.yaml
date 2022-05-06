@@ -4,4 +4,6 @@ model:
     covariate: sex
     target: F
     reference: M
-save_rdata: True
+songbird_params:
+    epochs: 5000
+    differential_prior: 1
