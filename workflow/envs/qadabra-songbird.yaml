@@ -1,0 +1,5 @@
+channel:
+    - conda-forge
+dependencies:
+    - songbird
+    - pandas>=0.18.0,<1
