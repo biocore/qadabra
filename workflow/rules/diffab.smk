@@ -45,3 +45,14 @@ rule songbird:
             --min-sample-count 0 \
             --summary-dir results/songbird
         """
+
+
+rule process_differentials:
+    input:
+        "results/{tool}/differentials.tsv"
+    output:
+        "results/{tool}/differentials.processed.tsv"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/process_{wildcards.tool}.py"

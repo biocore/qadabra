@@ -5,4 +5,4 @@ TOOLS = ["deseq2", "ancombc", "songbird"]
 
 rule all:
     input:
-        expand("results/{tool}/differentials.tsv", tool=TOOLS)
+        expand("results/{tool}/differentials.processed.tsv", tool=TOOLS)
