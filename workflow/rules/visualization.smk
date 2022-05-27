@@ -1,6 +1,19 @@
 stylesheet = "config/qadabra.mplstyle"
 
 
+rule plot_differentials:
+    input:
+        "results/{tool}/differentials.processed.tsv"
+    output:
+        "results/figures/{tool}_differentials.pdf"
+    params:
+        stylesheet
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot_differentials.py"
+
+
 rule rank_correlation:
     input:
         "results/concatenated_differentials.tsv"
@@ -11,4 +24,4 @@ rule rank_correlation:
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/rank_correlations.py"
+        "../scripts/plot_rank_correlations.py"

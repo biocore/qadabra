@@ -4,7 +4,7 @@ axes.spines.top : False
 axes.spines.right : False
 axes.labelsize : x-large
 axes.titlesize : xx-large
-axes.titlelocation : left
+axes.axisbelow: True
 grid.linewidth : 0.3
 legend.fontsize : x-small
 legend.title_fontsize : medium
