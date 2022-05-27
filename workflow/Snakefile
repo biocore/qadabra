@@ -1,8 +1,8 @@
 configfile: "config/config.yaml"
 include: "rules/diffab.smk"
 
-TOOLS = ["deseq2", "ancombc"]
+TOOLS = ["deseq2", "ancombc", "songbird"]
 
 rule all:
     input:
-        expand("results/{tool}/ranks.tsv", tool=TOOLS)
+        expand("results/{tool}/differentials.tsv", tool=TOOLS)

@@ -23,6 +23,7 @@ rule ancombc:
     script:
         "../scripts/ancombc.R"
 
+
 rule songbird:
     input:
         table=config["table"],
@@ -40,5 +41,7 @@ rule songbird:
             --epochs {config[songbird_params][epochs]} \
             --differential-prior {config[songbird_params][differential_prior]} \
             --summary-interval 1 \
+            --min-feature-count 0 \
+            --min-sample-count 0 \
             --summary-dir results/songbird
         """
