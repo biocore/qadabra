@@ -1,5 +1,7 @@
 configfile: "config/config.yaml"
+
 include: "rules/diffab.smk"
+include: "rules/visualization.smk"
 
 TOOLS = ["deseq2", "ancombc", "songbird"]
 

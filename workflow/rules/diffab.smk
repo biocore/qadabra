@@ -1,3 +1,6 @@
+TOOLS = ["deseq2", "ancombc", "songbird"]
+
+
 rule deseq2:
     input:
         table=config["table"],
@@ -56,3 +59,14 @@ rule process_differentials:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/process_{wildcards.tool}.py"
+
+
+rule combine_differentials:
+    input:
+        expand("results/{tool}/differentials.processed.tsv", tool=TOOLS)
+    output:
+        "results/concatenated_differentials.tsv"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/concatenate_differentials.py"
