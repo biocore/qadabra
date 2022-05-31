@@ -1,6 +1,3 @@
-TOOLS = ["deseq2", "ancombc", "songbird"]
-
-
 rule deseq2:
     input:
         table=config["table"],
@@ -25,6 +22,19 @@ rule ancombc:
         "../envs/qadabra-da-R.yaml"
     script:
         "../scripts/ancombc.R"
+
+
+rule aldex2:
+    input:
+        table=config["table"],
+        metadata=config["metadata"]
+    output:
+        "results/aldex2/differentials.tsv",
+        "results/aldex2/results.rds"
+    conda:
+        "../envs/qadabra-da-R.yaml"
+    script:
+        "../scripts/aldex2.R"
 
 
 rule songbird:
@@ -63,7 +73,7 @@ rule process_differentials:
 
 rule combine_differentials:
     input:
-        expand("results/{tool}/differentials.processed.tsv", tool=TOOLS)
+        expand("results/{tool}/differentials.processed.tsv", tool=config["tools"])
     output:
         "results/concatenated_differentials.tsv"
     conda:

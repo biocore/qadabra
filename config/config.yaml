@@ -4,6 +4,11 @@ model:
     covariate: anemia
     target: anemic
     reference: normal
+tools:
+    - deseq2
+    - ancombc
+    - songbird
+    - aldex2
 songbird_params:
     epochs: 5000
     differential_prior: 1
