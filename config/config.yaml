@@ -1,9 +1,18 @@
-table: "/home/grahman/projects/qadabra/workflow/data/table.biom"
-metadata: "/home/grahman/projects/qadabra/workflow/data/metadata.tsv"
+table: "/home/grahman/projects/xebec/xebec/tests/data/table.biom"
+metadata: "/home/grahman/projects/xebec/xebec/tests/data/metadata.tsv"
 model:
-    covariate: sex
-    target: F
-    reference: M
+    covariate: anemia
+    target: anemic
+    reference: normal
 songbird_params:
     epochs: 5000
     differential_prior: 1
+log_ratio_feat_pcts:
+    - 1
+    - 5
+    - 10
+    - 15
+    - 20
+ml_params:
+    n_splits: 10
+    n_repeats: 5

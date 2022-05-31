@@ -25,3 +25,14 @@ rule rank_correlation:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/plot_rank_correlations.py"
+
+
+rule interactive:
+    input:
+        "results/concatenated_differentials.tsv"
+    output:
+        "results/qadabra.html"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/interactive_app.py"
