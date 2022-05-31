@@ -3,6 +3,31 @@ configfile: "config/config.yaml"
 include: "rules/diffab.smk"
 include: "rules/visualization.smk"
 
+all_diff_files = expand(
+    "results/{tool}/differentials.processed.tsv",
+    tool=config["tools"]
+)
+all_diff_files.append("results/concatenated_differentials.tsv")
+
+all_viz_files = expand(
+    "figures/{tool}_differentials.pdf",
+    tool=config["tools"]
+)
+all_viz_files.extend(expand(
+    "figures/{viz}.pdf",
+    viz=["spearman_heatmap"]
+))
+all_viz_files.append("results/qadabra.html")
+
 rule all:
     input:
-        expand("results/{tool}/differentials.processed.tsv", tool=config["tools"])
+        all_diff_files + all_viz_files
+
+rule all_differentials:
+    input:
+        all_diff_files
+
+
+rule all_visualizations:
+    input:
+        all_viz_files

@@ -9,6 +9,7 @@ tools:
     - ancombc
     - songbird
     - aldex2
+    - edger
 songbird_params:
     epochs: 5000
     differential_prior: 1

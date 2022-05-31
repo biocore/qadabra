@@ -37,6 +37,19 @@ rule aldex2:
         "../scripts/R/aldex2.R"
 
 
+rule edger:
+    input:
+        table=config["table"],
+        metadata=config["metadata"]
+    output:
+        "results/edger/differentials.tsv",
+        "results/edger/results.rds"
+    conda:
+        "../envs/qadabra-da-R.yaml"
+    script:
+        "../scripts/R/edger.R"
+
+
 rule songbird:
     input:
         table=config["table"],
