@@ -8,7 +8,7 @@ rule deseq2:
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
-        "../scripts/deseq2.R"
+        "../scripts/R/deseq2.R"
 
 
 rule ancombc:
@@ -21,7 +21,7 @@ rule ancombc:
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
-        "../scripts/ancombc.R"
+        "../scripts/R/ancombc.R"
 
 
 rule aldex2:
@@ -34,7 +34,7 @@ rule aldex2:
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
-        "../scripts/aldex2.R"
+        "../scripts/R/aldex2.R"
 
 
 rule songbird:
@@ -68,7 +68,7 @@ rule process_differentials:
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/process_{wildcards.tool}.py"
+        "../scripts/process_differentials/process_{wildcards.tool}.py"
 
 
 rule combine_differentials:
@@ -79,4 +79,4 @@ rule combine_differentials:
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/concatenate_differentials.py"
+        "../scripts/process_differentials/concatenate_differentials.py"
