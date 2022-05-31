@@ -14,7 +14,6 @@ songbird_params:
     epochs: 5000
     differential_prior: 1
 log_ratio_feat_pcts:
-    - 1
     - 5
     - 10
     - 15

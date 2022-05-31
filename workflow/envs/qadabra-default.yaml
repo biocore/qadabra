@@ -1,5 +1,6 @@
 channel:
     - conda-forge
+    - bioconda
 dependencies:
     - pandas
     - numpy
@@ -9,3 +10,4 @@ dependencies:
     - scikit-bio
     - scikit-learn
     - bokeh
+    - biom-format

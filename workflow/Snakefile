@@ -2,12 +2,18 @@ configfile: "config/config.yaml"
 
 include: "rules/diffab.smk"
 include: "rules/visualization.smk"
+include: "rules/ml.smk"
 
 all_diff_files = expand(
     "results/{tool}/differentials.processed.tsv",
     tool=config["tools"]
 )
 all_diff_files.append("results/concatenated_differentials.tsv")
+
+all_ml = expand(
+    "results/{tool}/ml_feats/log_ratios.tsv",
+    tool=config["tools"]
+)
 
 all_viz_files = expand(
     "figures/{tool}_differentials.pdf",
@@ -19,13 +25,20 @@ all_viz_files.extend(expand(
 ))
 all_viz_files.append("results/qadabra.html")
 
+
 rule all:
     input:
         all_diff_files + all_viz_files
 
+
 rule all_differentials:
     input:
         all_diff_files
+
+
+rule all_ml:
+    input:
+        all_ml
 
 
 rule all_visualizations:
