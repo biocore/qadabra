@@ -44,7 +44,7 @@ rule interactive:
 rule upset:
     input:
         expand(
-            "results/{tool}/ml_feats/pctile_{{pctile}}.tsv",
+            "results/{tool}/ml/pctile_feats/pctile_{{pctile}}.tsv",
             tool=config["tools"],
         )
     output:

@@ -17,17 +17,14 @@ def log_ratio(table, top_feats, bot_feats):
     return lr_df
 
 
-all_lr_dfs = []
-for f in snakemake.input["feat_lists"]:
-    feat_df = pd.read_table(f, sep="\t")
-    top_feats = feat_df.query("location == 'numerator'")["feature_id"]
-    bot_feats = feat_df.query("location == 'denominator'")["feature_id"]
-    lr_df = log_ratio(table, top_feats, bot_feats).reset_index()
-    lr_df["pctile"] = feat_df["pctile"].unique().item()
-    lr_df["num_feats"] = feat_df["num_feats"].unique().item()
-    all_lr_dfs.append(lr_df)
+feat_df = pd.read_table(snakemake.input["feats"], sep="\t")
+top_feats = feat_df.query("location == 'numerator'")["feature_id"]
+bot_feats = feat_df.query("location == 'denominator'")["feature_id"]
 
-total_lr_df = pd.concat(all_lr_dfs)
-total_lr_df["tool"] = snakemake.wildcards["tool"]
-total_lr_df = total_lr_df.rename(columns={"index": "sample_name"})
-total_lr_df.to_csv(snakemake.output[0], sep="\t", index=False)
+lr_df = log_ratio(table, top_feats, bot_feats).reset_index()
+lr_df["pctile"] = snakemake.wildcards["pctile"]
+lr_df["num_feats"] = feat_df["num_feats"].unique().item()
+lr_df["tool"] = snakemake.wildcards["tool"]
+lr_df = lr_df.rename(columns={"index": "sample_name"})
+
+lr_df.to_csv(snakemake.output[0], sep="\t", index=False)

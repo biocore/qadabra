@@ -11,8 +11,9 @@ all_diff_files = expand(
 all_diff_files.append("results/concatenated_differentials.tsv")
 
 all_ml = expand(
-    "results/{tool}/ml_feats/log_ratios.tsv",
-    tool=config["tools"]
+    "results/{tool}/ml/regression/model_data.pctile_{pctile}.joblib",
+    tool=config["tools"],
+    pctile=config["log_ratio_feat_pcts"]
 )
 
 all_viz_files = expand(
@@ -23,12 +24,17 @@ all_viz_files.extend(expand(
     "figures/{viz}.pdf",
     viz=["spearman_heatmap"]
 ))
+all_viz_files.extend(expand(
+    "figures/upset/upset_pctile_{pctile}.{location}.pdf",
+    pctile=config["log_ratio_feat_pcts"],
+    location=["numerator", "denominator"]
+))
 all_viz_files.append("results/qadabra.html")
 
 
 rule all:
     input:
-        all_diff_files + all_viz_files
+        all_diff_files + all_viz_files + all_ml
 
 
 rule all_differentials:
