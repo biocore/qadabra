@@ -29,6 +29,10 @@ all_viz_files.extend(expand(
     pctile=config["log_ratio_feat_pcts"],
     location=["numerator", "denominator"]
 ))
+all_viz_files.extend(expand(
+    "figures/roc/roc.pctile_{pctile}.pdf",
+    pctile=config["log_ratio_feat_pcts"],
+))
 all_viz_files.append("results/qadabra.html")
 
 

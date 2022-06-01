@@ -56,3 +56,19 @@ rule upset:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/plot/plot_upset.py"
+
+
+rule plot_roc:
+    input:
+        expand(
+            "results/{tool}/ml/regression/model_data.pctile_{{pctile}}.joblib",
+            tool=config["tools"]
+        )
+    output:
+        "figures/roc/roc.pctile_{pctile}.pdf"
+    params:
+        stylesheet
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot/plot_roc.py"
