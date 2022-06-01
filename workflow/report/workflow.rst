@@ -1,0 +1,1 @@
+This workflow performs differential abundance using multiple tools and compares the differential ranks. The most and least associated microbes are used to compute log-ratios that are used for logistic regression. These models can be compared to determine how each tool performs.

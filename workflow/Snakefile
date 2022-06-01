@@ -4,6 +4,9 @@ include: "rules/diffab.smk"
 include: "rules/visualization.smk"
 include: "rules/ml.smk"
 
+report: "report/workflow.rst"
+
+
 all_diff_files = expand(
     "results/{tool}/differentials.processed.tsv",
     tool=config["tools"]
@@ -17,20 +20,20 @@ all_ml = expand(
 )
 
 all_viz_files = expand(
-    "figures/{tool}_differentials.pdf",
+    "figures/{tool}_differentials.svg",
     tool=config["tools"]
 )
 all_viz_files.extend(expand(
-    "figures/{viz}.pdf",
+    "figures/{viz}.svg",
     viz=["spearman_heatmap"]
 ))
 all_viz_files.extend(expand(
-    "figures/upset/upset_pctile_{pctile}.{location}.pdf",
+    "figures/upset/upset_pctile_{pctile}.{location}.svg",
     pctile=config["log_ratio_feat_pcts"],
     location=["numerator", "denominator"]
 ))
 all_viz_files.extend(expand(
-    "figures/roc/roc.pctile_{pctile}.pdf",
+    "figures/roc/roc.pctile_{pctile}.svg",
     pctile=config["log_ratio_feat_pcts"],
 ))
 all_viz_files.append("results/qadabra.html")

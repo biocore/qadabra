@@ -8,7 +8,13 @@ rule plot_differentials:
     input:
         "results/{tool}/differentials.processed.tsv"
     output:
-        "figures/{tool}_differentials.pdf"
+        report(
+            "figures/{tool}_differentials.svg",
+            caption="../report/plot_differentials.rst",
+            category="Visualization",
+            subcategory="Differentials",
+            labels={"tool": "{tool}"}
+        )
     params:
         stylesheet
     conda:
@@ -21,7 +27,11 @@ rule plot_rank_correlation:
     input:
         "results/concatenated_differentials.tsv"
     output:
-        "figures/spearman_heatmap.pdf"
+        report(
+            "figures/spearman_heatmap.svg",
+            caption="../report/plot_rank_correlation.rst",
+            category="Visualization",
+        )
     params:
         stylesheet
     conda:
@@ -48,8 +58,22 @@ rule upset:
             tool=config["tools"],
         )
     output:
-        numerator="figures/upset/upset_pctile_{pctile}.numerator.pdf",
-        denominator="figures/upset/upset_pctile_{pctile}.denominator.pdf"
+        numerator=report(
+            "figures/upset/upset_pctile_{pctile}.numerator.svg",
+            caption="../report/plot_upset.rst",
+            category="Visualization",
+            subcategory="UpSet",
+            # labels={"tool": "{tool}", "percentile": "{pctile}",
+            #         "type": "numerator"}
+        ),
+        denominator=report(
+            "figures/upset/upset_pctile_{pctile}.denominator.svg",
+            caption="../report/plot_upset.rst",
+            category="Visualization",
+            subcategory="UpSet",
+            # labels={"tool": "{tool}", "percentile": "{pctile}",
+            #         "type": "denominator"}
+        )
     params:
         stylesheet
     conda:
@@ -65,7 +89,13 @@ rule plot_roc:
             tool=config["tools"]
         )
     output:
-        "figures/roc/roc.pctile_{pctile}.pdf"
+        report(
+            "figures/roc/roc.pctile_{pctile}.svg",
+            caption="../report/plot_roc.rst",
+            category="Visualization",
+            subcategory="ROC",
+            labels={"percentile": "{pctile}"}
+        )
     params:
         stylesheet
     conda:
