@@ -2,7 +2,12 @@ rule pctile_feats:
     input:
         "results/concatenated_differentials.tsv"
     output:
-        "results/{tool}/ml/pctile_feats/pctile_{pctile}.tsv",
+        report(
+            "results/{tool}/ml/pctile_feats/pctile_{pctile}.tsv",
+            category="Machine Learning",
+            subcategory="Feature Rankings",
+            labels={"tool": "{tool}", "percentile": "{pctile}"}
+        )
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -14,7 +19,12 @@ rule log_ratios:
         table=config["table"],
         feats="results/{tool}/ml/pctile_feats/pctile_{pctile}.tsv",
     output:
-        "results/{tool}/ml/log_ratios/log_ratios.pctile_{pctile}.tsv"
+        report(
+            "results/{tool}/ml/log_ratios/log_ratios.pctile_{pctile}.tsv",
+            category="Machine Learning",
+            subcategory="Sample Log-Ratios",
+            labels={"tool": "{tool}", "percentile": "{pctile}"}
+        )
     conda:
         "../envs/qadabra-default.yaml"
     script:

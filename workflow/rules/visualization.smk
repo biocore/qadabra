@@ -63,16 +63,14 @@ rule upset:
             caption="../report/plot_upset.rst",
             category="Visualization",
             subcategory="UpSet",
-            # labels={"tool": "{tool}", "percentile": "{pctile}",
-            #         "type": "numerator"}
+            labels={"percentile": "{pctile}", "type": "numerator"}
         ),
         denominator=report(
             "figures/upset/upset_pctile_{pctile}.denominator.svg",
             caption="../report/plot_upset.rst",
             category="Visualization",
             subcategory="UpSet",
-            # labels={"tool": "{tool}", "percentile": "{pctile}",
-            #         "type": "denominator"}
+            labels={"percentile": "{pctile}", "type": "denominator"}
         )
     params:
         stylesheet

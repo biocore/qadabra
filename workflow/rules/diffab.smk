@@ -3,7 +3,11 @@ rule deseq2:
         table=config["table"],
         metadata=config["metadata"]
     output:
-        "results/deseq2/differentials.tsv",
+        report(
+            "results/deseq2/differentials.tsv",
+            category="Differential Abundance",
+            labels={"tool": "deseq2"}
+        ),
         "results/deseq2/results.rds"
     conda:
         "../envs/qadabra-da-R.yaml"
@@ -16,7 +20,11 @@ rule ancombc:
         table=config["table"],
         metadata=config["metadata"]
     output:
-        "results/ancombc/differentials.tsv",
+        report(
+            "results/ancombc/differentials.tsv",
+            category="Differential Abundance",
+            labels={"tool": "ancombc"}
+        ),
         "results/ancombc/results.rds"
     conda:
         "../envs/qadabra-da-R.yaml"
@@ -29,7 +37,11 @@ rule aldex2:
         table=config["table"],
         metadata=config["metadata"]
     output:
-        "results/aldex2/differentials.tsv",
+        report(
+            "results/aldex2/differentials.tsv",
+            category="Differential Abundance",
+            labels={"tool": "aldex2"}
+        ),
         "results/aldex2/results.rds"
     conda:
         "../envs/qadabra-da-R.yaml"
@@ -42,7 +54,11 @@ rule edger:
         table=config["table"],
         metadata=config["metadata"]
     output:
-        "results/edger/differentials.tsv",
+        report(
+            "results/edger/differentials.tsv",
+            category="Differential Abundance",
+            labels={"tool": "edger"}
+        ),
         "results/edger/results.rds"
     conda:
         "../envs/qadabra-da-R.yaml"
@@ -55,7 +71,11 @@ rule songbird:
         table=config["table"],
         metadata=config["metadata"]
     output:
-        "results/songbird/differentials.tsv"
+        report(
+            "results/songbird/differentials.tsv",
+            category="Differential Abundance",
+            labels={"tool": "songbird"}
+        )
     conda:
         "../envs/qadabra-songbird.yaml"
     shell:
@@ -73,22 +93,69 @@ rule songbird:
         """
 
 
-rule process_differentials:
+rule process_deseq2:
     input:
-        "results/{tool}/differentials.tsv"
+        "results/deseq2/differentials.tsv"
     output:
-        "results/{tool}/differentials.processed.tsv"
+        "results/deseq2/differentials.processed.tsv"
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/process_differentials/process_{wildcards.tool}.py"
+        "../scripts/process_differentials/process_deseq2.py"
+
+
+rule process_ancombc:
+    input:
+        "results/ancombc/differentials.tsv"
+    output:
+        "results/ancombc/differentials.processed.tsv"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/process_differentials/process_ancombc.py"
+
+
+rule process_aldex2:
+    input:
+        "results/aldex2/differentials.tsv"
+    output:
+        "results/aldex2/differentials.processed.tsv"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/process_differentials/process_aldex2.py"
+
+
+rule process_edger:
+    input:
+        "results/edger/differentials.tsv"
+    output:
+        "results/edger/differentials.processed.tsv"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/process_differentials/process_edger.py"
+
+
+rule process_songbird:
+    input:
+        "results/songbird/differentials.tsv"
+    output:
+        "results/songbird/differentials.processed.tsv"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/process_differentials/process_songbird.py"
 
 
 rule combine_differentials:
     input:
         expand("results/{tool}/differentials.processed.tsv", tool=config["tools"])
     output:
-        "results/concatenated_differentials.tsv"
+        report(
+            "results/concatenated_differentials.tsv",
+            category="Differential Abundance"
+        )
     conda:
         "../envs/qadabra-default.yaml"
     script:
