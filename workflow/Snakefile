@@ -11,7 +11,10 @@ all_diff_files = expand(
     "results/{tool}/differentials.processed.tsv",
     tool=config["tools"]
 )
-all_diff_files.append("results/concatenated_differentials.tsv")
+all_diff_files.extend([
+    "results/concatenated_differentials.tsv",
+    "results/qurro"
+])
 
 all_ml = expand(
     "results/{tool}/ml/regression/model_data.pctile_{pctile}.joblib",
@@ -38,10 +41,13 @@ all_viz_files.extend(expand(
 ))
 all_viz_files.append("results/qadabra.html")
 
+all_input = all_viz_files.copy()
+all_input.append("results/qurro")
+
 
 rule all:
     input:
-        all_diff_files + all_viz_files + all_ml
+        all_input
 
 
 rule all_differentials:
