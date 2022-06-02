@@ -6,7 +6,8 @@ from sklearn.preprocessing import StandardScaler
 
 from bokeh.plotting import figure, output_file, save
 from bokeh.layouts import column, row
-from bokeh.models import ColumnDataSource, Select, HoverTool, Arrow, VeeHead
+from bokeh.models import (ColumnDataSource, Select, HoverTool, Arrow,
+                          VeeHead, DataTable, TableColumn)
 from bokeh.models.callbacks import CustomJS
 from bokeh.models.widgets import Tabs, Panel
 
@@ -190,5 +191,16 @@ for ax in [plot.xaxis, plot.yaxis]:
 
 panel_2 = Panel(child=plot, title="PCA")
 
-tabs = Tabs(tabs=[panel_1, panel_2], tabs_location="above")
+# Table
+source = ColumnDataSource(diff_df.reset_index())
+
+columns = [
+    TableColumn(field=x, title=x)
+    for x in diff_df.reset_index().columns
+]
+data_table = DataTable(source=source, columns=columns,
+                       autosize_mode="fit_viewport")
+panel_3 = Panel(child=data_table, title="Table")
+
+tabs = Tabs(tabs=[panel_1, panel_2, panel_3], tabs_location="above")
 save(tabs)
