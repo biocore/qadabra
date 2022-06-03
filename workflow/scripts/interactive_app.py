@@ -11,7 +11,10 @@ from bokeh.models import (ColumnDataSource, Select, HoverTool, Arrow,
 from bokeh.models.callbacks import CustomJS
 from bokeh.models.widgets import Tabs, Panel
 
+from utils import get_logger
 
+
+logger = get_logger(snakemake.log[0], snakemake.rule)
 output_file(filename=snakemake.output[0], title="qadabra")
 
 diff_df = pd.read_table(snakemake.input[0], sep="\t", index_col=0)
@@ -26,6 +29,7 @@ tool_list = diff_df.columns.tolist()
 tool_rank_list = [x + "_rank" for x in tool_list]
 
 # Rank Comparison
+logger.info("Creating rank comparison panel...")
 chosen_tool_1 = Select(options=tool_rank_list, value=tool_rank_list[0], title="x-axis")
 chosen_tool_2 = Select(options=tool_rank_list, value=tool_rank_list[1], title="y-axis")
 
@@ -97,7 +101,7 @@ layout = row(column(chosen_tool_1, chosen_tool_2), plot)
 panel_1 = Panel(child=layout, title="Rank Comparisons")
 
 # PCA
-
+logger.info("Creating PCA panel...")
 scaled_diff_values = StandardScaler().fit_transform(diff_df.values)
 
 pc_cols = [f"PC{x+1}" for x in range(len(tool_list))]
@@ -192,6 +196,7 @@ for ax in [plot.xaxis, plot.yaxis]:
 panel_2 = Panel(child=plot, title="PCA")
 
 # Table
+logger.info("Creating table panel...")
 source = ColumnDataSource(diff_df.reset_index())
 
 columns = [
@@ -204,3 +209,5 @@ panel_3 = Panel(child=data_table, title="Table")
 
 tabs = Tabs(tabs=[panel_1, panel_2, panel_3], tabs_location="above")
 save(tabs)
+
+logger.info(f"Saved to {snakemake.output[0]}")

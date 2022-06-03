@@ -6,7 +6,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
+from utils import get_logger
 
+
+logger = get_logger(snakemake.log[0], snakemake.rule)
 plt.style.use(snakemake.params[0])
 tools = snakemake.config["tools"]
 palette = dict(zip(
@@ -17,6 +20,7 @@ pctile = snakemake.wildcards["pctile"]
 
 models = defaultdict(dict)
 for tool, model_loc in zip(tools, snakemake.input):
+    logger.info(f"Loading {model_loc}...")
     models[tool] = joblib.load(model_loc)
 
 fig, ax = plt.subplots(1, 1)
@@ -39,15 +43,19 @@ for tool in tools:
         best_tool = tool
 
     color = palette[tool]
-    line = Line2D([0], [0], color=color, label=f"{tool} ({mean_auc:.2f} $\pm$ {std_auc:.2f})")
+    line = Line2D([0], [0], color=color,
+                  label=f"{tool} ({mean_auc:.2f} $\pm$ {std_auc:.2f})")
     leg_lines.append(line)
 
     ax.plot(mean_fprs, mean_tprs, lw=1, color=color)
+    logger.info(f"{tool} Mean AUC = {mean_auc:.2f} +- {std_auc:.2f}")
 
 leg = ax.legend(handles=leg_lines, loc="lower right", frameon=False)
 for text in leg.get_texts():
     if best_tool in text._text:
         text.set_weight("bold")
+
+logger.info(f"Best model: {best_tool} ({best_auc:.2f})")
 
 ax.plot([0, 1], [0, 1], linestyle="--", lw=2, color="black")
 ax.set_xlabel("False Positive Rate")
@@ -55,3 +63,4 @@ ax.set_ylabel("True Positive Rate")
 ax.set_title(f"{pctile}% Features")
 
 plt.savefig(snakemake.output[0])
+logger.info(f"Saved to {snakemake.output[0]}")

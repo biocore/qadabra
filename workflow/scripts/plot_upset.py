@@ -2,11 +2,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from upsetplot import UpSet, from_contents
 
+from utils import get_logger
 
+
+logger = get_logger(snakemake.log[0], snakemake.rule)
 plt.style.use(snakemake.params[0])
 
 tool_names = snakemake.config["tools"]
 pctile = snakemake.wildcards["pctile"]
+logger.info("Loading percentile features...")
 feat_df_dict = {
     tool: pd.read_table(f, sep="\t", index_col=0)
     for tool, f in zip(tool_names, snakemake.input)
@@ -26,8 +30,10 @@ num_plt = UpSet(from_contents(num_list), subset_size="count",
                 show_counts=True).plot()
 plt.title(f"Numerator - {pctile}%")
 plt.savefig(snakemake.output["numerator"])
+logger.info(f"Saved to {snakemake.output['numerator']}")
 
 denom_plt = UpSet(from_contents(denom_list), subset_size="count",
                   show_counts=True).plot()
 plt.title(f"Denominator - {pctile}%")
 plt.savefig(snakemake.output["denominator"])
+logger.info(f"Saved to {snakemake.output['denominator']}")

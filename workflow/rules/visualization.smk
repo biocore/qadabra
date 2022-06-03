@@ -15,12 +15,14 @@ rule plot_differentials:
             subcategory="Differentials",
             labels={"tool": "{tool}"}
         )
+    log:
+        "log/plot_differentials.{tool}.log"
     params:
         stylesheet
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/plot/plot_differentials.py"
+        "../scripts/plot_differentials.py"
 
 
 rule plot_rank_correlation:
@@ -32,12 +34,14 @@ rule plot_rank_correlation:
             caption="../report/plot_rank_correlation.rst",
             category="Visualization",
         )
+    log:
+        "log/plot_rank_correlation.log"
     params:
         stylesheet
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/plot/plot_rank_correlations.py"
+        "../scripts/plot_rank_correlations.py"
 
 
 rule interactive:
@@ -45,6 +49,8 @@ rule interactive:
         "results/concatenated_differentials.tsv"
     output:
         "results/qadabra.html"
+    log:
+        "log/interactive.log"
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -59,25 +65,27 @@ rule upset:
         )
     output:
         numerator=report(
-            "figures/upset/upset_pctile_{pctile}.numerator.svg",
+            "figures/upset/upset.pctile_{pctile}.numerator.svg",
             caption="../report/plot_upset.rst",
             category="Visualization",
             subcategory="UpSet",
             labels={"percentile": "{pctile}", "type": "numerator"}
         ),
         denominator=report(
-            "figures/upset/upset_pctile_{pctile}.denominator.svg",
+            "figures/upset/upset.pctile_{pctile}.denominator.svg",
             caption="../report/plot_upset.rst",
             category="Visualization",
             subcategory="UpSet",
             labels={"percentile": "{pctile}", "type": "denominator"}
         )
+    log:
+        "log/upset.pctile_{pctile}.log"
     params:
         stylesheet
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/plot/plot_upset.py"
+        "../scripts/plot_upset.py"
 
 
 rule plot_roc:
@@ -94,9 +102,11 @@ rule plot_roc:
             subcategory="ROC",
             labels={"percentile": "{pctile}"}
         )
+    log:
+        "log/plot_roc.{pctile}.log"
     params:
         stylesheet
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/plot/plot_roc.py"
+        "../scripts/plot_roc.py"

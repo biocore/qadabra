@@ -8,10 +8,12 @@ rule pctile_feats:
             subcategory="Feature Rankings",
             labels={"tool": "{tool}", "percentile": "{pctile}"}
         )
+    log:
+        "log/pctile_feats.{tool}.pctile_{pctile}.log"
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/ml/get_pctile_feats.py"
+        "../scripts/get_pctile_feats.py"
 
 
 rule log_ratios:
@@ -25,10 +27,12 @@ rule log_ratios:
             subcategory="Sample Log-Ratios",
             labels={"tool": "{tool}", "percentile": "{pctile}"}
         )
+    log:
+        "log/log_ratios.{tool}.pctile_{pctile}.log"
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/ml/get_log_ratios.py"
+        "../scripts/get_log_ratios.py"
 
 
 rule logistic_regression:
@@ -37,7 +41,9 @@ rule logistic_regression:
         metadata=config["metadata"]
     output:
         "results/{tool}/ml/regression/model_data.pctile_{pctile}.joblib"
+    log:
+        "log/logistic_regression.{tool}.pctile_{pctile}.log"
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/ml/logistic_regression.py"
+        "../scripts/logistic_regression.py"

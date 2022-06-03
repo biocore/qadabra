@@ -2,7 +2,12 @@ import biom
 import numpy as np
 import pandas as pd
 
+from utils import get_logger
 
+
+logger = get_logger(snakemake.log[0], snakemake.rule)
+
+logger.info("Loading table...")
 table = biom.load_table(snakemake.input["table"])
 table = table.to_dataframe(dense=True).T
 
@@ -21,6 +26,7 @@ feat_df = pd.read_table(snakemake.input["feats"], sep="\t")
 top_feats = feat_df.query("location == 'numerator'")["feature_id"]
 bot_feats = feat_df.query("location == 'denominator'")["feature_id"]
 
+logger.info("Creating log-ratios...")
 lr_df = log_ratio(table, top_feats, bot_feats).reset_index()
 lr_df["pctile"] = snakemake.wildcards["pctile"]
 lr_df["num_feats"] = feat_df["num_feats"].unique().item()
@@ -28,3 +34,4 @@ lr_df["tool"] = snakemake.wildcards["tool"]
 lr_df = lr_df.rename(columns={"index": "sample_name"})
 
 lr_df.to_csv(snakemake.output[0], sep="\t", index=False)
+logger.info(f"Saved to {snakemake.output[0]}")

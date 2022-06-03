@@ -1,6 +1,11 @@
 import pandas as pd
 
+from utils import get_logger
 
+
+logger = get_logger(snakemake.log[0], snakemake.rule)
+
+logger.info("Loading differentials...")
 diffs = pd.read_table(snakemake.input[0], sep="\t", index_col=0)
 tool = snakemake.wildcards["tool"]
 pctile = int(snakemake.wildcards["pctile"])
@@ -21,3 +26,4 @@ df["pctile"] = pctile
 df["num_feats"] = n
 
 df.to_csv(snakemake.output[0], sep="\t", index=False)
+logger.info(f"Saved to {snakemake.output[0]}")
