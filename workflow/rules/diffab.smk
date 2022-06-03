@@ -88,69 +88,19 @@ rule songbird:
         """
 
 
-rule process_deseq2:
+rule process_differentials:
     input:
-        "results/deseq2/differentials.tsv"
+        "results/{tool}/differentials.tsv"
     output:
-        "results/deseq2/differentials.processed.tsv"
+        "results/{tool}/differentials.processed.tsv"
     log:
-        "log/process_deseq2.log"
+        "log/process_differentials.{tool}.log"
+    params:
+        col=lambda wildcards: diffab_tool_columns[wildcards.tool]
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/process_deseq2.py"
-
-
-rule process_ancombc:
-    input:
-        "results/ancombc/differentials.tsv"
-    output:
-        "results/ancombc/differentials.processed.tsv"
-    log:
-        "log/process_ancombc.log"
-    conda:
-        "../envs/qadabra-default.yaml"
-    script:
-        "../scripts/process_ancombc.py"
-
-
-rule process_aldex2:
-    input:
-        "results/aldex2/differentials.tsv"
-    output:
-        "results/aldex2/differentials.processed.tsv"
-    log:
-        "log/process_aldex2.log"
-    conda:
-        "../envs/qadabra-default.yaml"
-    script:
-        "../scripts/process_aldex2.py"
-
-
-rule process_edger:
-    input:
-        "results/edger/differentials.tsv"
-    output:
-        "results/edger/differentials.processed.tsv"
-    log:
-        "log/process_edger.log"
-    conda:
-        "../envs/qadabra-default.yaml"
-    script:
-        "../scripts/process_edger.py"
-
-
-rule process_songbird:
-    input:
-        "results/songbird/differentials.tsv"
-    output:
-        "results/songbird/differentials.processed.tsv"
-    log:
-        "log/process_songbird.log"
-    conda:
-        "../envs/qadabra-default.yaml"
-    script:
-        "../scripts/process_songbird.py"
+        "../scripts/process_differentials.py"
 
 
 rule combine_differentials:

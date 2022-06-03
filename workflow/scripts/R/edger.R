@@ -1,6 +1,10 @@
 library(biomformat)
 library(edgeR)
 
+log <- file(snakemake@log[[1]], open="wt")
+sink(log)
+sink(log, type="message")
+
 table <- biomformat::read_biom(snakemake@input[["table"]])
 table <- as.matrix(biomformat::biom_data(table))
 
