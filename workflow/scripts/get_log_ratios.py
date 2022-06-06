@@ -1,11 +1,18 @@
+import logging
+
 import biom
 import numpy as np
 import pandas as pd
 
-from utils import get_logger
 
-
-logger = get_logger(snakemake.log[0], snakemake.rule)
+logger = logging.getLogger("qadabra")
+logger.setLevel(logging.INFO)
+fh = logging.FileHandler(snakemake.log[0], mode="w")
+formatter = logging.Formatter(
+    f"[%(asctime)s - {snakemake.rule}] :: %(message)s"
+)
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
 logger.info("Loading table...")
 table = biom.load_table(snakemake.input["table"])

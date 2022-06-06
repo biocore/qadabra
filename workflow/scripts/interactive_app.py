@@ -1,3 +1,5 @@
+import logging
+
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -11,10 +13,16 @@ from bokeh.models import (ColumnDataSource, Select, HoverTool, Arrow,
 from bokeh.models.callbacks import CustomJS
 from bokeh.models.widgets import Tabs, Panel
 
-from utils import get_logger
 
+logger = logging.getLogger("qadabra")
+logger.setLevel(logging.INFO)
+fh = logging.FileHandler(snakemake.log[0], mode="w")
+formatter = logging.Formatter(
+    f"[%(asctime)s - {snakemake.rule}] :: %(message)s"
+)
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
-logger = get_logger(snakemake.log[0], snakemake.rule)
 output_file(filename=snakemake.output[0], title="qadabra")
 
 diff_df = pd.read_table(snakemake.input[0], sep="\t", index_col=0)

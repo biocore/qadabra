@@ -1,11 +1,19 @@
+import logging
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-from utils import get_logger
 
+logger = logging.getLogger("qadabra")
+logger.setLevel(logging.INFO)
+fh = logging.FileHandler(snakemake.log[0], mode="w")
+formatter = logging.Formatter(
+    f"[%(asctime)s - {snakemake.rule}] :: %(message)s"
+)
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
-logger = get_logger(snakemake.log[0], snakemake.rule)
 plt.style.use(snakemake.params[0])
 
 logger.info("Loading differentials...")

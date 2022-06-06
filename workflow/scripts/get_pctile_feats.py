@@ -1,9 +1,16 @@
+import logging
+
 import pandas as pd
 
-from utils import get_logger
 
-
-logger = get_logger(snakemake.log[0], snakemake.rule)
+logger = logging.getLogger("qadabra")
+logger.setLevel(logging.INFO)
+fh = logging.FileHandler(snakemake.log[0], mode="w")
+formatter = logging.Formatter(
+    f"[%(asctime)s - {snakemake.rule}] :: %(message)s"
+)
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
 logger.info("Loading differentials...")
 diffs = pd.read_table(snakemake.input[0], sep="\t", index_col=0)

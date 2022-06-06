@@ -1,3 +1,5 @@
+import logging
+
 from joblib import dump
 import numpy as np
 import pandas as pd
@@ -7,10 +9,18 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.metrics import roc_curve, auc
 from sklearn.model_selection import RepeatedKFold
 
-from utils import get_logger
 
+logger = logging.getLogger("qadabra")
+logger.setLevel(logging.INFO)
+fh = logging.FileHandler(snakemake.log[0], mode="w")
+formatter = logging.Formatter(
+    f"[%(asctime)s - {snakemake.rule}] :: %(message)s"
+)
+fh.setFormatter(formatter)
+logger.addHandler(fh)
 
-logger = get_logger(snakemake.log[0], snakemake.rule)
+logging.captureWarnings(True)
+logging.getLogger("py.warnings").addHandler(fh)
 
 covariate = snakemake.config["model"]["covariate"]
 target = snakemake.config["model"]["target"]
