@@ -1,1 +1,1 @@
-Test plot differentials
+Differential rank plot from {{snakemake.wildcards.tool}}.

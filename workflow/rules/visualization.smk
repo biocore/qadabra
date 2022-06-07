@@ -48,7 +48,10 @@ rule interactive:
     input:
         "results/concatenated_differentials.tsv"
     output:
-        "results/qadabra.html"
+        report(
+            "results/qadabra.html",
+            category="Visualization"
+        )
     log:
         "log/interactive.log"
     conda:
