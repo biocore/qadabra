@@ -6,19 +6,19 @@ stylesheet = "config/qadabra.mplstyle"
 
 rule plot_differentials:
     input:
-        "results/{tool}/differentials.processed.tsv"
+        "results/{tool}/differentials.processed.tsv",
     output:
         report(
             "figures/{tool}_differentials.svg",
             caption="../report/plot_differentials.rst",
             category="Visualization",
             subcategory="Differentials",
-            labels={"tool": "{tool}"}
-        )
+            labels={"tool": "{tool}"},
+        ),
     log:
-        "log/plot_differentials.{tool}.log"
+        "log/plot_differentials.{tool}.log",
     params:
-        stylesheet
+        stylesheet,
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -27,17 +27,17 @@ rule plot_differentials:
 
 rule plot_rank_correlation:
     input:
-        "results/concatenated_differentials.tsv"
+        "results/concatenated_differentials.tsv",
     output:
         report(
             "figures/spearman_heatmap.svg",
             caption="../report/plot_rank_correlation.rst",
             category="Visualization",
-        )
+        ),
     log:
-        "log/plot_rank_correlation.log"
+        "log/plot_rank_correlation.log",
     params:
-        stylesheet
+        stylesheet,
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -46,14 +46,11 @@ rule plot_rank_correlation:
 
 rule interactive:
     input:
-        "results/concatenated_differentials.tsv"
+        "results/concatenated_differentials.tsv",
     output:
-        report(
-            "results/qadabra.html",
-            category="Visualization"
-        )
+        report("results/qadabra.html", category="Visualization"),
     log:
-        "log/interactive.log"
+        "log/interactive.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -65,26 +62,26 @@ rule upset:
         expand(
             "results/{tool}/ml/pctile_feats/pctile_{{pctile}}.tsv",
             tool=config["tools"],
-        )
+        ),
     output:
         numerator=report(
             "figures/upset/upset.pctile_{pctile}.numerator.svg",
             caption="../report/plot_upset.rst",
             category="Visualization",
             subcategory="UpSet",
-            labels={"percentile": "{pctile}", "type": "numerator"}
+            labels={"percentile": "{pctile}", "type": "numerator"},
         ),
         denominator=report(
             "figures/upset/upset.pctile_{pctile}.denominator.svg",
             caption="../report/plot_upset.rst",
             category="Visualization",
             subcategory="UpSet",
-            labels={"percentile": "{pctile}", "type": "denominator"}
-        )
+            labels={"percentile": "{pctile}", "type": "denominator"},
+        ),
     log:
-        "log/upset.pctile_{pctile}.log"
+        "log/upset.pctile_{pctile}.log",
     params:
-        stylesheet
+        stylesheet,
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -95,20 +92,20 @@ rule plot_roc:
     input:
         expand(
             "results/{tool}/ml/regression/model_data.pctile_{{pctile}}.joblib",
-            tool=config["tools"]
-        )
+            tool=config["tools"],
+        ),
     output:
         report(
             "figures/roc/roc.pctile_{pctile}.svg",
             caption="../report/plot_roc.rst",
             category="Visualization",
             subcategory="ROC",
-            labels={"percentile": "{pctile}"}
-        )
+            labels={"percentile": "{pctile}"},
+        ),
     log:
-        "log/plot_roc.{pctile}.log"
+        "log/plot_roc.{pctile}.log",
     params:
-        stylesheet
+        stylesheet,
     conda:
         "../envs/qadabra-default.yaml"
     script:

@@ -1,12 +1,12 @@
 rule deseq2:
     input:
         table=config["table"],
-        metadata=config["metadata"]
+        metadata=config["metadata"],
     output:
         "results/deseq2/differentials.tsv",
-        "results/deseq2/results.rds"
+        "results/deseq2/results.rds",
     log:
-        "log/deseq2.log"
+        "log/deseq2.log",
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -16,12 +16,12 @@ rule deseq2:
 rule ancombc:
     input:
         table=config["table"],
-        metadata=config["metadata"]
+        metadata=config["metadata"],
     output:
         "results/ancombc/differentials.tsv",
-        "results/ancombc/results.rds"
+        "results/ancombc/results.rds",
     log:
-        "log/ancombc.log"
+        "log/ancombc.log",
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -31,12 +31,12 @@ rule ancombc:
 rule aldex2:
     input:
         table=config["table"],
-        metadata=config["metadata"]
+        metadata=config["metadata"],
     output:
         "results/aldex2/differentials.tsv",
-        "results/aldex2/results.rds"
+        "results/aldex2/results.rds",
     log:
-        "log/aldex2.log"
+        "log/aldex2.log",
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -46,12 +46,12 @@ rule aldex2:
 rule edger:
     input:
         table=config["table"],
-        metadata=config["metadata"]
+        metadata=config["metadata"],
     output:
         "results/edger/differentials.tsv",
-        "results/edger/results.rds"
+        "results/edger/results.rds",
     log:
-        "log/edger.log"
+        "log/edger.log",
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -61,15 +61,15 @@ rule edger:
 rule songbird:
     input:
         table=config["table"],
-        metadata=config["metadata"]
+        metadata=config["metadata"],
     output:
         "results/songbird/differentials.tsv",
     log:
-        "log/songbird.log"
+        "log/songbird.log",
     params:
         epochs=config["songbird_params"]["epochs"],
         diff_prior=config["songbird_params"]["differential_prior"],
-        formula=build_songbird_formula
+        formula=build_songbird_formula,
     conda:
         "../envs/qadabra-songbird.yaml"
     shell:
@@ -90,13 +90,13 @@ rule songbird:
 
 rule process_differentials:
     input:
-        "results/{tool}/differentials.tsv"
+        "results/{tool}/differentials.tsv",
     output:
-        "results/{tool}/differentials.processed.tsv"
+        "results/{tool}/differentials.processed.tsv",
     log:
-        "log/process_differentials.{tool}.log"
+        "log/process_differentials.{tool}.log",
     params:
-        col=lambda wildcards: diffab_tool_columns[wildcards.tool]
+        col=lambda wildcards: diffab_tool_columns[wildcards.tool],
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -105,11 +105,11 @@ rule process_differentials:
 
 rule combine_differentials:
     input:
-        expand("results/{tool}/differentials.processed.tsv", tool=config["tools"])
+        expand("results/{tool}/differentials.processed.tsv", tool=config["tools"]),
     output:
         "results/concatenated_differentials.tsv",
     log:
-        "log/combine_differentials.log"
+        "log/combine_differentials.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -120,15 +120,15 @@ rule qurro:
     input:
         ranks="results/concatenated_differentials.tsv",
         table=config["table"],
-        metadata=config["metadata"]
+        metadata=config["metadata"],
     output:
         report(
             directory("results/qurro"),
             htmlindex="index.html",
-            category="Differential Abundance"
-        )
+            category="Differential Abundance",
+        ),
     log:
-        "log/qurro.log"
+        "log/qurro.log",
     conda:
         "../envs/qadabra-songbird.yaml"
     shell:
