@@ -1,5 +1,5 @@
-table: "/home/grahman/projects/xebec/xebec/tests/data/table.biom"
-metadata: "/home/grahman/projects/xebec/xebec/tests/data/metadata.tsv"
+table: "data/table.biom"
+metadata: "data/metadata.tsv"
 model:
     covariate: anemia
     target: anemic
