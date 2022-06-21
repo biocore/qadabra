@@ -19,7 +19,7 @@ jobs:
       with:
         directory: .
         snakefile: workflow/Snakefile
-        stagein: "mamba install -y -n snakemake --channel conda-forge"
+        stagein: "mamba install -y -n snakemake --channel conda-forge --channel bioconda"
         args: "--lint"
 
   Testing:
