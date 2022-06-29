@@ -27,7 +27,7 @@ all_viz_files.extend(
 all_viz_files.extend(
     expand(
         "figures/{fig}.html",
-        fig=["pca", "rank_comparison"]
+        fig=["pca", "rank_comparisons"]
     )
 )
 
