@@ -1,3 +1,18 @@
+rule run_pca:
+    input:
+        "results/concatenated_differentials.tsv",
+    output:
+        features="results/pca/pca_features.tsv",
+        tools="results/pca/pca_tools.tsv",
+        prop_exp="results/pca/proportion_explained.tsv"
+    log:
+        "log/run_pca.log"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/run_pca.py"
+
+
 rule pctile_feats:
     input:
         "results/concatenated_differentials.tsv",

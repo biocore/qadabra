@@ -110,3 +110,18 @@ rule plot_roc:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/plot_roc.py"
+
+
+rule plot_pca:
+    input:
+        features="results/pca/pca_features.tsv",
+        tools="results/pca/pca_tools.tsv",
+        prop_exp="results/pca/proportion_explained.tsv"
+    output:
+        report("figures/pca.html", category="Visualization")
+    log:
+        "log/plot_pca.log"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot_pca.py"
