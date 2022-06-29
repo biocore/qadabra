@@ -125,3 +125,19 @@ rule plot_pca:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/plot_pca.py"
+
+
+rule plot_rank_comparison:
+    input:
+        "results/concatenated_differentials.tsv",
+    output:
+        report(
+            "figures/rank_comparisons.html",
+            category="Differential Abundance"
+        )
+    log:
+        "log/plot_rank_comparison.log"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot_rank_comparison.py"
