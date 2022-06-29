@@ -125,7 +125,7 @@ rule qurro:
         report(
             directory("results/qurro"),
             htmlindex="index.html",
-            category="Differential Abundance",
+            category="Visualization",
         ),
     log:
         "log/qurro.log",
@@ -146,7 +146,7 @@ rule create_table:
         "results/concatenated_differentials.tsv"
     output:
         report("results/differentials_table.html",
-               category="Differential Abundance")
+               category="Visualization")
     log:
         "log/create_table.log"
     conda:

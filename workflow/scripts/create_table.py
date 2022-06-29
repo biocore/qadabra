@@ -29,3 +29,4 @@ data_table = DataTable(source=source, columns=columns,
                        frozen_columns=1,
                        sizing_mode="stretch_height")
 save(data_table)
+logger.info(f"Saved table to {snakemake.output[0]}")

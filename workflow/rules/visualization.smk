@@ -44,19 +44,6 @@ rule plot_rank_correlation:
         "../scripts/plot_rank_correlations.py"
 
 
-rule interactive:
-    input:
-        "results/concatenated_differentials.tsv",
-    output:
-        report("results/qadabra.html", category="Visualization"),
-    log:
-        "log/interactive.log",
-    conda:
-        "../envs/qadabra-default.yaml"
-    script:
-        "../scripts/interactive_app.py"
-
-
 rule upset:
     input:
         expand(
@@ -118,7 +105,11 @@ rule plot_pca:
         tools="results/pca/pca_tools.tsv",
         prop_exp="results/pca/proportion_explained.tsv"
     output:
-        report("figures/pca.html", category="Visualization")
+        report(
+            "figures/pca.html",
+            category="Visualization",
+            subcategory="Differentials",
+    )
     log:
         "log/plot_pca.log"
     conda:
@@ -133,7 +124,8 @@ rule plot_rank_comparison:
     output:
         report(
             "figures/rank_comparisons.html",
-            category="Differential Abundance"
+            category="Visualization",
+            subcategory="Differentials",
         )
     log:
         "log/plot_rank_comparison.log"

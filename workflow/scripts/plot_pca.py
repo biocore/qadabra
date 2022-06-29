@@ -105,3 +105,4 @@ for ax in [plot.xaxis, plot.yaxis]:
     ax.major_label_text_font_size = "10pt"
 
 save(plot)
+logger.info(f"Saved PCA to {snakemake.output[0]}")

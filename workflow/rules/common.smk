@@ -24,7 +24,12 @@ all_viz_files.extend(
         pctile=config["log_ratio_feat_pcts"],
     )
 )
-all_viz_files.append("results/qadabra.html")
+all_viz_files.extend(
+    expand(
+        "figures/{fig}.html",
+        fig=["pca", "rank_comparison"]
+    )
+)
 
 all_input = all_viz_files.copy()
 all_input.append("results/qurro")
