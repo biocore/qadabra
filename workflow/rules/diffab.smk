@@ -125,7 +125,7 @@ rule qurro:
         report(
             directory("results/qurro"),
             htmlindex="index.html",
-            category="Differential Abundance",
+            category="Visualization",
         ),
     log:
         "log/qurro.log",
@@ -139,3 +139,18 @@ rule qurro:
             --sample-metadata {input.metadata} \
             --output-dir {output} > {log} 2>&1
         """
+
+
+rule create_table:
+    input:
+        "results/concatenated_differentials.tsv"
+    output:
+        report("results/differentials_table.html",
+               category="Visualization")
+    log:
+        "log/create_table.log"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/create_table.py"
+

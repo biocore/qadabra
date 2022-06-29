@@ -44,19 +44,6 @@ rule plot_rank_correlation:
         "../scripts/plot_rank_correlations.py"
 
 
-rule interactive:
-    input:
-        "results/concatenated_differentials.tsv",
-    output:
-        report("results/qadabra.html", category="Visualization"),
-    log:
-        "log/interactive.log",
-    conda:
-        "../envs/qadabra-default.yaml"
-    script:
-        "../scripts/interactive_app.py"
-
-
 rule upset:
     input:
         expand(
@@ -110,3 +97,39 @@ rule plot_roc:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/plot_roc.py"
+
+
+rule plot_pca:
+    input:
+        features="results/pca/pca_features.tsv",
+        tools="results/pca/pca_tools.tsv",
+        prop_exp="results/pca/proportion_explained.tsv"
+    output:
+        report(
+            "figures/pca.html",
+            category="Visualization",
+            subcategory="Differentials",
+    )
+    log:
+        "log/plot_pca.log"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot_pca.py"
+
+
+rule plot_rank_comparison:
+    input:
+        "results/concatenated_differentials.tsv",
+    output:
+        report(
+            "figures/rank_comparisons.html",
+            category="Visualization",
+            subcategory="Differentials",
+        )
+    log:
+        "log/plot_rank_comparison.log"
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot_rank_comparison.py"
