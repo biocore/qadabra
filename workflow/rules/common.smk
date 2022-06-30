@@ -1,11 +1,12 @@
 all_diff_files = expand(
-    "results/{tool}/differentials.processed.tsv", tool=config["tools"]
+    "results/tools/{tool}/differentials.processed.tsv",
+    tool=config["tools"]
 )
 all_diff_files.extend(["results/concatenated_differentials.tsv", "results/qurro"])
 
 all_ml = expand(
-    "results/{tool}/ml/regression/model_data.pctile_{pctile}.joblib",
-    tool=config["tools"],
+    "results/ml/{tool}/regression/model_data.pctile_{pctile}.joblib",
+    tool=config["tools"] + ["pca_pc1"],
     pctile=config["log_ratio_feat_pcts"],
 )
 

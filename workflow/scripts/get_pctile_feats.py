@@ -14,9 +14,14 @@ logger.addHandler(fh)
 
 logger.info("Loading differentials...")
 diffs = pd.read_table(snakemake.input[0], sep="\t", index_col=0)
-tool = snakemake.wildcards["tool"]
+if snakemake.wildcards.get("tool") is not None:
+    tool = snakemake.wildcards["tool"]
+else:
+    tool = "PC1"
 pctile = int(snakemake.wildcards["pctile"])
 
+print(tool)
+print(diffs)
 sorted_diffs = diffs.sort_values(by=tool, ascending=False)
 
 n = int(diffs.shape[0]*pctile/100)

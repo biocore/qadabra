@@ -3,8 +3,8 @@ rule deseq2:
         table=config["table"],
         metadata=config["metadata"],
     output:
-        "results/deseq2/differentials.tsv",
-        "results/deseq2/results.rds",
+        "results/tools/deseq2/differentials.tsv",
+        "results/tools/deseq2/results.rds",
     log:
         "log/deseq2.log",
     conda:
@@ -18,8 +18,8 @@ rule ancombc:
         table=config["table"],
         metadata=config["metadata"],
     output:
-        "results/ancombc/differentials.tsv",
-        "results/ancombc/results.rds",
+        "results/tools/ancombc/differentials.tsv",
+        "results/tools/ancombc/results.rds",
     log:
         "log/ancombc.log",
     conda:
@@ -33,8 +33,8 @@ rule aldex2:
         table=config["table"],
         metadata=config["metadata"],
     output:
-        "results/aldex2/differentials.tsv",
-        "results/aldex2/results.rds",
+        "results/tools/aldex2/differentials.tsv",
+        "results/tools/aldex2/results.rds",
     log:
         "log/aldex2.log",
     conda:
@@ -48,8 +48,8 @@ rule edger:
         table=config["table"],
         metadata=config["metadata"],
     output:
-        "results/edger/differentials.tsv",
-        "results/edger/results.rds",
+        "results/tools/edger/differentials.tsv",
+        "results/tools/edger/results.rds",
     log:
         "log/edger.log",
     conda:
@@ -63,7 +63,7 @@ rule songbird:
         table=config["table"],
         metadata=config["metadata"],
     output:
-        "results/songbird/differentials.tsv",
+        "results/tools/songbird/differentials.tsv",
     log:
         "log/songbird.log",
     params:
@@ -84,15 +84,15 @@ rule songbird:
             --min-feature-count 0 \
             --min-sample-count 0 \
             --random-seed 1 \
-            --summary-dir results/songbird > {log} 2>&1
+            --summary-dir results/tools/songbird > {log} 2>&1
         """
 
 
 rule process_differentials:
     input:
-        "results/{tool}/differentials.tsv",
+        "results/tools/{tool}/differentials.tsv",
     output:
-        "results/{tool}/differentials.processed.tsv",
+        "results/tools/{tool}/differentials.processed.tsv",
     log:
         "log/process_differentials.{tool}.log",
     params:
@@ -105,7 +105,10 @@ rule process_differentials:
 
 rule combine_differentials:
     input:
-        expand("results/{tool}/differentials.processed.tsv", tool=config["tools"]),
+        expand(
+            "results/tools/{tool}/differentials.processed.tsv",
+            tool=config["tools"]
+        ),
     output:
         "results/concatenated_differentials.tsv",
     log:

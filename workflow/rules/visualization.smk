@@ -6,7 +6,7 @@ stylesheet = "config/qadabra.mplstyle"
 
 rule plot_differentials:
     input:
-        "results/{tool}/differentials.processed.tsv",
+        "results/tools/{tool}/differentials.processed.tsv",
     output:
         report(
             "figures/{tool}_differentials.svg",
@@ -47,8 +47,8 @@ rule plot_rank_correlation:
 rule upset:
     input:
         expand(
-            "results/{tool}/ml/pctile_feats/pctile_{{pctile}}.tsv",
-            tool=config["tools"],
+            "results/ml/{tool}/pctile_feats/pctile_{{pctile}}.tsv",
+            tool=config["tools"] + ["pca_pc1"],
         ),
     output:
         numerator=report(
@@ -78,8 +78,8 @@ rule upset:
 rule plot_roc:
     input:
         expand(
-            "results/{tool}/ml/regression/model_data.pctile_{{pctile}}.joblib",
-            tool=config["tools"],
+            "results/ml/{tool}/regression/model_data.pctile_{{pctile}}.joblib",
+            tool=config["tools"] + ["pca_pc1"],
         ),
     output:
         report(
