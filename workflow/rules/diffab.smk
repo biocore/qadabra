@@ -156,4 +156,3 @@ rule create_table:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/create_table.py"
-
