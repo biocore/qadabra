@@ -1,11 +1,17 @@
 all_diff_files = expand(
-    "results/{tool}/differentials.processed.tsv", tool=config["tools"]
+    "results/tools/{tool}/differentials.processed.tsv", tool=config["tools"]
 )
-all_diff_files.extend(["results/concatenated_differentials.tsv", "results/qurro"])
+all_diff_files.extend(
+    [
+        "results/concatenated_differentials.tsv",
+        "results/qurro",
+        "results/differentials_table.html",
+    ]
+)
 
 all_ml = expand(
-    "results/{tool}/ml/regression/model_data.pctile_{pctile}.joblib",
-    tool=config["tools"],
+    "results/ml/{tool}/regression/model_data.pctile_{pctile}.joblib",
+    tool=config["tools"] + ["pca_pc1"],
     pctile=config["log_ratio_feat_pcts"],
 )
 
@@ -24,15 +30,10 @@ all_viz_files.extend(
         pctile=config["log_ratio_feat_pcts"],
     )
 )
-all_viz_files.extend(
-    expand(
-        "figures/{fig}.html",
-        fig=["pca", "rank_comparisons"]
-    )
-)
+all_viz_files.extend(expand("figures/{fig}.html", fig=["pca", "rank_comparisons"]))
 
 all_input = all_viz_files.copy()
-all_input.append("results/qurro")
+all_input.extend(["results/qurro", "results/differentials_table.html"])
 
 covariate = config["model"]["covariate"]
 reference = config["model"]["reference"]

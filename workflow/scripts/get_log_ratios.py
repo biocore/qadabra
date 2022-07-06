@@ -37,7 +37,12 @@ logger.info("Creating log-ratios...")
 lr_df = log_ratio(table, top_feats, bot_feats).reset_index()
 lr_df["pctile"] = snakemake.wildcards["pctile"]
 lr_df["num_feats"] = feat_df["num_feats"].unique().item()
-lr_df["tool"] = snakemake.wildcards["tool"]
+
+if snakemake.wildcards.get("tool") is not None:
+    lr_df["tool"] = snakemake.wildcards["tool"]
+else:
+    lr_df["tool"] = "pca_pc1"
+
 lr_df = lr_df.rename(columns={"index": "sample_name"})
 
 lr_df.to_csv(snakemake.output[0], sep="\t", index=False)

@@ -18,7 +18,7 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 
 plt.style.use(snakemake.params[0])
-tools = snakemake.config["tools"]
+tools = snakemake.config["tools"] + ["pca_pc1"]
 palette = dict(zip(
     tools, sns.color_palette("colorblind", len(tools))
 ))

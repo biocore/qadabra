@@ -6,7 +6,7 @@ stylesheet = "config/qadabra.mplstyle"
 
 rule plot_differentials:
     input:
-        "results/{tool}/differentials.processed.tsv",
+        "results/tools/{tool}/differentials.processed.tsv",
     output:
         report(
             "figures/{tool}_differentials.svg",
@@ -47,8 +47,8 @@ rule plot_rank_correlation:
 rule upset:
     input:
         expand(
-            "results/{tool}/ml/pctile_feats/pctile_{{pctile}}.tsv",
-            tool=config["tools"],
+            "results/ml/{tool}/pctile_feats/pctile_{{pctile}}.tsv",
+            tool=config["tools"] + ["pca_pc1"],
         ),
     output:
         numerator=report(
@@ -78,8 +78,8 @@ rule upset:
 rule plot_roc:
     input:
         expand(
-            "results/{tool}/ml/regression/model_data.pctile_{{pctile}}.joblib",
-            tool=config["tools"],
+            "results/ml/{tool}/regression/model_data.pctile_{{pctile}}.joblib",
+            tool=config["tools"] + ["pca_pc1"],
         ),
     output:
         report(
@@ -103,15 +103,15 @@ rule plot_pca:
     input:
         features="results/pca/pca_features.tsv",
         tools="results/pca/pca_tools.tsv",
-        prop_exp="results/pca/proportion_explained.tsv"
+        prop_exp="results/pca/proportion_explained.tsv",
     output:
         report(
             "figures/pca.html",
             category="Visualization",
             subcategory="Differentials",
-    )
+        ),
     log:
-        "log/plot_pca.log"
+        "log/plot_pca.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -126,9 +126,9 @@ rule plot_rank_comparison:
             "figures/rank_comparisons.html",
             category="Visualization",
             subcategory="Differentials",
-        )
+        ),
     log:
-        "log/plot_rank_comparison.log"
+        "log/plot_rank_comparison.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
