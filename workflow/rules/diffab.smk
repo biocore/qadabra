@@ -105,10 +105,7 @@ rule process_differentials:
 
 rule combine_differentials:
     input:
-        expand(
-            "results/tools/{tool}/differentials.processed.tsv",
-            tool=config["tools"]
-        ),
+        expand("results/tools/{tool}/differentials.processed.tsv", tool=config["tools"]),
     output:
         "results/concatenated_differentials.tsv",
     log:
@@ -146,12 +143,11 @@ rule qurro:
 
 rule create_table:
     input:
-        "results/concatenated_differentials.tsv"
+        "results/concatenated_differentials.tsv",
     output:
-        report("results/differentials_table.html",
-               category="Visualization")
+        report("results/differentials_table.html", category="Visualization"),
     log:
-        "log/create_table.log"
+        "log/create_table.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:

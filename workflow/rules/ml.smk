@@ -4,9 +4,9 @@ rule run_pca:
     output:
         features="results/pca/pca_features.tsv",
         tools="results/pca/pca_tools.tsv",
-        prop_exp="results/pca/proportion_explained.tsv"
+        prop_exp="results/pca/proportion_explained.tsv",
     log:
-        "log/run_pca.log"
+        "log/run_pca.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -17,11 +17,11 @@ rule tool_pctile_feats:
     input:
         "results/concatenated_differentials.tsv",
     output:
-        "results/ml/{tool}/pctile_feats/pctile_{pctile}.tsv"
+        "results/ml/{tool}/pctile_feats/pctile_{pctile}.tsv",
     log:
         "log/pctile_feats.{tool}.pctile_{pctile}.log",
     wildcard_constraints:
-        tool="(?!pca_pc1)\w+"
+        tool="(?!pca_pc1)\w*",
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -30,7 +30,7 @@ rule tool_pctile_feats:
 
 rule pca_pctile_feats:
     input:
-        rules.run_pca.output.features
+        rules.run_pca.output.features,
     output:
         "results/ml/pca_pc1/pctile_feats/pctile_{pctile}.tsv",
     log:
