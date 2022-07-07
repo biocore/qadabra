@@ -14,6 +14,7 @@ metadata <- read.table(snakemake@input[["metadata"]], sep="\t", header=T,
 covariate <- snakemake@config[["model"]][["covariate"]]
 target <- snakemake@config[["model"]][["target"]]
 reference <- snakemake@config[["model"]][["reference"]]
+confounders <- snakemake@config[["model"]][["confounders"]]
 
 samples <- colnames(table)
 metadata <- subset(metadata, rownames(metadata) %in% samples)
@@ -22,8 +23,14 @@ metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
 
-design.formula <- as.formula(paste0("~", snakemake@config[["model"]][["covariate"]]))
+design.formula <- paste0("~", covariate)
+if (length(confounders) != 0) {
+    confounders_form = paste(confounders, collapse=" + ")
+    design.formula <- paste0(design.formula, " + ", confounders_form)
+}
+design.formula <- as.formula(design.formula)
 mm <- model.matrix(design.formula, metadata)
+
 x <- ALDEx2::aldex.clr(table, mm)
 aldex2.results <- ALDEx2::aldex.glm(x)
 saveRDS(aldex2.results, snakemake@output[[2]])

@@ -7,3 +7,4 @@ dependencies:
     - bioconductor-edger
     - bioconductor-biomformat
     - bioconductor-aldex2
+    - r-statmod
