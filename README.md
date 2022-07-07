@@ -23,8 +23,8 @@ You should also change the model covariate, target, and reference category.
 * `target`: Level of `covariate` on which you are interested in performing differential abundance
 * `reference`: Reference category for log-fold change calculation
 
-If you have other covariates, you can include them under the `covariate` heading.
-Delete these if you are not including any additional covariates.
+If you have other confounders, you can include them under the `confounders` heading.
+Delete these if you are not including any additional confounders.
 
 Run `snakemake --use-conda <other options>` to start the workflow.
 Please read the [Snakemake documentation](https://snakemake.readthedocs.io/en/stable/executing/cli.html) for how to run Snakemake best on your system.
