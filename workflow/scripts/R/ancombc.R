@@ -28,8 +28,11 @@ taxa <- phyloseq::otu_table(table, taxa_are_rows=T)
 meta <- phyloseq::sample_data(metadata)
 physeq <- phyloseq::phyloseq(taxa, meta)
 
-confounders <- paste(confounders, collapse=" + ")
-design.formula <- paste(covariate, " + ", confounders)
+design.formula <- covariate
+if (length(confounders) != 0) {
+    confounders_form = paste(confounders, collapse=" + ")
+    design.formula <- paste0(design.formula, " + ", confounders_form)
+}
 ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula,
                                     zero_cut=1.0)
 saveRDS(ancombc.results, snakemake@output[[2]])

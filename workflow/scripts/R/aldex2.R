@@ -23,9 +23,14 @@ metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
 
-confounders <- paste(confounders, collapse=" + ")
-design.formula <- as.formula(paste0("~", covariate, " + ", confounders))
+design.formula <- paste0("~", covariate)
+if (length(confounders) != 0) {
+    confounders_form = paste(confounders, collapse=" + ")
+    design.formula <- paste0(design.formula, " + ", confounders_form)
+}
+design.formula <- as.formula(design.formula)
 mm <- model.matrix(design.formula, metadata)
+
 x <- ALDEx2::aldex.clr(table, mm)
 aldex2.results <- ALDEx2::aldex.glm(x)
 saveRDS(aldex2.results, snakemake@output[[2]])

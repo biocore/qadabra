@@ -42,11 +42,12 @@ confounders = config["model"]["confounders"]
 
 
 songbird_formula = f"C({covariate}, Treatment('{reference}'))"
-songbird_formula += " + ".join(confounders)
+if confounders:
+    songbird_formula = f"{songbird_formula} + {' + '.join(confounders)}"
 
 
 diffab_tool_columns = {
-    "edger": "logFC",
+    "edger": f"{covariate}{target}",
     "deseq2": "log2FoldChange",
     "ancombc": f"{covariate}{target}",
     "aldex2": f"model.{covariate}{target} Estimate",

@@ -23,8 +23,12 @@ metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
 
-confounders <- paste(confounders, collapse=" + ")
-design.formula <- as.formula(paste0("~", covariate, " + ", confounders))
+design.formula <- paste0("~", covariate)
+if (length(confounders) != 0) {
+    confounders_form = paste(confounders, collapse=" + ")
+    design.formula <- paste0(design.formula, " + ", confounders_form)
+}
+design.formula <- as.formula(design.formula)
 dds <- DESeq2::DESeqDataSetFromMatrix(
     countData=table,
     colData=metadata,
