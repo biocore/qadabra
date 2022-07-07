@@ -50,11 +50,11 @@ for tool in tools:
         best_tool = tool
 
     color = palette[tool]
-    line = Line2D([0], [0], color=color,
+    line = Line2D([0], [0], color=color, lw=2,
                   label=f"{tool} ({mean_auc:.2f} $\pm$ {std_auc:.2f})")
     leg_lines.append(line)
 
-    ax.plot(mean_fprs, mean_tprs, lw=1, color=color)
+    ax.plot(mean_fprs, mean_tprs, lw=2, color=color)
     logger.info(f"{tool} Mean AUC = {mean_auc:.2f} +- {std_auc:.2f}")
 
 leg = ax.legend(handles=leg_lines, loc="lower right", frameon=False)
