@@ -14,6 +14,7 @@ metadata <- read.table(snakemake@input[["metadata"]], sep="\t", header=T,
 covariate <- snakemake@config[["model"]][["covariate"]]
 target <- snakemake@config[["model"]][["target"]]
 reference <- snakemake@config[["model"]][["reference"]]
+confounders <- snakemake@config[["model"]][["confounders"]]
 
 samples <- colnames(table)
 metadata <- subset(metadata, rownames(metadata) %in% samples)
@@ -22,11 +23,14 @@ metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
 
+confounders <- paste(confounders, collapse=" + ")
+design.formula <- as.formula(paste0("~", covariate, " + ", confounders))
+mm <- model.matrix(design.formula, metadata)
+
 d <- edgeR::DGEList(counts=table, group=metadata[[covariate]])
 d <- edgeR::calcNormFactors(d)
-d <- edgeR::estimateCommonDisp(d)
-d <- edgeR::estimateTagwiseDisp(d)
-et <- edgeR::exactTest(d, pair=c(reference, target))
-saveRDS(et, snakemake@output[[2]])
+d <- edgeR::estimateDisp(d, design=mm)
+fit <- edgeR::glmQLFit(d, mm, robust=T)
+saveRDS(fit, snakemake@output[[2]])
 
-write.table(et$table, file=snakemake@output[[1]], sep="\t")
+write.table(fit$coefficients, file=snakemake@output[[1]], sep="\t")
