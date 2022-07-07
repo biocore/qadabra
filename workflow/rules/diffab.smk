@@ -69,7 +69,7 @@ rule songbird:
     params:
         epochs=config["songbird_params"]["epochs"],
         diff_prior=config["songbird_params"]["differential_prior"],
-        formula=build_songbird_formula,
+        formula=songbird_formula,
     conda:
         "../envs/qadabra-songbird.yaml"
     shell:

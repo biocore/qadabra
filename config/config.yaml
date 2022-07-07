@@ -4,6 +4,9 @@ model:
     covariate: anemia
     target: anemic
     reference: normal
+    confounders:
+        - sex
+        - collection_cutoff
 tools:
     - deseq2
     - ancombc
