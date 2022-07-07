@@ -15,6 +15,7 @@ metadata <- read.table(snakemake@input[["metadata"]], sep="\t", header=T,
 covariate <- snakemake@config[["model"]][["covariate"]]
 target <- snakemake@config[["model"]][["target"]]
 reference <- snakemake@config[["model"]][["reference"]]
+confounders <- snakemake@config[["model"]][["confounders"]]
 
 samples <- colnames(table)
 metadata <- subset(metadata, rownames(metadata) %in% samples)
@@ -27,7 +28,11 @@ taxa <- phyloseq::otu_table(table, taxa_are_rows=T)
 meta <- phyloseq::sample_data(metadata)
 physeq <- phyloseq::phyloseq(taxa, meta)
 
-design.formula <- snakemake@config[["model"]][["covariate"]]
+design.formula <- covariate
+if (length(confounders) != 0) {
+    confounders_form = paste(confounders, collapse=" + ")
+    design.formula <- paste0(design.formula, " + ", confounders_form)
+}
 ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula,
                                     zero_cut=1.0)
 saveRDS(ancombc.results, snakemake@output[[2]])

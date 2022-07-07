@@ -38,14 +38,16 @@ all_input.extend(["results/qurro", "results/differentials_table.html"])
 covariate = config["model"]["covariate"]
 reference = config["model"]["reference"]
 target = config["model"]["target"]
+confounders = config["model"]["confounders"]
 
 
-def build_songbird_formula(wildcards):
-    return f"C({covariate}, Treatment('{reference}'))"
+songbird_formula = f"C({covariate}, Treatment('{reference}'))"
+if confounders:
+    songbird_formula = f"{songbird_formula} + {' + '.join(confounders)}"
 
 
 diffab_tool_columns = {
-    "edger": "logFC",
+    "edger": f"{covariate}{target}",
     "deseq2": "log2FoldChange",
     "ancombc": f"{covariate}{target}",
     "aldex2": f"model.{covariate}{target} Estimate",
