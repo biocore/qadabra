@@ -14,6 +14,7 @@ tools:
     - aldex2
     - edger
     - maaslin2
+    - metagenomeseq
 songbird_params:
     epochs: 5000
     differential_prior: 1

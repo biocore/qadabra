@@ -52,5 +52,6 @@ diffab_tool_columns = {
     "ancombc": f"{covariate}{target}",
     "aldex2": f"model.{covariate}{target} Estimate",
     "songbird": f"C({covariate}, Treatment('{reference}'))[T.{target}]",
-    "maaslin2": "coef"
+    "maaslin2": "coef",
+    "metagenomeseq": f"{covariate}{target}",
 }

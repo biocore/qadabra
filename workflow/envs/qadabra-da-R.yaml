@@ -8,4 +8,5 @@ dependencies:
     - bioconductor-biomformat
     - bioconductor-aldex2
     - bioconductor-maaslin2
+    - bioconductor-metagenomeseq
     - r-statmod
