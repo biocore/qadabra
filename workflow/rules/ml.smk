@@ -15,7 +15,7 @@ rule run_pca:
 
 rule tool_pctile_feats:
     input:
-        "results/concatenated_differentials.tsv",
+        "results/tools/{tool}/differentials.processed.tsv",
     output:
         "results/ml/{tool}/pctile_feats/pctile_{pctile}.tsv",
     log:

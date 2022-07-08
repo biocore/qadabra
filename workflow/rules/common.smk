@@ -54,4 +54,5 @@ diffab_tool_columns = {
     "songbird": f"C({covariate}, Treatment('{reference}'))[T.{target}]",
     "maaslin2": "coef",
     "metagenomeseq": f"{covariate}{target}",
+    "corncob": "coefs"
 }

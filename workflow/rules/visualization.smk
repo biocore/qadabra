@@ -48,7 +48,7 @@ rule upset:
     input:
         expand(
             "results/ml/{tool}/pctile_feats/pctile_{{pctile}}.tsv",
-            tool=config["tools"] + ["pca_pc1"],
+            tool=config["tools"],
         ),
     output:
         numerator=report(
@@ -65,6 +65,8 @@ rule upset:
             subcategory="UpSet",
             labels={"percentile": "{pctile}", "type": "denominator"},
         ),
+    wildcard_constraints:
+        tool="(?!pca_pc1)\w*",
     log:
         "log/upset.pctile_{pctile}.log",
     params:
