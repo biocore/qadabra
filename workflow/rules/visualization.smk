@@ -65,6 +65,8 @@ rule upset:
             subcategory="UpSet",
             labels={"percentile": "{pctile}", "type": "denominator"},
         ),
+    wildcard_constraints:
+        tool="(?!pca_pc1)\w*",
     log:
         "log/upset.pctile_{pctile}.log",
     params:
