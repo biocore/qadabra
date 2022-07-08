@@ -9,4 +9,5 @@ dependencies:
     - bioconductor-aldex2
     - bioconductor-maaslin2
     - bioconductor-metagenomeseq
+    - r-corncob
     - r-statmod

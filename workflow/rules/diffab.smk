@@ -118,6 +118,21 @@ rule metagenomeseq:
         "../scripts/R/metagenomeseq.R"
 
 
+rule corncob:
+    input:
+        table=config["table"],
+        metadata=config["metadata"],
+    output:
+        "results/tools/corncob/differentials.tsv",
+        "results/tools/corncob/results.rds",
+    log:
+        "log/corncob.log",
+    conda:
+        "../envs/qadabra-da-R.yaml"
+    script:
+        "../scripts/R/corncob.R"
+
+
 rule process_differentials:
     input:
         "results/tools/{tool}/differentials.tsv",
