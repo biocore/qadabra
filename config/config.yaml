@@ -13,6 +13,7 @@ tools:
     - songbird
     - aldex2
     - edger
+    - maaslin2
 songbird_params:
     epochs: 5000
     differential_prior: 1
