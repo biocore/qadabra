@@ -87,6 +87,7 @@ rule songbird:
             --summary-dir results/tools/songbird > {log} 2>&1
         """
 
+
 rule maaslin2:
     input:
         table=config["table"],
@@ -95,11 +96,26 @@ rule maaslin2:
         diff_file="results/tools/maaslin2/differentials.tsv",
         out_dir=directory("results/tools/maaslin2/output"),
     log:
-        "log/maaslin2.log"
+        "log/maaslin2.log",
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
         "../scripts/R/maaslin2.R"
+
+
+rule metagenomeseq:
+    input:
+        table=config["table"],
+        metadata=config["metadata"],
+    output:
+        "results/tools/metagenomeseq/differentials.tsv",
+        "results/tools/metagenomeseq/results.rds",
+    log:
+        "log/metagenomeseq.log",
+    conda:
+        "../envs/qadabra-da-R.yaml"
+    script:
+        "../scripts/R/metagenomeseq.R"
 
 
 rule process_differentials:
