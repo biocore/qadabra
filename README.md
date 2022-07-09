@@ -57,7 +57,7 @@ Qadabra generates many results files including many intermediate files that can 
 Each tool's output is stored in a separate subdirectory.
 For the R tools, an RDS object with the tool's R data is saved.
 The raw outputs are processed and concatenated into a file called `concatenated_differentials.tsv`.
-A Qurro visualization of all the tool ranks is generated at `qurro/index.html`.
+A Qurro visualization of all the tool ranks is generated at `results/qurro/index.html`.
 An interactive table with all the tool outputs is at `results/differentials_table.html`.
 
 For each tool, the ranked features are used for machine learning models.
@@ -71,8 +71,7 @@ The `ml` subdirectory of each tool contains the features used, sample log-ratios
 The differential rank plots of each tool are plotted as `<tool_name>_differentials.svg`.
 A heatmap of the pairwise Spearman correlation among all pairs of tools is available as well.
 We also generated interactive plots to help compare the ranks of different microbes from the tools.
-`figures/pca.html` generates a PCA plot of all the microbes, showing the concordance and discordance of results as well as the contribution of the tools.
+`figures/pca.svg` generates a PCA plot of all the microbes, showing the concordance and discordance of results as well as the contribution of the tools.
 You can use the `figures/rank_comparisons.html` webpage to dynamically explore the relationship between pairs of tools.
 The `upset` subdirectory contains [UpSet](https://doi.org/10.1109%2FTVCG.2014.2346248) plots comparing the features from each tool.
-
 Finally, the `roc` subdirectory contains ROC plots of all tools at each percentile of features.
