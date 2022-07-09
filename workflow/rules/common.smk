@@ -30,7 +30,8 @@ all_viz_files.extend(
         pctile=config["log_ratio_feat_pcts"],
     )
 )
-all_viz_files.extend(expand("figures/{fig}.html", fig=["pca", "rank_comparisons"]))
+all_viz_files.append("figures/rank_comparisons.html")
+all_viz_files.append("figures/pca.svg")
 
 all_input = all_viz_files.copy()
 all_input.extend(["results/qurro", "results/differentials_table.html"])
