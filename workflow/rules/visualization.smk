@@ -12,6 +12,7 @@ rule plot_differentials:
             "figures/{tool}_differentials.svg",
             caption="../report/plot_differentials.rst",
             category="Differentials",
+            subcategory="Rank Plots",
             labels={"tool": "{tool}"},
         ),
     log:
