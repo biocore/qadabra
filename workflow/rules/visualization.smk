@@ -1,7 +1,7 @@
 import re
 
 
-stylesheet = "config/qadabra.mplstyle"
+stylesheet = config["stylesheet"]
 
 
 rule plot_differentials:
@@ -17,8 +17,6 @@ rule plot_differentials:
         ),
     log:
         "log/plot_differentials.{tool}.log",
-    params:
-        stylesheet,
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -36,8 +34,6 @@ rule plot_rank_correlation:
         ),
     log:
         "log/plot_rank_correlation.log",
-    params:
-        stylesheet,
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -69,8 +65,6 @@ rule upset:
         tool="(?!pca_pc1)\w*",
     log:
         "log/upset.pctile_{pctile}.log",
-    params:
-        stylesheet,
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -93,8 +87,6 @@ rule plot_roc:
         ),
     log:
         "log/plot_roc.{pctile}.log",
-    params:
-        stylesheet,
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -108,7 +100,7 @@ rule plot_pca:
         prop_exp="results/pca/proportion_explained.tsv",
     output:
         report(
-            "figures/pca.html",
+            "figures/pca.svg",
             category="Visualization",
             subcategory="Differentials",
         ),
