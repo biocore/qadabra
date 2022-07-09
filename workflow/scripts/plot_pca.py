@@ -21,6 +21,7 @@ logging.getLogger("py.warnings").addHandler(fh)
 
 plt.style.use(snakemake.config["stylesheet"])
 
+logger.info("Loading PCA results...")
 feat_df = pd.read_table(snakemake.input["features"], sep="\t", index_col=0)
 tool_df = pd.read_table(snakemake.input["tools"], sep="\t", index_col=0)
 prop_exp = pd.read_table(snakemake.input["prop_exp"], sep="\t", index_col=0)
@@ -36,6 +37,7 @@ arrow_palette = dict(zip(
 
 fig, ax = plt.subplots(1, 1)
 
+logger.info("Plotting scatterplot...")
 sns.scatterplot(
     data=feat_df,
     x="PC1",
@@ -52,6 +54,7 @@ ylim = ax.get_ylim()
 xrange = xlim[1] - xlim[0]
 yrange = ylim[1] - ylim[0]
 
+logger.info("Plotting arrows...")
 for i, row in tool_df.iterrows():
     tool_name = row.name
     color = arrow_palette[tool_name]
@@ -101,4 +104,6 @@ prop_exp_labels = [
 ax.set_xlabel(prop_exp_labels[0])
 ax.set_ylabel(prop_exp_labels[1])
 
+ax.set_title("PCA")
 plt.savefig(snakemake.output[0])
+logger.info(f"Saved to {snakemake.output[0]}")

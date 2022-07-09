@@ -106,4 +106,4 @@ for ax in [plot.xaxis, plot.yaxis]:
 
 layout = row(column(chosen_tool_1, chosen_tool_2), plot)
 save(layout)
-logger.info(f"Saved rankd comparisons to {snakemake.output[0]}")
+logger.info(f"Saved rank comparisons to {snakemake.output[0]}")
