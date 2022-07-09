@@ -15,7 +15,10 @@ formatter = logging.Formatter(
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
-plt.style.use(snakemake.params[0])
+logging.captureWarnings(True)
+logging.getLogger("py.warnings").addHandler(fh)
+
+plt.style.use(snakemake.config["stylesheet"])
 
 logger.info("Loading differentials...")
 diffs = pd.read_table(snakemake.input[0], sep="\t", index_col=0).squeeze()

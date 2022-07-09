@@ -16,6 +16,9 @@ formatter = logging.Formatter(
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
+logging.captureWarnings(True)
+logging.getLogger("py.warnings").addHandler(fh)
+
 plt.style.use(snakemake.config["stylesheet"])
 
 feat_df = pd.read_table(snakemake.input["features"], sep="\t", index_col=0)
@@ -28,7 +31,7 @@ tool_list = tool_df.index.tolist()
 
 arrow_palette = dict(zip(
     tool_list,
-    sns.color_palette("Dark2", len(tool_list)).as_hex()
+    sns.color_palette("colorblind", len(tool_list)).as_hex()
 ))
 
 fig, ax = plt.subplots(1, 1)

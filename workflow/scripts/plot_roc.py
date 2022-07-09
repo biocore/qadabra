@@ -17,7 +17,11 @@ formatter = logging.Formatter(
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
+logging.captureWarnings(True)
+logging.getLogger("py.warnings").addHandler(fh)
+
 plt.style.use(snakemake.config["stylesheet"])
+
 tools = snakemake.config["tools"] + ["pca_pc1"]
 palette = dict(zip(
     tools, sns.color_palette("colorblind", len(tools))

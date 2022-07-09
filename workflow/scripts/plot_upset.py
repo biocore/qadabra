@@ -14,7 +14,10 @@ formatter = logging.Formatter(
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
-plt.style.use(snakemake.params[0])
+logging.captureWarnings(True)
+logging.getLogger("py.warnings").addHandler(fh)
+
+plt.style.use(snakemake.config["stylesheet"])
 
 tool_names = snakemake.config["tools"]
 pctile = snakemake.wildcards["pctile"]

@@ -19,6 +19,9 @@ formatter = logging.Formatter(
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
+logging.captureWarnings(True)
+logging.getLogger("py.warnings").addHandler(fh)
+
 output_file(filename=snakemake.output[0], title="Rank Comparison")
 
 diff_df = pd.read_table(snakemake.input[0], sep="\t", index_col=0)
