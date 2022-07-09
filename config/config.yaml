@@ -1,5 +1,6 @@
 table: "data/table.biom"
 metadata: "data/metadata.tsv"
+stylesheet: "config/qadabra.mplstyle"
 model:
     covariate: anemia
     target: anemic

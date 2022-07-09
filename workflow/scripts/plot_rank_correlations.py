@@ -1,6 +1,7 @@
 import logging
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
 
@@ -14,15 +15,24 @@ formatter = logging.Formatter(
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
-plt.style.use(snakemake.params[0])
+logging.captureWarnings(True)
+logging.getLogger("py.warnings").addHandler(fh)
+
+plt.style.use(snakemake.config["stylesheet"])
 
 logger.info("Loading differentials...")
 diffs_df = pd.read_table(snakemake.input[0], sep="\t", index_col=0)
 
+corr = diffs_df.corr("spearman")
+mask = np.zeros_like(corr)
+mask[np.triu_indices_from(mask)] = True
+
 fig, ax = plt.subplots(1, 1)
 sns.heatmap(
-    diffs_df.corr("spearman"),
+    corr,
     annot=True,
+    mask=mask,
+    square=True,
     ax=ax
 )
 ax.set_title("Spearman Rank Correlations")

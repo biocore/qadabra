@@ -19,6 +19,9 @@ formatter = logging.Formatter(
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
+logging.captureWarnings(True)
+logging.getLogger("py.warnings").addHandler(fh)
+
 output_file(filename=snakemake.output[0], title="Rank Comparison")
 
 diff_df = pd.read_table(snakemake.input[0], sep="\t", index_col=0)
@@ -103,4 +106,4 @@ for ax in [plot.xaxis, plot.yaxis]:
 
 layout = row(column(chosen_tool_1, chosen_tool_2), plot)
 save(layout)
-logger.info(f"Saved rankd comparisons to {snakemake.output[0]}")
+logger.info(f"Saved rank comparisons to {snakemake.output[0]}")
