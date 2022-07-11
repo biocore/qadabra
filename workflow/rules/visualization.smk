@@ -80,7 +80,8 @@ rule plot_roc:
         report(
             "figures/roc/roc.pctile_{pctile}.svg",
             caption="../report/plot_roc.rst",
-            category="ROC",
+            category="Logistic Regression",
+            subcategory="ROC",
             labels={"percentile": "{pctile}"},
         ),
     log:
@@ -89,6 +90,28 @@ rule plot_roc:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/plot_roc.py"
+
+
+rule plot_pr:
+    input:
+        expand(
+            "results/ml/{tool}/regression/model_data.pctile_{{pctile}}.joblib",
+            tool=config["tools"] + ["pca_pc1"],
+        ),
+    output:
+        report(
+            "figures/pr/pr.pctile_{pctile}.svg",
+            caption="../report/plot_prc.rst",
+            category="Logistic Regression",
+            subcategory="PR",
+            labels={"percentile": "{pctile}"},
+        ),
+    log:
+        "log/plot_prc.{pctile}.log",
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot_prc.py"
 
 
 rule plot_pca:

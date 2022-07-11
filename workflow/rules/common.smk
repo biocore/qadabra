@@ -26,8 +26,9 @@ all_viz_files.extend(
 )
 all_viz_files.extend(
     expand(
-        "figures/roc/roc.pctile_{pctile}.svg",
+        "figures/{curve}/{curve}.pctile_{pctile}.svg",
         pctile=config["log_ratio_feat_pcts"],
+        curve=["pr", "roc"]
     )
 )
 all_viz_files.append("figures/rank_comparisons.html")
