@@ -69,7 +69,7 @@ for i, (train, test) in enumerate(folds):
     fpr, tpr, _ = roc_curve(y[test], prediction[:, 1])
     tpr_interp = np.interp(mean_fpr, fpr, tpr)
     tprs.append(tpr_interp)
-    roc_auc = auc(fpr, tpr)
+    roc_auc = auc(mean_fpr, tpr_interp)
     roc_aucs.append(roc_auc)
 
     prec, rec, _ = precision_recall_curve(y[test], prediction[:, 1])
@@ -77,7 +77,7 @@ for i, (train, test) in enumerate(folds):
     rec = rec[::-1]
     prec_interp = np.interp(mean_rec, rec, prec)
     precs.append(prec_interp)
-    pr_auc = auc(rec, prec)
+    pr_auc = auc(mean_rec, prec_interp)
     pr_aucs.append(pr_auc)
 
     logger.info(
