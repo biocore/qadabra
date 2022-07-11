@@ -12,7 +12,7 @@ Importantly, Qadabra focuses on feature *ranks* rather than FDR corrected p-valu
 Qadabra requires both [Snakemake](https://snakemake.readthedocs.io/en/stable/) and [Snakedeploy](https://snakedeploy.readthedocs.io/en/latest/) to be installed.
 
 ```
-snakedeploy deploy-workflow https://github.com/gibsramen/qadabra qadabra_dir --tag v0.1.1
+snakedeploy deploy-workflow https://github.com/gibsramen/qadabra qadabra_dir --tag v0.1.2
 ```
 
 This will download the workflow to your local machine.
@@ -74,4 +74,4 @@ We also generated interactive plots to help compare the ranks of different micro
 `figures/pca.svg` generates a PCA plot of all the microbes, showing the concordance and discordance of results as well as the contribution of the tools.
 You can use the `figures/rank_comparisons.html` webpage to dynamically explore the relationship between pairs of tools.
 The `upset` subdirectory contains [UpSet](https://doi.org/10.1109%2FTVCG.2014.2346248) plots comparing the features from each tool.
-Finally, the `roc` subdirectory contains ROC plots of all tools at each percentile of features.
+Finally, the `roc` and `pr` subdirectories contain ROC and PR (respectively) plots of all tools at each percentile of features.

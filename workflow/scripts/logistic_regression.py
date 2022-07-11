@@ -3,10 +3,9 @@ import logging
 from joblib import dump
 import numpy as np
 import pandas as pd
-from scipy import interp
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import (roc_curve, auc, precision_recall_curve,
+                             average_precision_score)
 from sklearn.model_selection import RepeatedKFold
 
 
@@ -36,6 +35,7 @@ X = log_ratios["log_ratio"].values.reshape(-1, 1)
 y = (log_ratios[covariate] == target).astype(int).values
 
 mean_fpr = np.linspace(0, 1, 100)
+mean_rec = np.linspace(0, 1, 100)
 
 n_splits = snakemake.config["ml_params"]["n_splits"]
 n_repeats = snakemake.config["ml_params"]["n_repeats"]
@@ -53,22 +53,48 @@ model_data = {
     }
 }
 model_data["fprs"] = mean_fpr
+model_data["recalls"] = mean_rec
 
 model_data["log_ratios"] = X
 model_data["truth"] = y
 
+# https://stackoverflow.com/a/67968945
 tprs = []
-aucs = []
+precs = []
+roc_aucs = []
+pr_aucs = []
 for i, (train, test) in enumerate(folds):
     prediction = model.fit(X[train], y[train]).predict_proba(X[test])
+
     fpr, tpr, _ = roc_curve(y[test], prediction[:, 1])
-    tprs.append(np.interp(mean_fpr, fpr, tpr))
-    roc_auc = auc(fpr, tpr)
-    aucs.append(roc_auc)
-    logger.info(f"Fold {i}/{len(folds)}: AUC = ({roc_auc:.2f})")
+    tpr_interp = np.interp(mean_fpr, fpr, tpr)
+    tprs.append(tpr_interp)
+    roc_auc = auc(mean_fpr, tpr_interp)
+    roc_aucs.append(roc_auc)
+
+    prec, rec, _ = precision_recall_curve(y[test], prediction[:, 1])
+    prec = prec[::-1]
+    rec = rec[::-1]
+    prec_interp = np.interp(mean_rec, rec, prec)
+    precs.append(prec_interp)
+    pr_auc = auc(mean_rec, prec_interp)
+    pr_aucs.append(pr_auc)
+
+    logger.info(
+        f"Fold {i+1}/{len(folds)}: ROC AUC = {roc_auc:.2f}, "
+        f"PR AUC = {pr_auc:.2f}"
+    )
 
 model_data["tprs"] = tprs
-model_data["aucs"] = aucs
+model_data["precisions"] = precs
+model_data["roc_aucs"] = roc_aucs
+model_data["pr_aucs"] = pr_aucs
+
+mean_roc_auc = np.mean(roc_aucs)
+mean_pr_auc = np.mean(pr_aucs)
+
+logger.info(f"Mean ROC AUC = {mean_roc_auc:.2f}")
+logger.info(f"Mean PR AUC = {mean_pr_auc:.2f}")
 
 dump(model_data, snakemake.output[0], compress=True)
 logger.info(f"Saving model to {snakemake.output[0]}")
