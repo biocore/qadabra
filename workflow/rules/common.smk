@@ -28,7 +28,7 @@ all_viz_files.extend(
     expand(
         "figures/{curve}/{curve}.pctile_{pctile}.svg",
         pctile=config["log_ratio_feat_pcts"],
-        curve=["pr", "roc"]
+        curve=["pr", "roc"],
     )
 )
 all_viz_files.append("figures/rank_comparisons.html")
@@ -56,5 +56,5 @@ diffab_tool_columns = {
     "songbird": f"C({covariate}, Treatment('{reference}'))[T.{target}]",
     "maaslin2": "coef",
     "metagenomeseq": f"{covariate}{target}",
-    "corncob": "coefs"
+    "corncob": "coefs",
 }

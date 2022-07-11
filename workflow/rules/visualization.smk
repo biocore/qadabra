@@ -31,7 +31,7 @@ rule plot_rank_correlation:
             "figures/spearman_heatmap.svg",
             caption="../report/plot_rank_correlation.rst",
             category="Differentials",
-            subcategory="Comparison"
+            subcategory="Comparison",
         ),
     log:
         "log/plot_rank_correlation.log",
@@ -124,7 +124,7 @@ rule plot_pca:
             "figures/pca.svg",
             caption="../report/plot_pca.rst",
             category="Differentials",
-            subcategory="Comparison"
+            subcategory="Comparison",
         ),
     log:
         "log/plot_pca.log",
@@ -142,7 +142,7 @@ rule plot_rank_comparison:
             "figures/rank_comparisons.html",
             caption="../report/plot_rank_comparison.rst",
             category="Differentials",
-            subcategory="Comparison"
+            subcategory="Comparison",
         ),
     log:
         "log/plot_rank_comparison.log",
@@ -163,7 +163,7 @@ rule qurro:
             caption="../report/qurro.rst",
             htmlindex="index.html",
             category="Differentials",
-            subcategory="Comparison"
+            subcategory="Comparison",
         ),
     log:
         "log/qurro.log",
@@ -187,7 +187,7 @@ rule create_table:
             "results/differentials_table.html",
             caption="../report/create_table.rst",
             category="Differentials",
-            subcategory="Comparison"
+            subcategory="Comparison",
         ),
     log:
         "log/create_table.log",
