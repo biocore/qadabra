@@ -7,10 +7,12 @@ log <- file(snakemake@log[[1]], open="wt")
 sink(log)
 sink(log, type="message")
 
+print("Loading table...")
 table <- biomformat::read_biom(snakemake@input[["table"]])
 table <- as.matrix(biomformat::biom_data(table))
 table <- as.data.frame(table)
 
+print("Loading metadata...")
 metadata <- read.table(snakemake@input[["metadata"]], sep="\t", header=T,
                        row.names=1)
 
@@ -19,6 +21,7 @@ target <- snakemake@config[["model"]][["target"]]
 reference <- snakemake@config[["model"]][["reference"]]
 confounders <- snakemake@config[["model"]][["confounders"]]
 
+print("Harmonizing table and metadata samples...")
 samples <- colnames(table)
 metadata <- subset(metadata, rownames(metadata) %in% samples)
 metadata[[covariate]] <- as.factor(metadata[[covariate]])
@@ -37,6 +40,7 @@ pctile <- metagenomeSeq::cumNormStat(experiment, pFlag=T)
 experiment_norm <- metagenomeSeq::cumNorm(experiment, p=pctile)
 pd <- Biobase::pData(experiment_norm)
 
+print("Creating design formula...")
 design.formula <- paste0("~", covariate)
 if (length(confounders) != 0) {
     for (c in confounders) {
@@ -46,13 +50,18 @@ if (length(confounders) != 0) {
     design.formula <- paste0(design.formula, " + ", confounders_form)
 }
 design.formula <- as.formula(design.formula)
+print(design.formula)
 
 mm <- model.matrix(design.formula, data=pd)
+print("Running metagenomeSeq...")
 fit <- metagenomeSeq::fitZig(experiment_norm, mm)
+
 saveRDS(fit, snakemake@output[[2]])
+print("Saved RDS!")
 
 results <- metagenomeSeq::MRcoefs(
     obj=fit,
     number=dim(table)[1]
 )
 write.table(results, file=snakemake@output[[1]], sep="\t")
+print("Saved differentials!")
