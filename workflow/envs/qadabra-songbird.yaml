@@ -1,6 +1,7 @@
-channel:
+channels:
     - conda-forge
 dependencies:
+    - cython
     - songbird
     - pandas>=0.18.0,<1
     - qurro
