@@ -25,6 +25,11 @@ You should also change the model covariate, target, and reference category.
 
 If you have other confounders, you can include them under the `confounders` heading.
 Delete these if you are not including any additional confounders.
+Note you should still leave the `counfounders` entry - just delete the entries in the list.
+
+Qadabra can also output an [EMPress plot](https://journals.asm.org/doi/10.1128/mSystems.01216-20) of a phylogenetic tree annotated with each tool's differentials.
+Change the `tree` entry to point to this file.
+If you do not have a phylogenetic tree, change this entry to an empty string and EMPress will not be run.
 
 Run `snakemake --use-conda <other options>` to start the workflow.
 Please read the [Snakemake documentation](https://snakemake.readthedocs.io/en/stable/executing/cli.html) for how to run Snakemake best on your system.
