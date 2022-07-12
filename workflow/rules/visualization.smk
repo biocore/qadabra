@@ -197,25 +197,27 @@ rule create_table:
         "../scripts/create_table.py"
 
 
-rule empress:
-    input:
-        tree=config["tree"],
-        diff="results/concatenated_differentials.tsv",
-    output:
-        report(
-            directory("results/empress"),
-            caption="../report/empress.rst",
-            htmlindex="empress.html",
-            category="Tree",
-        ),
-    log:
-        "log/empress.log",
-    conda:
-        "../envs/qadabra-songbird.yaml"
-    shell:
-        """
-        empress tree-plot \
-            --tree {input.tree} \
-            --feature-metadata {input.diff} \
-            --output-dir {output} > {log} 2>&1
-        """
+if config["tree"]:
+
+    rule empress:
+        input:
+            tree=config["tree"],
+            diff="results/concatenated_differentials.tsv",
+        output:
+            report(
+                directory("results/empress"),
+                caption="../report/empress.rst",
+                htmlindex="empress.html",
+                category="Tree",
+            ),
+        log:
+            "log/empress.log",
+        conda:
+            "../envs/qadabra-songbird.yaml"
+        shell:
+            """
+            empress tree-plot \
+                --tree {input.tree} \
+                --feature-metadata {input.diff} \
+                --output-dir {output} > {log} 2>&1
+            """
