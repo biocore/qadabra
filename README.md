@@ -12,7 +12,7 @@ Importantly, Qadabra focuses on feature *ranks* rather than FDR corrected p-valu
 Qadabra requires both [Snakemake](https://snakemake.readthedocs.io/en/stable/) and [Snakedeploy](https://snakedeploy.readthedocs.io/en/latest/) to be installed.
 
 ```
-snakedeploy deploy-workflow https://github.com/gibsramen/qadabra qadabra_dir --tag v0.1.2
+snakedeploy deploy-workflow https://github.com/gibsramen/qadabra qadabra_dir --tag v0.2.0
 ```
 
 This will download the workflow to your local machine.
@@ -24,12 +24,15 @@ You should also change the model covariate, target, and reference category.
 * `reference`: Reference category for log-fold change calculation
 
 If you have other confounders, you can include them under the `confounders` heading.
-Delete these if you are not including any additional confounders.
-Note you should still leave the `counfounders` entry - just delete the entries in the list.
+Delete these if you are not including any additional confounders as follows:
+
+`confounders: `
 
 Qadabra can also output an [EMPress plot](https://journals.asm.org/doi/10.1128/mSystems.01216-20) of a phylogenetic tree annotated with each tool's differentials.
 Change the `tree` entry to point to this file.
-If you do not have a phylogenetic tree, change this entry to an empty string and EMPress will not be run.
+If you do not have a phylogenetic tree, delete this entry and EMPress will not be run.
+
+`tree: `
 
 Run `snakemake --use-conda <other options>` to start the workflow.
 Please read the [Snakemake documentation](https://snakemake.readthedocs.io/en/stable/executing/cli.html) for how to run Snakemake best on your system.
