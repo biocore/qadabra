@@ -34,8 +34,12 @@ all_viz_files.extend(
 all_viz_files.append("figures/rank_comparisons.html")
 all_viz_files.append("figures/pca.svg")
 
+if config["tree"]:
+    all_viz_files.append("results/empress")
+
 all_input = all_viz_files.copy()
 all_input.extend(["results/qurro", "results/differentials_table.html"])
+
 
 covariate = config["model"]["covariate"]
 reference = config["model"]["reference"]

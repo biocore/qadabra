@@ -1,5 +1,6 @@
 table: "data/table.biom"
 metadata: "data/metadata.tsv"
+tree: "data/tree.nwk"
 stylesheet: "config/qadabra.mplstyle"
 model:
     covariate: anemia
