@@ -5,6 +5,7 @@ include: "rules/common.smk"
 include: "rules/diffab.smk"
 include: "rules/visualization.smk"
 include: "rules/ml.smk"
+include: "rules/tree.smk"
 
 
 report: "report/workflow.rst"
