@@ -1,6 +1,7 @@
 channels:
     - conda-forge
 dependencies:
+    - iow
     - cython
     - songbird
     - pandas>=0.18.0,<1
