@@ -1,3 +1,6 @@
+import os
+
+
 rule deseq2:
     input:
         table=config["table"],
@@ -70,6 +73,7 @@ rule songbird:
         epochs=config["songbird_params"]["epochs"],
         diff_prior=config["songbird_params"]["differential_prior"],
         formula=songbird_formula,
+        outdir=lambda wildcards, output: os.path.dirname(output[0])
     conda:
         "../envs/qadabra-songbird.yaml"
     shell:
@@ -84,7 +88,7 @@ rule songbird:
             --min-feature-count 0 \
             --min-sample-count 0 \
             --random-seed 1 \
-            --summary-dir results/tools/songbird > {log} 2>&1
+            --summary-dir {params.outdir} > {log} 2>&1
         """
 
 
