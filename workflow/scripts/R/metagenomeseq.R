@@ -28,6 +28,8 @@ metadata[[covariate]] <- as.factor(metadata[[covariate]])
 metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
+# Append F_ to features to avoid R renaming
+row.names(table) <- paste0("F_", row.names(table))
 
 pheno <- Biobase::AnnotatedDataFrame(metadata)
 
@@ -63,5 +65,6 @@ results <- metagenomeSeq::MRcoefs(
     obj=fit,
     number=dim(table)[1]
 )
+row.names(results) <- gsub("^F_", "", row.names(results))
 write.table(results, file=snakemake@output[[1]], sep="\t")
 print("Saved differentials!")
