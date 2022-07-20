@@ -25,6 +25,8 @@ metadata[[covariate]] <- as.factor(metadata[[covariate]])
 metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
+# Append F_ to features to avoid R renaming
+row.names(table) <- paste0("F_", row.names(table))
 
 print("Creating design formula...")
 design.formula <- paste0("~", covariate)
@@ -52,6 +54,6 @@ results <- DESeq2::results(
     cooksCutoff=FALSE,
     contrast=c(covariate, target, reference)
 )
-row.names(results) <- rownames(table)
+row.names(results) <- gsub("^F_", "", row.names(table))
 write.table(results, file=snakemake@output[[1]], sep="\t")
 print("Saved differentials!")
