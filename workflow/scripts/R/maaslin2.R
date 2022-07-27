@@ -25,6 +25,9 @@ metadata <- subset(metadata, rownames(metadata) %in% samples)
 metadata[[covariate]] <- as.factor(metadata[[covariate]])
 metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
+
+# Append F_ to features to avoid R renaming
+row.names(table) <- paste0("F_", row.names(table))
 table <- t(table[, sample_order])
 
 fixed.effects <- c(covariate, confounders)
@@ -42,7 +45,7 @@ fit.data <- Maaslin2::Maaslin2(
     plot_heatmap=F
 )
 results <- fit.data$results %>% dplyr::filter(metadata==covariate)
-row.names(results) <- results$feature
+row.names(results) <- gsub("^F_", "", results$feature)
 results <- results %>% select(-c("feature"))
 
 write.table(results, file=snakemake@output[["diff_file"]], sep="\t")

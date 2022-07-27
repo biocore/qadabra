@@ -26,6 +26,8 @@ metadata[[covariate]] <- as.factor(metadata[[covariate]])
 metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
+# Append F_ to features to avoid R renaming
+row.names(table) <- paste0("F_", row.names(table))
 
 print("Converting to phyloseq...")
 taxa <- phyloseq::otu_table(table, taxa_are_rows=T)
@@ -46,6 +48,7 @@ ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula,
 saveRDS(ancombc.results, snakemake@output[[2]])
 print("Saved RDS!")
 results <- ancombc.results$res$beta
+row.names(results) <- gsub("^F_", "", row.names(results))
 
 write.table(results, file=snakemake@output[[1]], sep="\t")
 print("Saved differentials!")

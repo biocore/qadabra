@@ -25,6 +25,8 @@ metadata[[covariate]] <- as.factor(metadata[[covariate]])
 metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
+# Append F_ to features to avoid R renaming
+row.names(table) <- paste0("F_", row.names(table))
 
 print("Creating design formula...")
 design.formula <- paste0("~", covariate)
@@ -42,5 +44,6 @@ aldex2.results <- ALDEx2::aldex.glm(x)
 saveRDS(aldex2.results, snakemake@output[[2]])
 print("Saved RDS!")
 
+row.names(aldex2.results) <- gsub("^F_", "", row.names(aldex2.results))
 write.table(aldex2.results, file=snakemake@output[[1]], sep="\t")
 print("Saved differentials!")
