@@ -12,7 +12,7 @@ Importantly, Qadabra focuses on feature *ranks* rather than FDR corrected p-valu
 Qadabra requires both [Snakemake](https://snakemake.readthedocs.io/en/stable/) and [Snakedeploy](https://snakedeploy.readthedocs.io/en/latest/) to be installed.
 
 ```
-snakedeploy deploy-workflow https://github.com/gibsramen/qadabra qadabra_dir --tag v0.2.0
+snakedeploy deploy-workflow https://github.com/gibsramen/qadabra qadabra_dir --tag v0.2.1
 ```
 
 This will download the workflow to your local machine.
