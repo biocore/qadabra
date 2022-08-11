@@ -48,10 +48,11 @@ fit <- corncob::differentialTest(
     formula=design.formula,
     formula_null=~1,
     phi.formula=design.formula,
-    phi.formula_null=~1,
+    phi.formula_null=design.formula,
     test="Wald",
     data=physeq,
     boot=F,
+    filter_discriminant=F,
     full_output=T
 )
 saveRDS(fit, snakemake@output[[2]])
