@@ -1,12 +1,12 @@
 rule run_pca:
     input:
-        "results/concatenated_differentials.tsv",
+        "results/{dataset}/concatenated_differentials.tsv",
     output:
-        features="results/pca/pca_features.tsv",
-        tools="results/pca/pca_tools.tsv",
-        prop_exp="results/pca/proportion_explained.tsv",
+        features="results/{dataset}/pca/pca_features.tsv",
+        tools="results/{dataset}/pca/pca_tools.tsv",
+        prop_exp="results/{dataset}/pca/proportion_explained.tsv",
     log:
-        "log/run_pca.log",
+        "log/{dataset}/run_pca.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -15,11 +15,11 @@ rule run_pca:
 
 rule tool_pctile_feats:
     input:
-        "results/tools/{tool}/differentials.processed.tsv",
+        "results/{dataset}/tools/{tool}/differentials.processed.tsv",
     output:
-        "results/ml/{tool}/pctile_feats/pctile_{pctile}.tsv",
+        "results/{dataset}/ml/{tool}/pctile_feats/pctile_{pctile}.tsv",
     log:
-        "log/pctile_feats.{tool}.pctile_{pctile}.log",
+        "log/{dataset}/pctile_feats.{tool}.pctile_{pctile}.log",
     wildcard_constraints:
         tool="(?!pca_pc1)\w*",
     conda:
@@ -32,9 +32,9 @@ rule pca_pctile_feats:
     input:
         rules.run_pca.output.features,
     output:
-        "results/ml/pca_pc1/pctile_feats/pctile_{pctile}.tsv",
+        "results/{dataset}/ml/pca_pc1/pctile_feats/pctile_{pctile}.tsv",
     log:
-        "log/pctile_feats.pca_pc1.pctile_{pctile}.log",
+        "log/{dataset}/pctile_feats.pca_pc1.pctile_{pctile}.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -43,12 +43,12 @@ rule pca_pctile_feats:
 
 rule log_ratios:
     input:
-        table=config["table"],
-        feats="results/ml/{tool}/pctile_feats/pctile_{pctile}.tsv",
+        table=lambda wc: get_dataset_cfg(wc, ["table"])["table"],
+        feats="results/{dataset}/ml/{tool}/pctile_feats/pctile_{pctile}.tsv",
     output:
-        "results/ml/{tool}/log_ratios/log_ratios.pctile_{pctile}.tsv",
+        "results/{dataset}/ml/{tool}/log_ratios/log_ratios.pctile_{pctile}.tsv",
     log:
-        "log/log_ratios.{tool}.pctile_{pctile}.log",
+        "log/{dataset}/log_ratios.{tool}.pctile_{pctile}.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -57,12 +57,16 @@ rule log_ratios:
 
 rule logistic_regression:
     input:
-        log_ratios="results/ml/{tool}/log_ratios/log_ratios.pctile_{pctile}.tsv",
-        metadata=config["metadata"],
+        log_ratios="results/{dataset}/ml/{tool}/log_ratios/log_ratios.pctile_{pctile}.tsv",
+        metadata=lambda wc: get_dataset_cfg(wc, ["metadata"])["metadata"]
     output:
-        "results/ml/{tool}/regression/model_data.pctile_{pctile}.joblib",
+        "results/{dataset}/ml/{tool}/regression/model_data.pctile_{pctile}.joblib",
     log:
-        "log/logistic_regression.{tool}.pctile_{pctile}.log",
+        "log/{dataset}/logistic_regression.{tool}.pctile_{pctile}.log",
+    params:
+        # I have no idea why this way works but the other way doesn't
+        factor_name=lambda wc: get_dataset_cfg(wc, ["factor_name"])["factor_name"],
+        target=lambda wc: get_dataset_cfg(wc, ["target_level"])["target_level"],
     conda:
         "../envs/qadabra-default.yaml"
     script:

@@ -5,11 +5,11 @@ configfile: "config/config.yaml"
 
 include: "rules/common.smk"
 include: "rules/diffab.smk"
-#include: "rules/visualization.smk"
-#include: "rules/ml.smk"
-#
-#
-#report: "report/workflow.rst"
+include: "rules/visualization.smk"
+include: "rules/ml.smk"
+
+
+report: "report/workflow.rst"
 #
 #
 #rule all:

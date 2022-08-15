@@ -21,8 +21,8 @@ logger.addHandler(fh)
 logging.captureWarnings(True)
 logging.getLogger("py.warnings").addHandler(fh)
 
-covariate = snakemake.config["model"]["covariate"]
-target = snakemake.config["model"]["target"]
+covariate = snakemake.params["factor_name"]
+target = snakemake.params["target"]
 
 logger.info(f"Covariate: {covariate}")
 logger.info(f"Target: {target}")
