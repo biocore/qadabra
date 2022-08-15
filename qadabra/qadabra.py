@@ -73,12 +73,6 @@ def qadabra():
     default=True
 )
 @click.option(
-    "--results-dir",
-    type=click.Path(exists=False),
-    required=True,
-    help="Directory to output Qadabra results"
-)
-@click.option(
     "--dataset-sheet",
     type=click.Path(),
     required=False,
@@ -102,7 +96,6 @@ def add_dataset(
     reference_level,
     confounder,
     validate_input,
-    results_dir,
     dataset_sheet,
     verbose
 ):
@@ -133,7 +126,6 @@ def add_dataset(
         "target_level": target_level,
         "reference_level": reference_level,
         "confounders": ";".join(confounder),
-        "results_dir": results_dir
     }, name=name).to_frame().T
 
     if dataset_sheet.exists():

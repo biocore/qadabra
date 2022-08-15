@@ -1,64 +1,41 @@
-all_diff_files = expand(
-    "results/tools/{tool}/differentials.processed.tsv", tool=config["tools"]
-)
-all_diff_files.extend(
-    [
-        "results/concatenated_differentials.tsv",
-        "results/qurro",
-        "results/differentials_table.html",
-    ]
-)
-
-all_ml = expand(
-    "results/ml/{tool}/regression/model_data.pctile_{pctile}.joblib",
-    tool=config["tools"] + ["pca_pc1"],
-    pctile=config["log_ratio_feat_pcts"],
-)
-
-all_viz_files = expand("figures/{tool}_differentials.svg", tool=config["tools"])
-all_viz_files.extend(expand("figures/{viz}.svg", viz=["spearman_heatmap"]))
-all_viz_files.extend(
-    expand(
-        "figures/upset/upset.pctile_{pctile}.{location}.svg",
-        pctile=config["log_ratio_feat_pcts"],
-        location=["numerator", "denominator"],
-    )
-)
-all_viz_files.extend(
-    expand(
-        "figures/{curve}/{curve}.pctile_{pctile}.svg",
-        pctile=config["log_ratio_feat_pcts"],
-        curve=["pr", "roc"],
-    )
-)
-all_viz_files.append("figures/rank_comparisons.html")
-all_viz_files.append("figures/pca.svg")
-
-if config["tree"]:
-    all_viz_files.append("results/empress")
-
-all_input = all_viz_files.copy()
-all_input.extend(["results/qurro", "results/differentials_table.html"])
+import numpy as np
+import pandas as pd
 
 
-covariate = config["model"]["covariate"]
-reference = config["model"]["reference"]
-target = config["model"]["target"]
-confounders = config["model"]["confounders"]
+datasets = pd.read_table("config/datasets.tsv", sep="\t", index_col=0)
+names = datasets.index
 
+def get_dataset_cfg(wildcards, keys):
+    d = datasets.loc[wildcards.dataset, keys].to_dict()
+    if d.get("confounders"):
+        d["confounders"] = d["confounders"].split(";")
+    return d
 
-songbird_formula = f"C({covariate}, Treatment('{reference}'))"
-if confounders:
-    songbird_formula = f"{songbird_formula} + {' + '.join(confounders)}"
+def get_songbird_formula(wildcards):
+    d = datasets.loc[wildcards.dataset].to_dict()
 
+    covariate = d["factor_name"]
+    reference = d["reference_level"]
+    formula = f"C({covariate}, Treatment('{reference}'))"
+    if d.get("confounders"):
+        confounders = d["confounders"].split(";")
+    formula = f"{formula} + {' + '.join(confounders)}"
+    return formula
 
-diffab_tool_columns = {
-    "edger": f"{covariate}{target}",
-    "deseq2": "log2FoldChange",
-    "ancombc": f"{covariate}{target}",
-    "aldex2": f"model.{covariate}{target} Estimate",
-    "songbird": f"C({covariate}, Treatment('{reference}'))[T.{target}]",
-    "maaslin2": "coef",
-    "metagenomeseq": f"{covariate}{target}",
-    "corncob": "coefs",
-}
+def get_diffab_tool_columns(wildcards):
+    d = datasets.loc[wildcards.dataset].to_dict()
+    covariate = d["factor_name"]
+    target = d["target_level"]
+    reference = d["reference_level"]
+
+    columns = {
+        "edger": f"{covariate}{target}",
+        "deseq2": "log2FoldChange",
+        "ancombc": f"{covariate}{target}",
+        "aldex2": f"model.{covariate}{target} Estimate",
+        "songbird": f"C({covariate}, Treatment('{reference}'))[T.{target}]",
+        "maaslin2": "coef",
+        "metagenomeseq": f"{covariate}{target}",
+        "corncob": "coefs",
+    }
+    return columns[wildcards.tool]

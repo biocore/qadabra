@@ -1,15 +1,19 @@
 import os
 
+da_args = ["table", "metadata"]
+da_params = ["factor_name", "target_level", "reference_level", "confounders"]
+
 
 rule deseq2:
     input:
-        table=config["table"],
-        metadata=config["metadata"],
+        unpack(lambda wc: get_dataset_cfg(wc, da_args))
     output:
-        "results/tools/deseq2/differentials.tsv",
-        "results/tools/deseq2/results.rds",
+        "results/{dataset}/tools/deseq2/differentials.tsv",
+        "results/{dataset}/tools/deseq2/results.rds",
     log:
-        "log/deseq2.log",
+        "log/{dataset}/deseq2.log",
+    params:
+        lambda wc: get_dataset_cfg(wc, da_params)
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -18,13 +22,14 @@ rule deseq2:
 
 rule ancombc:
     input:
-        table=config["table"],
-        metadata=config["metadata"],
+        unpack(lambda wc: get_dataset_cfg(wc, da_args))
     output:
-        "results/tools/ancombc/differentials.tsv",
-        "results/tools/ancombc/results.rds",
+         "results/{dataset}/tools/ancombc/differentials.tsv",
+         "results/{dataset}/tools/ancombc/results.rds",
     log:
-        "log/ancombc.log",
+        "log/{dataset}/ancombc.log",
+    params:
+        lambda wc: get_dataset_cfg(wc, da_params)
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -33,13 +38,14 @@ rule ancombc:
 
 rule aldex2:
     input:
-        table=config["table"],
-        metadata=config["metadata"],
+        unpack(lambda wc: get_dataset_cfg(wc, da_args))
     output:
-        "results/tools/aldex2/differentials.tsv",
-        "results/tools/aldex2/results.rds",
+        "results/{dataset}/tools/aldex2/differentials.tsv",
+        "results/{dataset}/tools/aldex2/results.rds",
     log:
-        "log/aldex2.log",
+        "log/{dataset}/aldex2.log",
+    params:
+        lambda wc: get_dataset_cfg(wc, da_params)
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -48,13 +54,14 @@ rule aldex2:
 
 rule edger:
     input:
-        table=config["table"],
-        metadata=config["metadata"],
+        unpack(lambda wc: get_dataset_cfg(wc, da_args))
     output:
-        "results/tools/edger/differentials.tsv",
-        "results/tools/edger/results.rds",
+        "results/{dataset}/tools/edger/differentials.tsv",
+        "results/{dataset}/tools/edger/results.rds",
     log:
-        "log/edger.log",
+        "log/{dataset}/edger.log",
+    params:
+        lambda wc: get_dataset_cfg(wc, da_params)
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -63,17 +70,17 @@ rule edger:
 
 rule songbird:
     input:
-        table=config["table"],
-        metadata=config["metadata"],
+       unpack(lambda wc: get_dataset_cfg(wc, da_args))
     output:
-        "results/tools/songbird/differentials.tsv",
+        "results/{dataset}/tools/songbird/differentials.tsv",
     log:
-        "log/songbird.log",
+        "log/{dataset}/songbird.log",
     params:
+        lambda wc: get_dataset_cfg(wc, da_params),
         epochs=config["songbird_params"]["epochs"],
         diff_prior=config["songbird_params"]["differential_prior"],
-        formula=songbird_formula,
-        outdir=lambda wildcards, output: os.path.dirname(output[0])
+        formula=get_songbird_formula,
+        outdir=lambda wc, output: os.path.dirname(output[0]),
     conda:
         "../envs/qadabra-songbird.yaml"
     shell:
@@ -94,13 +101,14 @@ rule songbird:
 
 rule maaslin2:
     input:
-        table=config["table"],
-        metadata=config["metadata"],
+       unpack(lambda wc: get_dataset_cfg(wc, da_args))
     output:
-        diff_file="results/tools/maaslin2/differentials.tsv",
-        out_dir=directory("results/tools/maaslin2/output"),
+        diff_file="results/{dataset}/tools/maaslin2/differentials.tsv",
+        out_dir=directory("results/{dataset}/tools/maaslin2/output"),
     log:
-        "log/maaslin2.log",
+        "log/{dataset}/maaslin2.log",
+    params:
+        lambda wc: get_dataset_cfg(wc, da_params)
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -109,13 +117,14 @@ rule maaslin2:
 
 rule metagenomeseq:
     input:
-        table=config["table"],
-        metadata=config["metadata"],
+       unpack(lambda wc: get_dataset_cfg(wc, da_args))
     output:
-        "results/tools/metagenomeseq/differentials.tsv",
-        "results/tools/metagenomeseq/results.rds",
+        "results/{dataset}/tools/metagenomeseq/differentials.tsv",
+        "results/{dataset}/tools/metagenomeseq/results.rds",
     log:
-        "log/metagenomeseq.log",
+        "log/{dataset}/metagenomeseq.log",
+    params:
+        lambda wc: get_dataset_cfg(wc, da_params)
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -124,13 +133,14 @@ rule metagenomeseq:
 
 rule corncob:
     input:
-        table=config["table"],
-        metadata=config["metadata"],
+       unpack(lambda wc: get_dataset_cfg(wc, da_args))
     output:
-        "results/tools/corncob/differentials.tsv",
-        "results/tools/corncob/results.rds",
+        "results/{dataset}/tools/corncob/differentials.tsv",
+        "results/{dataset}/tools/corncob/results.rds",
     log:
-        "log/corncob.log",
+        "log/{dataset}/corncob.log",
+    params:
+        lambda wc: get_dataset_cfg(wc, da_params)
     conda:
         "../envs/qadabra-da-R.yaml"
     script:
@@ -139,13 +149,13 @@ rule corncob:
 
 rule process_differentials:
     input:
-        "results/tools/{tool}/differentials.tsv",
+        "results/{dataset}/tools/{tool}/differentials.tsv",
     output:
-        "results/tools/{tool}/differentials.processed.tsv",
+        "results/{dataset}/tools/{tool}/differentials.processed.tsv",
     log:
-        "log/process_differentials.{tool}.log",
+        "log/{dataset}/process_differentials.{tool}.log",
     params:
-        col=lambda wildcards: diffab_tool_columns[wildcards.tool],
+        col=get_diffab_tool_columns
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -154,11 +164,14 @@ rule process_differentials:
 
 rule combine_differentials:
     input:
-        expand("results/tools/{tool}/differentials.processed.tsv", tool=config["tools"]),
+        expand(
+            "results/{{dataset}}/tools/{tool}/differentials.processed.tsv",
+            tool=config["tools"]
+        ),
     output:
-        "results/concatenated_differentials.tsv",
+        "results/{dataset}/concatenated_differentials.tsv",
     log:
-        "log/combine_differentials.log",
+        "log/{dataset}/combine_differentials.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:

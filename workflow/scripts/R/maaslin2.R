@@ -14,10 +14,10 @@ print("Loading metadata")
 metadata <- read.table(snakemake@input[["metadata"]], sep="\t", header=T,
                        row.names=1)
 
-covariate <- snakemake@config[["model"]][["covariate"]]
-target <- snakemake@config[["model"]][["target"]]
-reference <- snakemake@config[["model"]][["reference"]]
-confounders <- snakemake@config[["model"]][["confounders"]]
+covariate <- snakemake@params[[1]][["factor_name"]]
+target <- snakemake@params[[1]][["target_level"]]
+reference <- snakemake@params[[1]][["reference_level"]]
+confounders <- snakemake@params[[1]][["confounders"]]
 
 print("Harmonizing table and metadata samples...")
 samples <- colnames(table)
