@@ -1,2 +1,0 @@
-	table	metadata	tree	factor_name	target_level	reference_level	confounders	results_dir
-beeper	data/table.biom	data/metadata.tsv		anemia	anemic	normal	sex;collection_cutoff	boop

@@ -39,3 +39,42 @@ def get_diffab_tool_columns(wildcards):
         "corncob": "coefs",
     }
     return columns[wildcards.tool]
+
+
+all_differentials = expand(
+    "results/{dataset}/{out}",
+    dataset=names,
+    out=["concatenated_differentials.tsv", "qurro", "differentials_table.html"]
+)
+
+all_ml = expand(
+    "results/{dataset}/ml/{tool}/regression/model_data.pctile_{pctile}.joblib",
+    dataset=names,
+    tool=config["tools"] + ["pca_pc1"],
+    pctile=config["log_ratio_feat_pcts"],
+)
+
+all_viz_files = expand(
+    "figures/{dataset}/{tool}_differentials.svg",
+    dataset=names,
+    tool=config["tools"]
+)
+all_viz_files.extend(expand(
+    "figures/{dataset}/{viz}",
+    dataset=names,
+    viz=["spearman_heatmap.svg", "rank_comparisons.html", "pca.svg"]
+))
+all_viz_files.extend(expand(
+    "figures/{dataset}/upset/upset.pctile_{pctile}.{location}.svg",
+    dataset=names,
+    pctile=config["log_ratio_feat_pcts"],
+    location=["numerator", "denominator"],
+))
+all_viz_files.extend(expand(
+    "figures/{dataset}/{curve}/{curve}.pctile_{pctile}.svg",
+    dataset=names,
+    pctile=config["log_ratio_feat_pcts"],
+    curve=["pr", "roc"],
+))
+
+all_input = all_differentials + all_viz_files + all_ml
