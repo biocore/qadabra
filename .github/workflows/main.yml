@@ -41,7 +41,10 @@ jobs:
         directory: .
         snakefile: workflow/Snakefile
         args: "--use-conda --show-failed-logs -j 10 --conda-cleanup-pkgs cache --conda-frontend mamba"
-        stagein: "conda config --get channel_priority --json"
+        stagein: |
+            pip install -e .
+            conda config --get channel_priority --json
+            qadabra add-dataset --table data/table.biom --metadata data/metadata.tsv --name beep --factor-name anemia --target-level anemic --reference-level normal --dataset-sheet config/datasets.tsv
 
     - name: Test report
       uses: snakemake/snakemake-github-action@v1
