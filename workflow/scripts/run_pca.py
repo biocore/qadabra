@@ -54,6 +54,6 @@ logger.info(f"Saved tool PCs to {snakemake.output['tools']}")
 
 prop_exp = pca.explained_variance_ratio_
 prop_exp = pd.Series(prop_exp, index=pc_cols)
-prop_exp.name = "propotion_var_explained"
+prop_exp.name = "proportion_var_explained"
 prop_exp.to_csv(snakemake.output["prop_exp"], sep="\t", index=True)
 logger.info(f"Saved explained variance to {snakemake.output['prop_exp']}")
