@@ -35,11 +35,11 @@ jobs:
 
       - name: Install conda packages
         shell: bash -l {0}
-        run: mamba install snakemake click biom-format pandas numpy
+        run: mamba install snakemake click biom-format pandas numpy cython
 
       - name: Install pip packages
         shell: bash -l {0}
-        run: pip install Cython iow
+        run: pip install iow
 
       - name: Install qadabra
         shell: bash -l {0}
