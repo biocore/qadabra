@@ -1,5 +1,8 @@
 import logging
+import os
 import pathlib
+from pkg_resources import resource_filename
+import shutil
 from typing import List
 
 import biom
@@ -7,6 +10,24 @@ import click
 import pandas as pd
 
 from qadabra import __version__
+from qadabra.utils import _validate_input
+
+SNKFILE_TEXT = """from pkg_resources import resource_filename
+
+from snakemake.utils import min_version
+min_version("6.0")
+
+qadabra_snakefile = resource_filename("qadabra", "workflow/Snakefile")
+configfile: "config/config.yaml"
+
+module qadabra:
+    snakefile:
+        qadabra_snakefile
+    config:
+        config
+
+use rule * from qadabra
+"""
 
 
 @click.group()
@@ -73,13 +94,6 @@ def qadabra():
     default=True
 )
 @click.option(
-    "--dataset-sheet",
-    type=click.Path(),
-    required=False,
-    default="config/datasets.tsv",
-    help="Path to dataset sheet for Qadabra (created if not found)"
-)
-@click.option(
     "--verbose",
     is_flag=True,
     show_default=True,
@@ -96,10 +110,13 @@ def add_dataset(
     reference_level,
     confounder,
     validate_input,
-    dataset_sheet,
     verbose
 ):
     """Add dataset on which to run Qadabra"""
+    if not pathlib.Path("./workflow").exists:
+        raise ValueError("Workflow has not been created!")
+
+    dataset_sheet = "config/datasets.tsv"
     logger = logging.getLogger(__name__)
     log_level = logging.INFO if verbose else logging.WARNING
     logger.setLevel(log_level)
@@ -119,14 +136,22 @@ def add_dataset(
 
     dataset_sheet = pathlib.Path(dataset_sheet)
     new_ds = pd.Series({
-        "table": table,
-        "metadata": metadata,
-        "tree": tree,
+        "table": pathlib.Path(table).resolve(),
+        "metadata": pathlib.Path(metadata).resolve(),
         "factor_name": factor_name,
         "target_level": target_level,
         "reference_level": reference_level,
-        "confounders": ";".join(confounder),
     }, name=name).to_frame().T
+
+    if tree is not None:
+        new_ds["tree"] = pathlib.Path(tree).resolve()
+    else:
+        new_ds["tree"] = None
+
+    if confounder:
+        new_ds["confounders"] = ";".join(confounder)
+    else:
+        new_ds["confounders"] = None
 
     if dataset_sheet.exists():
         logger.info("Loading datasheet...")
@@ -138,73 +163,33 @@ def add_dataset(
         logger.info("Dataset does not exist. Creating...")
         ds_sheet = new_ds
 
-    print(ds_sheet)
     ds_sheet.to_csv(dataset_sheet, sep="\t", index=True)
     logger.info(f"Saved dataset sheet to {dataset_sheet}")
 
 
-def _validate_input(
-    logger: logging.Logger,
-    table: pathlib.Path,
-    metadata: pathlib.Path,
-    factor_name: str,
-    target_level: str,
-    reference_level: str,
-    tree: pathlib.Path = None,
-    confounders: List[str] = None,
-):
-    logger.info("Loading metadata...")
-    md = pd.read_table(metadata, sep="\t", index_col=0)
+@qadabra.command()
+@click.option(
+    "--workflow-dest",
+    type=click.Path(exists=False),
+    default="."
+)
+def create_workflow(workflow_dest):
+    """Create new Qadabra workflow structure"""
+    wflow_dest = pathlib.Path(workflow_dest)
+    wflow_dir = wflow_dest / "workflow"
+    cfg_dir = wflow_dest/ "config"
+    os.makedirs(wflow_dir)
+    os.makedirs(cfg_dir)
 
-    if factor_name not in md.columns:
-        raise ValueError(f"{factor_name} not found in metadata!")
+    cfg_file = resource_filename("qadabra", "config/config.yaml")
+    shutil.copy(cfg_file, cfg_dir / "config.yaml")
 
-    logger.info("Making sure factor & levels are all present in metadata...")
-    factor_counts = md[factor_name].value_counts()
-    logger.info(f"Factor counts: \n{factor_counts}")
-    for level in [target_level, reference_level]:
-        if level not in factor_counts:
-            raise ValueError(f"{level} not found in {factor_name} values!")
+    style_file = resource_filename("qadabra", "config/qadabra.mplstyle")
+    shutil.copy(style_file, cfg_dir / "qadabra.mplstyle")
 
-    logger.info("Making sure confounders are all metadata columns...")
-    for conf in confounders:
-        if conf not in md.columns:
-            raise ValueError(f"{conf} not found in metadata!")
-
-    logger.info("Loading table...")
-    tbl = biom.load_table(table)
-    logger.info(f"Table shape: {tbl.shape}")
-    tbl_idx = set(tbl.ids())
-    md_idx = set(md.index)
-
-    if not tbl_idx.issubset(md_idx):
-        raise ValueError("Table IDs are not a subset of metadata IDs!")
-
-    if tbl_idx != md_idx:
-        logger.warn("Table IDs and metadata IDs are not exactly the same.")
-
-    logger.info("Looking for completely discriminatory taxa...")
-    tbl_df = tbl.to_dataframe(dense=True).T
-    joint_df = tbl_df.join(md)
-    gb = joint_df.groupby(factor_name).sum()
-    feat_presence = gb.apply(lambda x: x.all())
-    if not feat_presence.all():
-        raise ValueError(
-            "Some taxa in the table perfectly discriminate factor groups. "
-            "Please filter out these taxa before running Qadabra."
-        )
-
-    if tree:
-        from bp import parse_newick, to_skbio_treenode
-
-        logger.info("Reading phylogenetic tree...")
-        with open(tree) as f:
-            tr = parse_newick(f.readline())
-        tr = to_skbio_treenode(tree)
-        tips = set(tr.tips())
-
-        if not tips.issubset(tbl.ids("observation")):
-            raise ValueError("Tree tips are not a subset of table features!")
+    snkfile_path = wflow_dir / "Snakefile"
+    with open(snkfile_path, "w") as f:
+        f.write(SNKFILE_TEXT)
 
 
 if __name__ == "__main__":

@@ -7,8 +7,11 @@ names = datasets.index
 
 def get_dataset_cfg(wildcards, keys):
     d = datasets.loc[wildcards.dataset, keys].to_dict()
-    if d.get("confounders"):
-        d["confounders"] = d["confounders"].split(";")
+    if "confounders" in keys:
+        if not np.isnan(d["confounders"]):
+            d["confounders"] = d["confounders"].split(";")
+        else:
+            d["confounders"] = []
     return d
 
 def get_songbird_formula(wildcards):
@@ -17,9 +20,9 @@ def get_songbird_formula(wildcards):
     covariate = d["factor_name"]
     reference = d["reference_level"]
     formula = f"C({covariate}, Treatment('{reference}'))"
-    if d.get("confounders"):
+    if not np.isnan(d["confounders"]):
         confounders = d["confounders"].split(";")
-    formula = f"{formula} + {' + '.join(confounders)}"
+        formula = f"{formula} + {' + '.join(confounders)}"
     return formula
 
 def get_diffab_tool_columns(wildcards):
