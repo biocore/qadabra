@@ -116,6 +116,9 @@ def add_dataset(
     if not pathlib.Path("./workflow").exists:
         raise ValueError("Workflow has not been created!")
 
+    if not pathlib.Path("./config").exists:
+        raise ValueError("Config directory has not been created!")
+
     dataset_sheet = "config/datasets.tsv"
     logger = logging.getLogger(__name__)
     log_level = logging.INFO if verbose else logging.WARNING

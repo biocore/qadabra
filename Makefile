@@ -7,10 +7,13 @@ create_rulegraph:
 
 snaketest:
 	@set -e;
+	echo $(TMPDIR); \
 	qadabra create-workflow --workflow-dest $(TMPDIR);\
+	pwd; \
 	cd $(TMPDIR); \
-	ls;
-	ls config;
-	ls workflow;
+	pwd; \
+	ls -oh; \
+	ls config; \
+	ls workflow; \
 	qadabra add-dataset --table $(TABLE_FILE) --metadata $(MD_FILE) --name "ampharos" --factor-name anemia --target-level anemic --reference-level normal --verbose; \
 	snakemake --use-conda --cores2
