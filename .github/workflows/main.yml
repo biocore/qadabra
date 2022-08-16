@@ -37,6 +37,10 @@ jobs:
         shell: bash -l {0}
         run: mamba install snakemake click biom-format pandas
 
+      - name: Install qadabra
+        shell: bash -l {0}
+        run: pip install -e .
+
       - name: Run Snakemake
         shell: bash -l {0}
         run: make snaketest
