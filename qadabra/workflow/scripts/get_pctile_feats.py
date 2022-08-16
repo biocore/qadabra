@@ -20,8 +20,6 @@ else:
     tool = "PC1"
 pctile = int(snakemake.wildcards["pctile"])
 
-print(tool)
-print(diffs)
 sorted_diffs = diffs.sort_values(by=tool, ascending=False)
 
 n = int(diffs.shape[0]*pctile/100)
