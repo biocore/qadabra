@@ -6,9 +6,11 @@ create_rulegraph:
 	snakemake -f --rulegraph | dot -Tpng > imgs/rule_graph.png
 
 snaketest:
-	@qadabra create-workflow --workflow-dest $(TMPDIR);\
+	@set -e;
+	qadabra create-workflow --workflow-dest $(TMPDIR);\
 	cd $(TMPDIR); \
 	ls;
-	qadabra add-dataset --table $(TABLE_FILE) --metadata $(MD_FILE) --name "ampharos" --factor-name anemia --target-level anemic --reference-level normal --verbose ; \
-	snakemake --use-conda --cores 2 ; \
-	rm -r $(TMPDIR)
+	ls config;
+	ls workflow;
+	qadabra add-dataset --table $(TABLE_FILE) --metadata $(MD_FILE) --name "ampharos" --factor-name anemia --target-level anemic --reference-level normal --verbose; \
+	snakemake --use-conda --cores2
