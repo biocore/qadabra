@@ -39,7 +39,7 @@ jobs:
 
       - name: Install pip packages
         shell: bash -l {0}
-        run: pip install iow
+        run: pip install Cython iow
 
       - name: Install qadabra
         shell: bash -l {0}
