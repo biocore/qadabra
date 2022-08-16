@@ -2,3 +2,5 @@
 *.swp
 *.snakemake
 *__pycache__
+*egg-info/
+config/datasets.tsv

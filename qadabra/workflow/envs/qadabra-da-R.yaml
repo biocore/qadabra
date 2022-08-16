@@ -1,0 +1,13 @@
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - bioconductor-deseq2
+    - bioconductor-ancombc
+    - bioconductor-edger
+    - bioconductor-biomformat
+    - bioconductor-aldex2
+    - bioconductor-maaslin2
+    - bioconductor-metagenomeseq
+    - r-corncob
+    - r-statmod

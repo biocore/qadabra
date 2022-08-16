@@ -1,0 +1,175 @@
+sample_name	adj_bis_status	adj_ferritin_status	adj_rbp_status	agp_status	anemia	collection_cutoff	crp_status	fecalobservations	infection_status	sex	sex_group	status	stfr_status	stunting	supplement	underweight	wasting
+11402.MC158	deficient	deficient	marginal	normal	anemic	Cut	normal	N	Reference	M	M12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC186	deficient	normal	normal	elevated	anemic	Keep	normal	Yeast	Late Convalescence	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC035	normal	normal	marginal	normal	anemic	Keep	normal	N	Reference	M	M6	nIDA	normal	Normal	None	Normal	Normal
+11402.MC039	normal	normal	normal	elevated	anemic	Keep	elevated	N	Early Convalescence	M	M12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC063	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC172	normal	normal	normal	normal	normal	Keep	normal	N	Reference	F	F6	Normal	normal	Normal	FeSO4	Normal	Normal
+11402.MC073	deficient	deficient	normal	elevated	anemic	Cut	elevated	N	Early Convalescence	M	M6	IDA	deficient	Stunted	MNP	Normal	Normal
+11402.MC176	normal	normal	marginal	normal	anemic	Keep	normal	N	Reference	M	M6	nIDA	normal	Normal	MNP	Underweight	Wasted
+11402.MC083	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC058	normal	normal	normal	elevated	normal	Keep	normal	N	Late Convalescence	M	M12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC128	normal	normal	marginal	normal	normal	Keep	normal	N	Reference	F	F6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC214	deficient	deficient	normal	elevated	anemic	Keep	normal	N	Late Convalescence	M	M12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC100	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	M	M12	IDA	deficient	Normal	FeSO4	Normal	Normal
+11402.MC011	normal	normal	normal	normal	normal	Cut	normal	LEUC	Reference	F	F6	Normal	normal	Normal	FeSO4	Normal	Normal
+11402.MC168	normal	normal	normal	normal	normal	Keep	elevated	LEUC	Incubation	F	F6	Normal	normal	Normal	None	Normal	Normal
+11402.MC154	deficient	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Normal	FeSO4	Normal	Normal
+11402.MC125	normal	normal	normal	elevated	anemic	Cut	elevated	N	Early Convalescence	M	M6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC205	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	F	F12	IDA	deficient	Stunted	FeSO4	Normal	Normal
+11402.MC046	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M6	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC111	deficient	deficient	normal	normal	anemic	Keep	normal	Yeast	Reference	M	M12	IDA	deficient	Stunted	MNP	Normal	Normal
+11402.MC017	normal	normal	marginal	normal	normal	Keep	normal	N	Reference	F	F6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC133	deficient	deficient	normal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Stunted	MNP	Normal	Normal
+11402.MC194	normal	normal	marginal	elevated	normal	Keep	elevated	N	Early Convalescence	M	M12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC019	deficient	deficient	normal	normal	anemic	Keep	normal	N	Reference	M	M6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC086	deficient	deficient	normal	normal	anemic	Cut	normal	N	Reference	M	M12	IDA	deficient	Stunted	None	Normal	Normal
+11402.MC148	normal	normal	marginal	elevated	anemic	Cut	normal	N	Late Convalescence	M	M12	IDA	deficient	Normal	MNP	Normal	Wasted
+11402.MC056	deficient	deficient	normal	normal	anemic	Keep	normal	N	Reference	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC178	deficient	deficient	marginal	elevated	normal	Keep	normal	N	Late Convalescence	F	F12	ID	deficient	Normal	None	Normal	Normal
+11402.MC156	normal	normal	normal	elevated	anemic	Keep	elevated	N	Early Convalescence	M	M12	IDA	deficient	Stunted	MNP	Normal	Normal
+11402.MC069	deficient	deficient	marginal	normal	anemic	Cut	normal	N	Reference	M	M12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC141	normal	normal	normal	normal	normal	Cut	normal	N	Reference	F	F6	ID	deficient	Normal	None	Normal	Normal
+11402.MC173	normal	normal	normal	elevated	normal	Keep	normal	N	Late Convalescence	F	F12	Normal	normal	Normal	None	Normal	Normal
+11402.MC006	normal	normal	marginal	elevated	anemic	Keep	normal	N	Late Convalescence	F	F6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC060	normal	normal	normal	normal	normal	Keep	normal	N	Reference	M	M12	Normal	normal	Normal	FeSO4	Normal	Normal
+11402.MC009	normal	normal	marginal	normal	normal	Keep	normal	N	Reference	M	M6	ID	deficient	Normal	FeSO4	Normal	Normal
+11402.MC031	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	F	F6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC182	deficient	deficient	marginal	normal	anemic	Keep	normal	N	Reference	F	F12	IDA	deficient	Normal	FeSO4	Normal	Normal
+11402.MC052	normal	normal	normal	normal	normal	Keep	normal	N	Reference	M	M6	Normal	normal	Normal	None	Normal	Normal
+11402.MC155	deficient	deficient	normal	normal	normal	Keep	normal	N	Reference	M	M6	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC054	deficient	deficient	normal	normal	normal	Keep	normal	N	Reference	M	M12	ID	deficient	Normal	FeSO4	Normal	Normal
+11402.MC095	normal	normal	normal	normal	normal	Cut	normal	N	Reference	M	M12	Normal	normal	Normal	None	Normal	Normal
+11402.MC150	normal	normal	normal	elevated	anemic	Keep	elevated	N	Early Convalescence	M	M6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC066	normal	normal	normal	normal	anemic	Keep	elevated	N	Incubation	F	F12	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC062	normal	normal	normal	elevated	anemic	Keep	normal	N	Late Convalescence	M	M6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC041	normal	normal	normal	elevated	normal	Keep	normal	N	Late Convalescence	M	M6	Normal	normal	Stunted	None	Normal	Normal
+11402.MC159	deficient	deficient	marginal	normal	anemic	Cut	normal	LEUC	Reference	F	F6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC014	deficient	deficient	marginal	normal	normal	Cut	normal	Yeast	Reference	M	M6	ID	normal	Normal	MNP	Normal	Normal
+11402.MC082	deficient	normal	normal	elevated	anemic	Keep	normal	N	Late Convalescence	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC135	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	F	F6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC088	deficient	deficient	normal	elevated	anemic	Keep	normal	N	Late Convalescence	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC045	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	F	F6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC016	normal	normal	marginal	normal	normal	Keep	normal	Yeast	Reference	M	M6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC174	normal	normal	normal	normal	normal	Keep	normal	Yeast	Reference	M	M6	ID	deficient	Stunted	MNP	Normal	Normal
+11402.MC198	normal	normal	normal	normal	normal	Keep	normal	N	Reference	F	F6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC116	normal	normal	normal	elevated	normal	Cut	normal	N	Late Convalescence	F	F12	ID	deficient	Normal	FeSO4	Normal	Normal
+11402.MC144	normal	normal	normal	elevated	normal	Cut	normal	N	Late Convalescence	M	M6	ID	deficient	Normal	None	Normal	Normal
+11402.MC124	normal	normal	normal	normal	anemic	Cut	normal	LEUC	Reference	M	M6	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC189	deficient	deficient	normal	normal	normal	Keep	normal	N	Reference	M	M12	ID	deficient	Stunted	None	Underweight	Normal
+11402.MC059	normal	normal	normal	elevated	anemic	Cut	elevated	N	Early Convalescence	F	F12	IDA	deficient	Stunted	MNP	Normal	Normal
+11402.MC004	deficient	deficient	normal	normal	normal	Keep	normal	N	Reference	M	M6	ID	normal	Normal	FeSO4	Normal	Normal
+11402.MC077	normal	normal	normal	normal	normal	Keep	normal	N	Reference	M	M12	Normal	normal	Stunted	MNP	Normal	Normal
+11402.MC210	normal	normal	marginal	normal	normal	Keep	normal	N	Reference	F	F12	Normal	normal	Normal	MNP	Underweight	Normal
+11402.MC074	normal	normal	normal	normal	anemic	Keep	normal	LEUC	Reference	F	F6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC132	normal	normal	normal	normal	normal	Keep	elevated	N	Incubation	F	F12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC212	normal	normal	normal	normal	normal	Keep	normal	N	Reference	M	M12	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC160	deficient	deficient	normal	normal	anemic	Keep	normal	N	Reference	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC089	normal	normal	marginal	normal	anemic	Keep	normal	N	Reference	F	F6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC126	normal	normal	marginal	elevated	normal	Cut	normal	N	Late Convalescence	M	M6	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC177	normal	normal	normal	elevated	anemic	Keep	elevated	N	Early Convalescence	M	M12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC047	deficient	normal	normal	normal	anemic	Cut	normal	N	Reference	M	M6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC217	normal	normal	normal	elevated	anemic	Keep	normal	N	Late Convalescence	M	M12	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC087	normal	normal	marginal	elevated	normal	Keep	elevated	N	Early Convalescence	F	F12	ID	deficient	Normal	FeSO4	Normal	Normal
+11402.MC030	normal	normal	normal	elevated	normal	Keep	normal	LEUC	Late Convalescence	M	M6	ID	deficient	Stunted	None	Underweight	Normal
+11402.MC084	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC171	normal	normal	marginal	elevated	anemic	Keep	elevated	N	Early Convalescence	F	F12	nIDA	normal	Normal	FeSO4	Normal	Normal
+11402.MC015	normal	normal	marginal	normal	anemic	Keep	normal	N	Reference	M	M6	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC197	normal	normal	marginal	normal	normal	Keep	normal	N	Reference	F	F12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC036	normal	normal	marginal	elevated	anemic	Cut	normal	N	Late Convalescence	M	M6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC147	normal	normal	normal	elevated	normal	Keep	normal	N	Late Convalescence	M	M6	Normal	normal	Normal	None	Normal	Normal
+11402.MC104	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	M	M12	IDA	deficient	Normal	None	Normal	Normal
+11402.MC044	normal	normal	marginal	elevated	anemic	Keep	elevated	N	Early Convalescence	F	F6	nIDA	normal	Normal	None	Normal	Normal
+11402.MC145	deficient	deficient	marginal	elevated	normal	Keep	elevated	N	Early Convalescence	M	M12	ID	deficient	Normal	None	Normal	Normal
+11402.MC064	normal	normal	normal	elevated	anemic	Keep	normal	N	Late Convalescence	F	F6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC057	deficient	deficient	marginal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Normal	None	Normal	Normal
+11402.MC167	normal	normal	normal	elevated	anemic	Keep	elevated	N	Early Convalescence	M	M12	nIDA	normal	Stunted	FeSO4	Normal	Normal
+11402.MC211	normal	normal	normal	normal	normal	Keep	normal	N	Reference	F	F12	Normal	normal	Normal	None	Normal	Normal
+11402.MC081	normal	normal	marginal	elevated	anemic	Cut	normal	LEUC	Late Convalescence	M	M12	nIDA	normal	Normal	FeSO4	Normal	Normal
+11402.MC098	deficient	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Normal	FeSO4	Normal	Normal
+11402.MC105	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	M	M6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC013	normal	normal	normal	normal	normal	Keep	normal	LEUC	Reference	M	M6	Normal	normal	Normal	None	Normal	Normal
+11402.MC192	deficient	deficient	marginal	normal	anemic	Keep	normal	N	Reference	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC140	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	M	M6	nIDA	normal	Normal	None	Normal	Normal
+11402.MC202	normal	normal	normal	elevated	normal	Keep	normal	N	Late Convalescence	F	F12	Normal	normal	Normal	FeSO4	Normal	Normal
+11402.MC113	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	F	F12	nIDA	normal	Stunted	None	Normal	Normal
+11402.MC024	deficient	deficient	normal	normal	normal	Keep	normal	N	Reference	M	M6	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC037	normal	normal	normal	normal	normal	Cut	normal	N	Reference	M	M6	Normal	normal	Normal	None	Normal	Normal
+11402.MC196	normal	normal	normal	elevated	anemic	Keep	elevated	N	Early Convalescence	M	M12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC120	normal	normal	normal	normal	normal	Cut	normal	N	Reference	F	F12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC085	deficient	deficient	normal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Stunted	FeSO4	Underweight	Normal
+11402.MC033	deficient	deficient	normal	normal	anemic	Cut	normal	N	Reference	M	M12	IDA	deficient	Normal	None	Normal	Normal
+11402.MC185	normal	normal	marginal	normal	anemic	Keep	normal	LEUC	Reference	F	F6	nIDA	normal	Normal	None	Normal	Normal
+11402.MC122	normal	normal	marginal	normal	normal	Keep	normal	N	Reference	F	F6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC118	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	F	F6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC001	normal	normal	normal	normal	normal	Keep	normal	LEUC	Reference	M	M6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC138	deficient	normal	normal	elevated	normal	Keep	elevated	N	Early Convalescence	F	F12	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC166	normal	normal	normal	elevated	normal	Keep	elevated	N	Early Convalescence	M	M6	Normal	normal	Normal	FeSO4	Normal	Normal
+11402.MC169	normal	normal	marginal	normal	anemic	Keep	normal	N	Reference	F	F12	nIDA	normal	Normal	None	Normal	Normal
+11402.MC101	normal	normal	marginal	normal	anemic	Keep	normal	N	Reference	F	F12	nIDA	normal	Stunted	None	Normal	Normal
+11402.MC119	normal	normal	normal	normal	normal	Keep	normal	LEUC	Reference	F	F6	Normal	normal	Normal	FeSO4	Normal	Normal
+11402.MC115	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	M	M6	nIDA	normal	Stunted	None	Underweight	Normal
+11402.MC072	normal	normal	normal	normal	normal	Keep	normal	N	Reference	M	M6	Normal	normal	Stunted	None	Normal	Normal
+11402.MC153	normal	normal	marginal	elevated	normal	Keep	normal	N	Late Convalescence	M	M6	ID	deficient	Normal	FeSO4	Normal	Normal
+11402.MC092	normal	normal	marginal	elevated	normal	Cut	normal	N	Late Convalescence	M	M12	ID	deficient	Normal	FeSO4	Normal	Normal
+11402.MC157	normal	normal	normal	elevated	normal	Keep	normal	N	Late Convalescence	F	F12	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC142	normal	normal	normal	normal	normal	Cut	normal	N	Reference	F	F6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC201	deficient	normal	marginal	elevated	anemic	Keep	normal	N	Late Convalescence	M	M12	IDA	deficient	Normal	FeSO4	Normal	Normal
+11402.MC108	normal	normal	normal	normal	anemic	Keep	normal	Yeast	Reference	F	F12	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC216	normal	normal	normal	elevated	anemic	Keep	normal	N	Late Convalescence	M	M12	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC008	normal	normal	normal	normal	normal	Keep	normal	Yeast	Reference	M	M6	ID	deficient	Normal	None	Normal	Normal
+11402.MC102	deficient	deficient	normal	normal	normal	Keep	normal	N	Reference	F	F12	ID	deficient	Normal	FeSO4	Normal	Normal
+11402.MC090	normal	normal	normal	elevated	anemic	Keep	normal	N	Late Convalescence	M	M6	nIDA	normal	Normal	None	Normal	Normal
+11402.MC184	deficient	normal	normal	elevated	anemic	Cut	normal	Yeast	Late Convalescence	F	F6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC165	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	F	F6	nIDA	normal	Normal	None	Normal	Normal
+11402.MC099	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	F	F12	nIDA	normal	Stunted	None	Normal	Normal
+11402.MC065	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	M	M12	IDA	deficient	Normal	FeSO4	Normal	Normal
+11402.MC199	deficient	deficient	normal	elevated	anemic	Keep	normal	N	Late Convalescence	F	F12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC038	deficient	deficient	normal	normal	normal	Cut	normal	N	Reference	M	M6	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC206	deficient	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Normal	FeSO4	Underweight	Wasted
+11402.MC195	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	F	F12	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC109	normal	normal	marginal	normal	anemic	Keep	elevated	N	Incubation	M	M6	nIDA	normal	Stunted	MNP	Normal	Normal
+11402.MC071	normal	normal	normal	elevated	normal	Cut	normal	N	Late Convalescence	F	F12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC106	normal	normal	normal	normal	normal	Keep	normal	N	Reference	M	M6	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC010	normal	normal	marginal	normal	normal	Cut	normal	N	Reference	M	M6	Normal	normal	Normal	None	Normal	Normal
+11402.MC110	normal	normal	normal	elevated	anemic	Keep	elevated	N	Early Convalescence	F	F12	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC020	normal	normal	normal	normal	normal	Keep	normal	N	Reference	F	F6	Normal	normal	Normal	None	Normal	Normal
+11402.MC107	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M12	nIDA	normal	Normal	FeSO4	Normal	Normal
+11402.MC096	deficient	deficient	normal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Normal	None	Normal	Normal
+11402.MC180	normal	normal	normal	normal	normal	Keep	normal	N	Reference	M	M12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC028	normal	normal	normal	elevated	normal	Keep	normal	N	Late Convalescence	M	M6	ID	deficient	Normal	None	Normal	Normal
+11402.MC162	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC188	normal	normal	normal	elevated	anemic	Keep	normal	LEUC	Late Convalescence	F	F6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC053	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	F	F6	nIDA	normal	Normal	FeSO4	Normal	Normal
+11402.MC218	normal	normal	normal	elevated	anemic	Keep	normal	N	Late Convalescence	F	F12	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC181	normal	normal	marginal	normal	normal	Keep	normal	N	Reference	F	F6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC134	normal	normal	normal	normal	normal	Cut	normal	N	Reference	F	F6	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC161	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC170	deficient	normal	marginal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Stunted	FeSO4	Normal	Normal
+11402.MC123	normal	normal	normal	elevated	anemic	Keep	normal	N	Late Convalescence	M	M6	IDA	deficient	Stunted	FeSO4	Normal	Normal
+11402.MC061	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Stunted	MNP	Normal	Normal
+11402.MC204	deficient	deficient	normal	elevated	anemic	Keep	elevated	N	Early Convalescence	M	M12	IDA	deficient	Normal	FeSO4	Normal	Normal
+11402.MC023	normal	normal	marginal	elevated	normal	Keep	normal	N	Late Convalescence	F	F6	ID	deficient	Normal	None	Normal	Normal
+11402.MC068	normal	normal	normal	normal	normal	Keep	normal	N	Reference	F	F12	ID	deficient	Normal	FeSO4	Normal	Normal
+11402.MC220	normal	normal	normal	normal	normal	Keep	normal	Yeast	Reference	F	F12	Normal	normal	Normal	None	Underweight	Wasted
+11402.MC049	deficient	deficient	normal	normal	anemic	Keep	normal	N	Reference	M	M6	IDA	deficient	Normal	None	Normal	Normal
+11402.MC183	normal	normal	marginal	elevated	anemic	Keep	elevated	LEUC	Early Convalescence	F	F6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC203	normal	normal	normal	elevated	normal	Keep	normal	N	Late Convalescence	M	M12	ID	deficient	Normal	MNP	Normal	Normal
+11402.MC191	normal	normal	normal	elevated	anemic	Keep	normal	N	Late Convalescence	M	M6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC091	normal	normal	normal	normal	anemic	Cut	normal	N	Reference	M	M6	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC143	normal	normal	marginal	normal	anemic	Cut	normal	N	Reference	F	F6	nIDA	normal	Normal	None	Normal	Normal
+11402.MC209	normal	normal	normal	normal	normal	Keep	normal	N	Reference	F	F12	Normal	normal	Stunted	FeSO4	Normal	Normal
+11402.MC219	normal	normal	marginal	elevated	anemic	Keep	elevated	N	Early Convalescence	M	M12	nIDA	normal	Stunted	MNP	Normal	Normal
+11402.MC094	normal	normal	normal	normal	normal	Keep	normal	N	Reference	F	F12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC215	deficient	deficient	normal	elevated	anemic	Keep	normal	N	Late Convalescence	M	M12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC112	normal	normal	normal	normal	normal	Keep	normal	N	Reference	M	M12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC175	normal	normal	normal	normal	normal	Keep	normal	N	Reference	F	F6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC097	normal	normal	normal	normal	normal	Keep	normal	N	Reference	M	M12	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC151	deficient	deficient	normal	elevated	anemic	Cut	normal	N	Late Convalescence	M	M12	IDA	deficient	Normal	MNP	Normal	Normal
+11402.MC190	normal	normal	normal	elevated	anemic	Keep	elevated	LEUC	Early Convalescence	M	M12	IDA	deficient	Stunted	None	Underweight	Normal
+11402.MC018	normal	normal	marginal	normal	normal	Keep	normal	N	Reference	F	F6	Normal	normal	Normal	MNP	Normal	Normal
+11402.MC163	normal	normal	normal	normal	normal	Cut	normal	N	Reference	F	F6	Normal	normal	Normal	None	Normal	Normal
+11402.MC042	normal	normal	marginal	normal	normal	Keep	normal	N	Reference	M	M6	ID	deficient	Normal	FeSO4	Normal	Normal
+11402.MC055	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M12	IDA	deficient	Stunted	None	Underweight	Normal
+11402.MC146	normal	normal	normal	normal	anemic	Keep	normal	N	Reference	M	M6	nIDA	normal	Normal	MNP	Normal	Normal
+11402.MC067	normal	normal	marginal	normal	anemic	Cut	normal	N	Reference	M	M6	nIDA	normal	Normal	None	Normal	Normal

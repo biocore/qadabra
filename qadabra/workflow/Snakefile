@@ -1,0 +1,30 @@
+configfile: "config/config.yaml"
+
+
+include: "rules/common.smk"
+include: "rules/diffab.smk"
+include: "rules/visualization.smk"
+include: "rules/ml.smk"
+
+
+report: "report/workflow.rst"
+
+
+rule all:
+    input:
+        all_input,
+
+
+rule all_differentials:
+    input:
+        all_differentials,
+
+
+rule all_ml:
+    input:
+        all_ml,
+
+
+rule all_visualizations:
+    input:
+        all_viz_files,

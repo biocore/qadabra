@@ -1,0 +1,15 @@
+from pkg_resources import resource_filename
+
+from snakemake.utils import min_version
+min_version("6.0")
+
+qadabra_snakefile = resource_filename("qadabra", "workflow/Snakefile")
+configfile: "config/config.yaml"
+
+module qadabra:
+    snakefile:
+        qadabra_snakefile
+    config:
+        config
+
+use rule * from qadabra

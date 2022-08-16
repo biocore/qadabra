@@ -1,0 +1,14 @@
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - pandas
+    - numpy
+    - matplotlib
+    - seaborn
+    - scipy
+    - scikit-bio
+    - scikit-learn
+    - bokeh
+    - biom-format
+    - upsetplot

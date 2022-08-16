@@ -1,0 +1,1 @@
+EMPress plot of phylogenetic tree. Tool differentials are included as feature metadata. For more information on EMPress, see `Cantrell and Fedarko et al., 2021 <https://journals.asm.org/doi/10.1128/mSystems.01216-20>`_.
