@@ -10,4 +10,4 @@ dependencies:
     - pip
     - pip:
         - empress
-
+        - tensorflow<2
