@@ -25,7 +25,7 @@ rule plot_rank_correlation:
         "results/{dataset}/concatenated_differentials.tsv",
     output:
         report(
-            "figures/{dataset}/spearman_heatmap.svg",
+            "figures/{dataset}/kendall_heatmap.svg",
             caption="../report/plot_rank_correlation.rst",
             category="Differentials",
             subcategory="Comparison",

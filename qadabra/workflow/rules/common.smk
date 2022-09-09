@@ -65,7 +65,7 @@ all_viz_files = expand(
 all_viz_files.extend(expand(
     "figures/{dataset}/{viz}",
     dataset=names,
-    viz=["spearman_heatmap.svg", "rank_comparisons.html", "pca.svg"]
+    viz=["kendall_heatmap.svg", "rank_comparisons.html", "pca.svg"]
 ))
 all_viz_files.extend(expand(
     "figures/{dataset}/upset/upset.pctile_{pctile}.{location}.svg",

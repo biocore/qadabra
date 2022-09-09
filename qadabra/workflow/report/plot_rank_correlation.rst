@@ -1,1 +1,1 @@
-Spearman rank correlations for differentials from all tools.
+Kendall tau rank correlations for differentials from all tools.
