@@ -1,6 +1,6 @@
 ![Main CI](https://github.com/gibsramen/qadabra/actions/workflows/main.yml/badge.svg)
 
-# qadabra
+# Qadabra
 
 **Q**uantitative **A**nalysis of **D**ifferential **Ab**undance **Ra**nks
 
@@ -111,8 +111,6 @@ When adding a dataset, use `--confounder <column name>` to add a confounder into
 You can add multiple confounders by adding more `--confounder <column name>` arguments to `add-dataset`.
 
 ## Workflow Overview
-
-![rulegraph](imgs/rule_graph.png)
 
 Qadabra runs several differential abundance tools on the same dataset.
 The features are ranked according to their association with the given metadata covariate.
