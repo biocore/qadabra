@@ -6,7 +6,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (roc_curve, auc, precision_recall_curve,
                              average_precision_score)
-from sklearn.model_selection import RepeatedKFold
+from sklearn.model_selection import RepeatedStratifiedKFold
 
 
 logger = logging.getLogger("qadabra")
@@ -40,9 +40,11 @@ mean_rec = np.linspace(0, 1, 100)
 n_splits = snakemake.config["ml_params"]["n_splits"]
 n_repeats = snakemake.config["ml_params"]["n_repeats"]
 logger.info(
-    f"Using repeated k-fold CV with {n_splits} splits & {n_repeats} repeats"
+    f"Using repeated stratified k-fold CV with {n_splits} splits & "
+    f"{n_repeats} repeats"
 )
-cv = RepeatedKFold(n_splits=n_splits, n_repeats=n_repeats, random_state=1)
+cv = RepeatedStratifiedKFold(n_splits=n_splits, n_repeats=n_repeats,
+                             random_state=1)
 
 model = LogisticRegression(penalty="none")
 folds = [(train, test) for train, test in cv.split(X, y)]
