@@ -3,7 +3,6 @@ import os
 import pathlib
 from pkg_resources import resource_filename
 import shutil
-from typing import List
 
 import biom
 import click
@@ -38,6 +37,13 @@ def qadabra():
 
 
 @qadabra.command()
+@click.option(
+    "--workflow-dest",
+    type=click.Path(exists=True),
+    required=True,
+    help="Location of workflow",
+    default="."
+)
 @click.option(
     "--table",
     type=click.Path(exists=True),
@@ -88,10 +94,10 @@ def qadabra():
     help="Confounder variable to consider (can provide multiple)"
 )
 @click.option(
-    "--validate-input",
-    is_flag=True,
+    "--validate-input/--no-validate-input",
     show_default=True,
-    default=True
+    default=True,
+    help="Whether to validate input prior to adding dataset"
 )
 @click.option(
     "--verbose",
@@ -101,6 +107,7 @@ def qadabra():
     help="Whether to output progress to console"
 )
 def add_dataset(
+    workflow_dest,
     table,
     metadata,
     tree,
@@ -113,13 +120,17 @@ def add_dataset(
     verbose
 ):
     """Add dataset on which to run Qadabra"""
-    if not pathlib.Path("./workflow").exists:
+    wflow_path = pathlib.Path(workflow_dest)
+    wflow_dir = wflow_path / "workflow"
+    cfg_dir = wflow_path / "config"
+
+    if not wflow_dir.exists:
         raise ValueError("Workflow has not been created!")
 
-    if not pathlib.Path("./config").exists:
+    if not cfg_dir.exists:
         raise ValueError("Config directory has not been created!")
 
-    dataset_sheet = "config/datasets.tsv"
+    dataset_sheet = cfg_dir / "datasets.tsv"
     logger = logging.getLogger(__name__)
     log_level = logging.INFO if verbose else logging.WARNING
     logger.setLevel(log_level)
