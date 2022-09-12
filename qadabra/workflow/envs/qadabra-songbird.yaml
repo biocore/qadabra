@@ -1,0 +1,13 @@
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - iow
+    - cython
+    - songbird
+    - pandas>=0.18.0,<1
+    - qurro
+    - pip
+    - pip:
+        - empress
+        - tensorflow<2

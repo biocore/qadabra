@@ -1,0 +1,15 @@
+channels:
+    - conda-forge
+    - bioconda
+dependencies:
+    - r-base=4.1.0
+    - bioconductor-deseq2
+    - bioconductor-ancombc
+    - bioconductor-edger
+    - bioconductor-biomformat
+    - bioconductor-aldex2
+    - bioconductor-maaslin2
+    - bioconductor-metagenomeseq
+    - r-detectseparation=0.2
+    - r-corncob
+    - r-statmod

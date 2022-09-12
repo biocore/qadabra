@@ -1,0 +1,21 @@
+stylesheet: "config/qadabra.mplstyle"
+tools:
+    - deseq2
+    - ancombc
+    - songbird
+    - aldex2
+    - edger
+    - maaslin2
+    - metagenomeseq
+    - corncob
+songbird_params:
+    epochs: 5000
+    differential_prior: 1
+log_ratio_feat_pcts:
+    - 5
+    - 10
+    - 15
+    - 20
+ml_params:
+    n_splits: 5
+    n_repeats: 5
