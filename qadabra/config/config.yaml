@@ -7,6 +7,7 @@ tools:
     - edger
     - maaslin2
     - metagenomeseq
+    - corncob
 songbird_params:
     epochs: 5000
     differential_prior: 1
