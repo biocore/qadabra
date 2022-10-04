@@ -2,9 +2,9 @@ channels:
     - conda-forge
     - bioconda
 dependencies:
-    - pandas
+    - pandas=1.4.2
     - numpy
-    - matplotlib
+    - matplotlib=3.5.1
     - seaborn
     - scipy
     - scikit-bio
