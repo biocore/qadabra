@@ -52,7 +52,5 @@ setup(
     ],
     classifiers=classifiers,
     include_package_data=True,
-    package_data={"qadabra": ["qadabra/workflow/*", "qadabra/config/*",
-                              "qadabra/test_data/*"]},
     entry_points={"console_scripts": standalone}
 )

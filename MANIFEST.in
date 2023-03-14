@@ -1,3 +1,2 @@
-graft qadabra/workflow
-graft qadabra/config
-graft qadabra/test_data
+graft workflow
+graft config
