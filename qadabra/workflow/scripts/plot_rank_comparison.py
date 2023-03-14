@@ -45,7 +45,8 @@ rank_df["y"] = rank_df[chosen_tool_2.value]
 
 source = ColumnDataSource(rank_df)
 
-hover = HoverTool(mode="mouse", names=["points"], attachment="below")
+hover = HoverTool(mode="mouse", tooltips=[("Name", "points")], attachment="below")
+
 hover.tooltips = (
     [("Feature ID", "@feature_id")] +
     [(f"{x}", f"@{x}") for x in rank_df.columns if x not in ["feature_id", "x", "y"]]
