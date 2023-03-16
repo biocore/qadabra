@@ -25,7 +25,6 @@ columns = [
     for x in diff_df.columns
 ]
 data_table = DataTable(source=source, columns=columns,
-                       autosize_mode="fit_viewport",
                        frozen_columns=1,
                        sizing_mode="stretch_height")
 save(data_table)
