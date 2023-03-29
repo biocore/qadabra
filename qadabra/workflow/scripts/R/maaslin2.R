@@ -33,20 +33,28 @@ table <- t(table[, sample_order])
 fixed.effects <- c(covariate, confounders)
 print(fixed.effects)
 
+specify.reference <- paste(covariate, reference, sep = ",", collapse = ",")
+print(specify.reference)
+
 print("Running MaAsLin...")
 fit.data <- Maaslin2::Maaslin2(
     input_data=table,
     input_metadata=metadata,
     output=snakemake@output[["out_dir"]],
     fixed_effects=fixed.effects,
+    reference=specify.reference,
     min_prevalence=0,
     min_abundance=0,
     plot_scatter=F,
     plot_heatmap=F
 )
 results <- fit.data$results %>% dplyr::filter(metadata==covariate)
+results <- results %>% distinct(feature, .keep_all = TRUE)
+
 row.names(results) <- gsub("^F_", "", results$feature)
 results <- results %>% select(-c("feature"))
+
+print(results)
 
 write.table(results, file=snakemake@output[["diff_file"]], sep="\t")
 print("Saved differentials!")
