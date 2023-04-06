@@ -99,7 +99,7 @@ ax.legend(
 
 prop_exp_labels = [
     f"{i} ({x*100:.2f}%)"
-    for i, x in prop_exp.iteritems()
+    for i, x in prop_exp.items()
 ]
 ax.set_xlabel(prop_exp_labels[0])
 ax.set_ylabel(prop_exp_labels[1])
