@@ -57,16 +57,18 @@ all_ml = expand(
     pctile=config["log_ratio_feat_pcts"],
 )
 
-all_viz_files = expand(
-    "figures/{dataset}/{tool}_differentials.svg",
+all_diff_viz = expand(
+    "figures/{dataset}/{tool}_differentials.html",
     dataset=names,
     tool=config["tools"]
 )
-all_viz_files.extend(expand(
+
+all_viz_files = expand(
     "figures/{dataset}/{viz}",
     dataset=names,
     viz=["kendall_heatmap.svg", "rank_comparisons.html", "pca.svg"]
-))
+)
+
 all_viz_files.extend(expand(
     "figures/{dataset}/upset/upset.pctile_{pctile}.{location}.svg",
     dataset=names,
@@ -80,4 +82,4 @@ all_viz_files.extend(expand(
     curve=["pr", "roc"],
 ))
 
-all_input = all_differentials + all_viz_files + all_ml
+all_input = all_differentials + all_viz_files + all_ml + all_diff_viz

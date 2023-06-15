@@ -6,7 +6,7 @@ rule plot_differentials:
         "results/{dataset}/tools/{tool}/differentials.processed.tsv",
     output:
         report(
-            "figures/{dataset}/{tool}_differentials.svg",
+            "figures/{dataset}/{tool}_differentials.html",
             caption="../report/plot_differentials.rst",
             category="Differentials",
             subcategory="Rank Plots",
