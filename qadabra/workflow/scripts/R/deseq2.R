@@ -55,5 +55,7 @@ results <- DESeq2::results(
     contrast=c(covariate, target, reference)
 )
 row.names(results) <- gsub("^F_", "", row.names(table))
+colnames(results)[c(3,6)] <- c("logFC", "PValue")
+
 write.table(results, file=snakemake@output[[1]], sep="\t")
 print("Saved differentials!")

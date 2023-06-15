@@ -33,21 +33,50 @@ def get_diffab_tool_columns(wildcards):
 
     columns = {
         "edger": f"{covariate}{target}",
-        "deseq2": "log2FoldChange",
-        "ancombc": f"{covariate}{target}",
-        "aldex2": f"model.{covariate}{target} Estimate",
+        "deseq2": "logFC",
+        "ancombc": "coefs",
+        "aldex2": "logFC",
         "songbird": f"C({covariate}, Treatment('{reference}'))[T.{target}]",
         "maaslin2": "coef",
-        "metagenomeseq": f"{covariate}{target}",
-        "corncob": "coefs",
+        "metagenomeseq": "coefs",
+        "corncob": "logFC",
     }
     return columns[wildcards.tool]
 
+
+def get_pvalue_tool_columns(wildcards):
+    d = datasets.loc[wildcards.dataset].to_dict()
+    covariate = d["factor_name"]
+    target = d["target_level"]
+    reference = d["reference_level"]
+
+    columns = {
+        "edger": "PValue",
+        "deseq2": "PValue",
+        "ancombc": "PValue",
+        "aldex2": "PValue",
+        "maaslin2": "PValue",
+        "metagenomeseq": "PValue",
+        "corncob": "PValue",
+    }
+    return columns[wildcards.tool]
 
 all_differentials = expand(
     "results/{dataset}/{out}",
     dataset=names,
     out=["concatenated_differentials.tsv", "qurro", "differentials_table.html"]
+)
+
+all_pvalues = expand(
+    "results/{dataset}/{out}",
+    dataset=names,
+    out=["concatenated_pvalues.tsv", "pvalues_table.html"]
+)
+
+pvalue_volcanoes = expand(
+    "figures/{dataset}/{tool}_pvalue_volcanoes.html",
+    dataset=names,
+    tool=config["ptools"]
 )
 
 all_ml = expand(
@@ -66,7 +95,7 @@ all_diff_viz = expand(
 all_viz_files = expand(
     "figures/{dataset}/{viz}",
     dataset=names,
-    viz=["kendall_heatmap.svg", "rank_comparisons.html", "pca.svg"]
+    viz=["kendall_diff_heatmap.svg", "kendall_pvalue_heatmap.svg", "rank_comparisons.html", "pvalue_pw_comparisons.html", "pca.svg"]
 )
 
 all_viz_files.extend(expand(
@@ -82,4 +111,4 @@ all_viz_files.extend(expand(
     curve=["pr", "roc"],
 ))
 
-all_input = all_differentials + all_viz_files + all_ml + all_diff_viz
+all_input = all_differentials + all_pvalues + pvalue_volcanoes + all_viz_files + all_ml + all_diff_viz

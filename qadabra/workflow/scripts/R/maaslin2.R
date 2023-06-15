@@ -53,8 +53,9 @@ results <- results %>% distinct(feature, .keep_all = TRUE)
 
 row.names(results) <- gsub("^F_", "", results$feature)
 results <- results %>% select(-c("feature"))
+colnames(results)[c(5)] <- c("PValue")
 
-print(results)
+results$logFC <- log2(exp(results$coef))
 
 write.table(results, file=snakemake@output[["diff_file"]], sep="\t")
 print("Saved differentials!")

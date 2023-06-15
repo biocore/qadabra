@@ -66,5 +66,8 @@ results <- metagenomeSeq::MRcoefs(
     number=dim(table)[1]
 )
 row.names(results) <- gsub("^F_", "", row.names(results))
+colnames(results)[c(2, 4)] <- c("coefs", "PValue")
+results$logFC <- results$coefs
+
 write.table(results, file=snakemake@output[[1]], sep="\t")
 print("Saved differentials!")

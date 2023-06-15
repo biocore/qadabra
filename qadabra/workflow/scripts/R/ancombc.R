@@ -40,15 +40,33 @@ if (length(confounders) != 0) {
     confounders_form = paste(confounders, collapse=" + ")
     design.formula <- paste0(design.formula, " + ", confounders_form)
 }
-print(design.formula)
 
 print("Running ANCOMBC...")
-ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula,
-                                    zero_cut=1.0)
+ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula, zero_cut=1.0)
+
 saveRDS(ancombc.results, snakemake@output[[2]])
 print("Saved RDS!")
 results <- ancombc.results$res$beta
-row.names(results) <- gsub("^F_", "", row.names(results))
+pvals <- ancombc.results$res$p_val
+qvals <- ancombc.results$res$q_val
 
-write.table(results, file=snakemake@output[[1]], sep="\t")
+row.names(results) <- gsub("^F_", "", row.names(results))
+row.names(pvals) <- gsub("^F_", "", row.names(pvals))
+row.names(qvals) <- gsub("^F_", "", row.names(qvals))
+
+results_all <- data.frame(coef=results, pvals=pvals, qvals=qvals)
+colnames(results_all) <- c("coefs", "PValue", "qvals")
+
+results_all$logFC <- results_all$coefs
+
+write.table(results_all, file=snakemake@output[[1]], sep="\t")
+# print("Running ANCOMBC...")
+# ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula,
+#                                     zero_cut=1.0)
+# saveRDS(ancombc.results, snakemake@output[[2]])
+# print("Saved RDS!")
+# results <- ancombc.results$res$beta
+# row.names(results) <- gsub("^F_", "", row.names(results))
+
+# write.table(results, file=snakemake@output[[1]], sep="\t")
 print("Saved differentials!")

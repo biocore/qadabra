@@ -8,6 +8,14 @@ tools:
     - maaslin2
     - metagenomeseq
     - corncob
+ptools:
+    - deseq2
+    - ancombc
+    - aldex2
+    - edger
+    - maaslin2
+    - metagenomeseq
+    - corncob
 songbird_params:
     epochs: 5000
     differential_prior: 1

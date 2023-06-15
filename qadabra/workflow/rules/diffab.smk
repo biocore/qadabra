@@ -176,3 +176,34 @@ rule combine_differentials:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/concatenate_differentials.py"
+
+
+rule process_pvalues:
+    input:
+        "results/{dataset}/tools/{tool}/differentials.tsv",
+    output:
+        "results/{dataset}/tools/{tool}/pvalues.processed.tsv",
+    log:
+        "log/{dataset}/process_pvalues.{tool}.log",
+    params:
+        col=get_pvalue_tool_columns
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/process_pvalues.py"
+
+
+rule concatenate_pvalues:
+    input:
+        expand(
+            "results/{{dataset}}/tools/{tool}/pvalues.processed.tsv",
+            tool=config["ptools"]
+        ),
+    output:
+        "results/{dataset}/concatenated_pvalues.tsv",
+    log:
+        "log/{dataset}/concatenate_pvalues.log",
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/concatenate_pvalues.py"
