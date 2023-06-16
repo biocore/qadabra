@@ -1,7 +1,5 @@
 import logging
-
 import pandas as pd
-
 from bokeh.plotting import output_file, save
 from bokeh.models import DataTable, TableColumn, ColumnDataSource
 
@@ -15,14 +13,16 @@ formatter = logging.Formatter(
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
-output_file(filename=snakemake.output[0], title="Table")
-diff_df = pd.read_table(snakemake.input[0], sep="\t", index_col=0)
-diff_df = diff_df.reset_index()
+output_file(filename=snakemake.output[0], title="P-value table")
+pval_df = pd.read_table(snakemake.input[0], sep="\t", index_col=0)
 
-source = ColumnDataSource(diff_df)
+pval_df = pval_df.round(2)
+pval_df = pval_df.reset_index()
+
+source = ColumnDataSource(pval_df)
 columns = [
     TableColumn(field=x, title=x)
-    for x in diff_df.columns
+    for x in pval_df.columns
 ]
 data_table = DataTable(source=source, columns=columns,
                        frozen_columns=1,

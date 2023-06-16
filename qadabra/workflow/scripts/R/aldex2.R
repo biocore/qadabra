@@ -45,5 +45,7 @@ saveRDS(aldex2.results, snakemake@output[[2]])
 print("Saved RDS!")
 
 row.names(aldex2.results) <- gsub("^F_", "", row.names(aldex2.results))
+colnames(aldex2.results)[c(5, 8)] <- c("logFC", "PValue")
+
 write.table(aldex2.results, file=snakemake@output[[1]], sep="\t")
 print("Saved differentials!")

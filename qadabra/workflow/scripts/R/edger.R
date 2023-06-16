@@ -46,8 +46,25 @@ fit <- edgeR::glmQLFit(d, mm, robust=T)
 saveRDS(fit, snakemake@output[[2]])
 print("Saved RDS!")
 
-results <- fit$coefficients
-row.names(results) <- gsub("^F_", "", row.names(results))
+# Obtain coefficients using glmQLFit
+coeff_results <- fit$coefficients
+row.names(coeff_results) <- gsub("^F_", "", row.names(coeff_results))
+print(coeff_results)
 
-write.table(results, file=snakemake@output[[1]], sep="\t")
+# Obtain p-values using glmQLFTest
+res <- edgeR::glmQLFTest(fit, coef=2)
+pval_results <- res$table
+row.names(pval_results) <- gsub("^F_", "", row.names(pval_results))
+print(pval_results)
+
+results_all <- cbind(coeff_results, pval_results[match(rownames(coeff_results), rownames(pval_results)),])
+
+write.table(results_all, file=snakemake@output[[1]], sep="\t")
+
+# results <- fit$coefficients
+# row.names(results) <- gsub("^F_", "", row.names(results))
+# colnames(results)[c(3)] <- c("PValue")
+
+# write.table(results, file=snakemake@output[[1]], sep="\t")
+
 print("Saved differentials!")

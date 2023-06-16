@@ -72,5 +72,12 @@ coefs <- as.data.frame(coefs)
 row.names(coefs) <- taxa_names
 row.names(coefs) <- gsub("^F_", "", row.names(coefs))
 
-write.table(coefs, snakemake@output[[1]], sep="\t")
+print("printing pvalues")
+pvals <- as.data.frame(fit$p)
+
+results_all <- data.frame(coefs=coefs, pvals=pvals)
+colnames(results_all) <- c("logFC", "PValue")
+# results_all$logFC <- results_all$coefs
+
+write.table(results_all, snakemake@output[[1]], sep="\t")
 print("Saved differentials!")

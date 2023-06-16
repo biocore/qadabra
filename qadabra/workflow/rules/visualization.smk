@@ -6,7 +6,7 @@ rule plot_differentials:
         "results/{dataset}/tools/{tool}/differentials.processed.tsv",
     output:
         report(
-            "figures/{dataset}/{tool}_differentials.svg",
+            "figures/{dataset}/{tool}_differentials.html",
             caption="../report/plot_differentials.rst",
             category="Differentials",
             subcategory="Rank Plots",
@@ -20,22 +20,40 @@ rule plot_differentials:
         "../scripts/plot_differentials.py"
 
 
-rule plot_rank_correlation:
+rule plot_diff_kendall_heatmap:
     input:
         "results/{dataset}/concatenated_differentials.tsv",
     output:
         report(
-            "figures/{dataset}/kendall_heatmap.svg",
-            caption="../report/plot_rank_correlation.rst",
+            "figures/{dataset}/kendall_diff_heatmap.svg",
+            caption="../report/plot_diff_kendall_heatmap.rst",
             category="Differentials",
             subcategory="Comparison",
         ),
     log:
-        "log/{dataset}/plot_rank_correlation.log",
+        "log/{dataset}/plot_diff_kendall_heatmap.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/plot_rank_correlations.py"
+        "../scripts/plot_diff_kendall_heatmap.py"
+
+
+rule plot_pvalue_kendall_heatmap:
+    input:
+        "results/{dataset}/concatenated_pvalues.tsv",
+    output:
+        report(
+            "figures/{dataset}/kendall_pvalue_heatmap.svg",
+            caption="../report/plot_pvalue_kendall_heatmap.rst",
+            category="P-values",
+            subcategory="Comparison",
+        ),
+    log:
+        "log/{dataset}/plot_pvalue_kendall_heatmap.log",
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot_pvalue_kendall_heatmap.py"
 
 
 rule plot_upset:
@@ -149,6 +167,43 @@ rule plot_rank_comparison:
         "../scripts/plot_rank_comparison.py"
 
 
+rule plot_pvalue_pw_comparisons:
+    input:
+        "results/{dataset}/concatenated_pvalues.tsv",
+    output:
+        report(
+            "figures/{dataset}/pvalue_pw_comparisons.html",
+            caption="../report/plot_pvalue_pw_comparisons.rst",
+            category="P-values",
+            subcategory="Comparison",
+        ),
+    log:
+        "log/{dataset}/plot_pvalue_pw_comparisons.log",
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot_pvalue_pw_comparisons.py"
+
+
+rule plot_pvalue_volcanoes:
+    input:
+        "results/{dataset}/tools/{tool}/differentials.tsv",
+    output:
+        report(
+            "figures/{dataset}/{tool}_pvalue_volcanoes.html",
+            caption="../report/plot_pvalue_volcanoes.rst",
+            category="P-values",
+            subcategory="Volcano Plots",
+            labels={"tool": "{tool}"},
+        ),
+    log:
+        "log/{dataset}/plot_pvalue_volcanoes.{tool}.log",
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/plot_pvalue_volcanoes.py"
+
+        
 rule qurro:
     input:
         unpack(lambda wc: get_dataset_cfg(wc, ["table", "metadata"])),
@@ -175,19 +230,36 @@ rule qurro:
         """
 
 
-rule create_table:
+rule create_diff_table:
     input:
         "results/{dataset}/concatenated_differentials.tsv",
     output:
         report(
             "results/{dataset}/differentials_table.html",
-            caption="../report/create_table.rst",
+            caption="../report/create_diff_table.rst",
             category="Differentials",
             subcategory="Comparison",
         ),
     log:
-        "log/{dataset}/create_table.log",
+        "log/{dataset}/create_diff_table.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
-        "../scripts/create_table.py"
+        "../scripts/create_diff_table.py"
+
+rule create_pval_table:
+    input:
+        "results/{dataset}/concatenated_pvalues.tsv",
+    output:
+        report(
+            "results/{dataset}/pvalues_table.html",
+            caption="../report/create_pval_table.rst",
+            category="P-values",
+            subcategory="Comparison",
+        ),
+    log:
+        "log/{dataset}/create_pval_table.log",
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/create_pval_table.py"
