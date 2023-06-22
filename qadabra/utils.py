@@ -63,8 +63,8 @@ def _validate_input(
         logger.info("Reading phylogenetic tree...")
         with open(tree) as f:
             tr = parse_newick(f.readline())
-        tr = to_skbio_treenode(tree)
-        tips = set(tr.tips())
-
-        if not tips.issubset(tbl.ids("observation")):
+        tr = to_skbio_treenode(tr)
+        tip_names = set(tip.name for tip in tr.tips())
+        tbl_features = set(tbl.ids("observation"))
+        if not tip_names.issubset(tbl_features):
             raise ValueError("Tree tips are not a subset of table features!")
