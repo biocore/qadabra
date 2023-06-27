@@ -198,6 +198,9 @@ rule plot_pvalue_volcanoes:
         ),
     log:
         "log/{dataset}/plot_pvalue_volcanoes.{tool}.log",
+    params:
+        pval_col=get_pvalue_tool_columns,
+        diff_ab_col=get_diffab_tool_columns,
     conda:
         "../envs/qadabra-default.yaml"
     script:
