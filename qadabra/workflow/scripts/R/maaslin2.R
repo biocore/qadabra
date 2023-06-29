@@ -58,7 +58,7 @@ results <- results %>% select(-c("feature"))
 # Extract coefficient, p-value, and adjusted p-value results
 adjusted_p_values <- p.adjust(results$pval, method = "BH")
 results$pval_BH_adj <- adjusted_p_values
-results$coef <- log2(exp(results$coef))
+# results$coef <- results$coef
 
 # Save results to output file
 write.table(results, file=snakemake@output[["diff_file"]], sep="\t")

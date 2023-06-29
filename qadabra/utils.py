@@ -67,4 +67,6 @@ def _validate_input(
         tbl_features = set(tbl.ids("observation"))
         if not tip_names.issubset(tbl_features):
             raise ValueError("Tree tips are not a subset of table features!")
-        
+    else:
+        logger.info("Reading phylogenetic tree...")
+        logger.info("(Optional tree file not provided. Skipping tree validation.)")

@@ -52,17 +52,20 @@ ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula, zer
 saveRDS(ancombc.results, snakemake@output[[2]])
 print("Saved RDS!")
 
+# Access coefficients and p-values from the ANCOMBC results
+coef_col <- paste("coefs", covariate, target, sep = ".")
+pval_col <- paste("pvals", covariate, target, sep = ".")
 coefs <- ancombc.results$res$beta
 pvals <- ancombc.results$res$p_val
-qvals <- ancombc.results$res$q_val
+# qvals <- ancombc.results$res$q_val
 
 # Modify result names
 row.names(coefs) <- gsub("^F_", "", row.names(coefs))
 row.names(pvals) <- gsub("^F_", "", row.names(pvals))
-row.names(qvals) <- gsub("^F_", "", row.names(qvals))
+# row.names(qvals) <- gsub("^F_", "", row.names(qvals))
 
-results_all <- data.frame(coefs=coefs, pvals=pvals, qvals=qvals)
-colnames(results_all)[1:3] <- c("coefs", "pvals", "qvals")
+results_all <- data.frame(coefs=coefs, pvals=pvals)
+colnames(results_all) <- c("coefs", "pvals")
 
 # Save results to output file
 write.table(results_all, file=snakemake@output[[1]], sep="\t")
