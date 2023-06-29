@@ -27,7 +27,7 @@ for index, row in qadabra_all_result.iterrows():
         if col.endswith("_p-values"):
             if row[col] < 0.05:
                 count += 1
-    qadabra_all_result.loc[index, "significant_num_tools"] = count
+    qadabra_all_result.loc[index, "# of tools p > 0.05"] = count
 
 
 qadabra_all_result.to_csv(snakemake.output[0], sep="\t", index=True)

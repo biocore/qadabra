@@ -20,7 +20,7 @@ diffs_files = [
 concat_diffs = pd.concat(diffs_files, axis=1)
 
 for col in concat_diffs.columns:
-    new_col_name = col + "_effect-sizes"
+    new_col_name = col + " differentials"
     concat_diffs.rename(columns={col: new_col_name}, inplace=True)
 
 concat_diffs.to_csv(snakemake.output[0], sep="\t", index=True)
