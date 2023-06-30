@@ -19,9 +19,5 @@ pvalue_files = [
 ]
 concat_pvalues = pd.concat(pvalue_files, axis=1)
 
-for col in concat_pvalues.columns:
-    new_col_name = col + " p-values"
-    concat_pvalues.rename(columns={col: new_col_name}, inplace=True)
-
 concat_pvalues.to_csv(snakemake.output[0], sep="\t", index=True)
 logger.info(f"Saved to {snakemake.output[0]}")
