@@ -1,7 +1,5 @@
 import logging
-
 import pandas as pd
-
 
 logger = logging.getLogger("qadabra")
 logger.setLevel(logging.INFO)
@@ -16,9 +14,10 @@ logging.captureWarnings(True)
 logging.getLogger("py.warnings").addHandler(fh)
 
 logger.info("Loading p-values...")
-diffs_files = [
+pvalue_files = [
     pd.read_table(x, sep="\t", index_col=0) for x in snakemake.input
 ]
-concat_diffs = pd.concat(diffs_files, axis=1)
-concat_diffs.to_csv(snakemake.output[0], sep="\t", index=True)
+concat_pvalues = pd.concat(pvalue_files, axis=1)
+
+concat_pvalues.to_csv(snakemake.output[0], sep="\t", index=True)
 logger.info(f"Saved to {snakemake.output[0]}")

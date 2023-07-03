@@ -24,26 +24,28 @@ plt.style.use(snakemake.config["stylesheet"])
 # Read in tsv containing p-values and LFCs
 logger.info("Loading p-values and LFCs...")
 data = pd.read_table(snakemake.input[0], sep="\t", index_col=0).squeeze()
+pval_col = snakemake.params["pval_col"]
+diff_ab_col = snakemake.params["diff_ab_col"]
 
-# Take negative log of PValue column and add as new column
-data['negative_log_pval'] = -np.log10(data['PValue'])
+# Take negative log of pval_col column and add as new column
+data['negative_log_pval'] = -np.log10(data[pval_col])
 
 # Create a ColumnDataSource object
 source_blue = ColumnDataSource(data=dict(
-    logFC=data['logFC'],
+    diff_ab_col=data[diff_ab_col],
     pval=data['negative_log_pval'],
     feature=data.index
 ))
 
 source_red = ColumnDataSource(data=dict(
-    logFC=data['logFC'],
+    diff_ab_col=data[diff_ab_col],
     pval=data['negative_log_pval'],
     feature=data.index
 ))
 
 # Create a figure
 tool_name = snakemake.wildcards["tool"]
-p = figure(title=f"{tool_name} Volcano Plot", x_axis_label='log Fold Change', y_axis_label='-log10(PValue)')
+p = figure(title=f"{tool_name} Volcano Plot", x_axis_label='coefficient', y_axis_label='-log10(pval_col)')
 
 p.title.text_font_size = '20pt'
 
@@ -56,8 +58,8 @@ p.y_range.start = y_min
 p.y_range.end = y_max
 
 # Define the desired x-axis range
-x_min = data['logFC'].min() - 1  # Minimum value
-x_max = data['logFC'].max() + 1  # Maximum value
+x_min = data[diff_ab_col].min() - 1  # Minimum value
+x_max = data[diff_ab_col].max() + 1  # Maximum value
 
 # Set the y-axis range
 p.x_range.start = x_min
@@ -72,26 +74,26 @@ p.line(x=[x_min,x_max], y=[-np.log10(0.05), -np.log10(0.05)], line_color='gray',
 hover = HoverTool(
     tooltips=[
         ('Feature', '@feature'),
-        ('log Fold Change', '@logFC'),
-        ('-log10(PValue)', '@pval'),
+        ('coefficient', '@diff_ab_col'),
+        ('-log10(pval_col)', '@pval'),
     ]
 )
 p.add_tools(hover)
 
 # Select points where y >= 1 and x >= -log10(0.05)
-pos_sig_diff = (data['logFC'] >= 1) & (data['negative_log_pval'] >= -np.log10(0.05))
+pos_sig_diff = (data[diff_ab_col] >= 1) & (data['negative_log_pval'] >= -np.log10(0.05))
 # Select points where y <= -1 and x >= -log10(0.05)
-neg_sig_diff = (data['logFC'] <= -1) & (data['negative_log_pval'] >= -np.log10(0.05))
+neg_sig_diff = (data[diff_ab_col] <= -1) & (data['negative_log_pval'] >= -np.log10(0.05))
 
 # Apply selection to the data source
 source_blue.selected.indices = np.where(neg_sig_diff)[0]
 # Apply selection to the data source for negative significant differences (blue)
-p.circle('logFC', 'pval', size=5, fill_alpha=0.6, nonselection_line_color='black', nonselection_fill_color='black', source=source_blue, selection_color='blue')
+p.circle('diff_ab_col', 'pval', size=5, fill_alpha=0.6, nonselection_line_color='black', nonselection_fill_color='black', source=source_blue, selection_color='blue')
 
 # Apply selection to the data source
 source_red.selected.indices = np.where(pos_sig_diff)[0]
 # Apply selection to the data source for positive significant differences (red)
-p.circle('logFC', 'pval', size=5, fill_alpha=0.6, nonselection_line_color='black', nonselection_fill_color='black', source=source_red, selection_color='red')
+p.circle('diff_ab_col', 'pval', size=5, fill_alpha=0.6, nonselection_line_color='black', nonselection_fill_color='black', source=source_red, selection_color='red')
 
 
 output_file(snakemake.output[0])

@@ -33,13 +33,13 @@ def get_diffab_tool_columns(wildcards):
 
     columns = {
         "edger": f"{covariate}{target}",
-        "deseq2": "logFC",
+        "deseq2": "log2FoldChange",
         "ancombc": "coefs",
-        "aldex2": "logFC",
+        "aldex2": f"model.{covariate}{target} Estimate",
         "songbird": f"C({covariate}, Treatment('{reference}'))[T.{target}]",
         "maaslin2": "coef",
-        "metagenomeseq": "coefs",
-        "corncob": "logFC",
+        "metagenomeseq": f"{covariate}{target}",
+        "corncob": "coefs",
     }
     return columns[wildcards.tool]
 
@@ -52,15 +52,15 @@ def get_pvalue_tool_columns(wildcards):
 
     columns = {
         "edger": "PValue",
-        "deseq2": "PValue",
-        "ancombc": "PValue",
-        "aldex2": "PValue",
-        "maaslin2": "PValue",
-        "metagenomeseq": "PValue",
-        "corncob": "PValue",
+        "deseq2": "pvalue",
+        "ancombc": "pvals",
+        "aldex2": f"model.{covariate}{target} Pr(>|t|)",
+        "maaslin2": "pval",
+        "metagenomeseq": "pvalues",
+        "corncob": "fit.p",
     }
     return columns[wildcards.tool]
-
+      
 all_differentials = expand(
     "results/{dataset}/{out}",
     dataset=names,
@@ -71,6 +71,12 @@ all_pvalues = expand(
     "results/{dataset}/{out}",
     dataset=names,
     out=["concatenated_pvalues.tsv", "pvalues_table.html"]
+)
+
+all_results = expand(
+    "results/{dataset}/{out}",
+    dataset=names,
+    out=["qadabra_all_result.tsv"]
 )
 
 pvalue_volcanoes = expand(
@@ -111,4 +117,13 @@ all_viz_files.extend(expand(
     curve=["pr", "roc"],
 ))
 
-all_input = all_differentials + all_pvalues + pvalue_volcanoes + all_viz_files + all_ml + all_diff_viz
+all_input = all_differentials + all_pvalues + pvalue_volcanoes + all_viz_files + all_ml + all_diff_viz + all_results
+
+for dataset in datasets.iterrows():
+    if not pd.isna(dataset[1]['tree']):
+        empress_output = expand(
+            "results/{dataset}/{out}",
+            dataset=names,
+            out=["empress"]
+            )
+        all_input = all_input + empress_output

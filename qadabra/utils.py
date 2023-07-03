@@ -49,7 +49,7 @@ def _validate_input(
     logger.info("Looking for completely discriminatory taxa...")
     tbl_df = tbl.to_dataframe(dense=True).T
     joint_df = tbl_df.join(md)
-    gb = joint_df.groupby(factor_name).sum()
+    gb = joint_df.groupby(factor_name).sum(numeric_only=True)
     feat_presence = gb.apply(lambda x: x.all())
     if not feat_presence.all():
         raise ValueError(
@@ -59,7 +59,6 @@ def _validate_input(
 
     if tree:
         from bp import parse_newick, to_skbio_treenode
-
         logger.info("Reading phylogenetic tree...")
         with open(tree) as f:
             tr = parse_newick(f.readline())
@@ -68,3 +67,6 @@ def _validate_input(
         tbl_features = set(tbl.ids("observation"))
         if not tip_names.issubset(tbl_features):
             raise ValueError("Tree tips are not a subset of table features!")
+    else:
+        logger.info("Reading phylogenetic tree...")
+        logger.info("(Optional tree file not provided. Skipping tree validation.)")

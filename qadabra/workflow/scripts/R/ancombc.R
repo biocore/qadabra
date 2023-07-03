@@ -2,14 +2,17 @@ library(biomformat)
 library(ANCOMBC)
 library(phyloseq)
 
+# Set logging information
 log <- file(snakemake@log[[1]], open="wt")
 sink(log)
 sink(log, type="message")
 
+# Load the input table
 print("Loading table...")
 table <- biomformat::read_biom(snakemake@input[["table"]])
 table <- as.matrix(biomformat::biom_data(table))
 
+# Load the metadata
 print("Loading metadata...")
 metadata <- read.table(snakemake@input[["metadata"]], sep="\t", header=T,
                        row.names=1)
@@ -19,6 +22,7 @@ target <- snakemake@params[[1]][["target_level"]]
 reference <- snakemake@params[[1]][["reference_level"]]
 confounders <- snakemake@params[[1]][["confounders"]]
 
+# Harmonize table and metadata samples
 print("Harmonizing table and metadata samples...")
 samples <- colnames(table)
 metadata <- subset(metadata, rownames(metadata) %in% samples)
@@ -26,14 +30,15 @@ metadata[[covariate]] <- as.factor(metadata[[covariate]])
 metadata[[covariate]] <- relevel(metadata[[covariate]], reference)
 sample_order <- row.names(metadata)
 table <- table[, sample_order]
-# Append F_ to features to avoid R renaming
-row.names(table) <- paste0("F_", row.names(table))
+row.names(table) <- paste0("F_", row.names(table)) # Append F_ to features to avoid R renaming
 
+# Convert to phyloseq object
 print("Converting to phyloseq...")
 taxa <- phyloseq::otu_table(table, taxa_are_rows=T)
 meta <- phyloseq::sample_data(metadata)
 physeq <- phyloseq::phyloseq(taxa, meta)
 
+# Create the design formula
 print("Creating design formula...")
 design.formula <- covariate
 if (length(confounders) != 0) {
@@ -41,32 +46,27 @@ if (length(confounders) != 0) {
     design.formula <- paste0(design.formula, " + ", confounders_form)
 }
 
+# Run ANCOMBC
 print("Running ANCOMBC...")
-ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula, zero_cut=1.0)
-
+ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula, zero_cut=1.0, p_adj_method = "BH",)
 saveRDS(ancombc.results, snakemake@output[[2]])
 print("Saved RDS!")
-results <- ancombc.results$res$beta
+
+# Access coefficients and p-values from the ANCOMBC results
+coef_col <- paste("coefs", covariate, target, sep = ".")
+pval_col <- paste("pvals", covariate, target, sep = ".")
+coefs <- ancombc.results$res$beta
 pvals <- ancombc.results$res$p_val
-qvals <- ancombc.results$res$q_val
+# qvals <- ancombc.results$res$q_val
 
-row.names(results) <- gsub("^F_", "", row.names(results))
+# Modify result names
+row.names(coefs) <- gsub("^F_", "", row.names(coefs))
 row.names(pvals) <- gsub("^F_", "", row.names(pvals))
-row.names(qvals) <- gsub("^F_", "", row.names(qvals))
+# row.names(qvals) <- gsub("^F_", "", row.names(qvals))
 
-results_all <- data.frame(coef=results, pvals=pvals, qvals=qvals)
-colnames(results_all) <- c("coefs", "PValue", "qvals")
+results_all <- data.frame(coefs=coefs, pvals=pvals)
+colnames(results_all) <- c("coefs", "pvals")
 
-results_all$logFC <- results_all$coefs
-
+# Save results to output file
 write.table(results_all, file=snakemake@output[[1]], sep="\t")
-# print("Running ANCOMBC...")
-# ancombc.results <- ANCOMBC::ancombc(phyloseq=physeq, formula=design.formula,
-#                                     zero_cut=1.0)
-# saveRDS(ancombc.results, snakemake@output[[2]])
-# print("Saved RDS!")
-# results <- ancombc.results$res$beta
-# row.names(results) <- gsub("^F_", "", row.names(results))
-
-# write.table(results, file=snakemake@output[[1]], sep="\t")
 print("Saved differentials!")

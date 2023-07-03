@@ -162,7 +162,7 @@ rule process_differentials:
         "../scripts/process_differentials.py"
 
 
-rule combine_differentials:
+rule concatenate_differentials:
     input:
         expand(
             "results/{{dataset}}/tools/{tool}/differentials.processed.tsv",
@@ -171,7 +171,7 @@ rule combine_differentials:
     output:
         "results/{dataset}/concatenated_differentials.tsv",
     log:
-        "log/{dataset}/combine_differentials.log",
+        "log/{dataset}/concatenate_differentials.log",
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -207,3 +207,17 @@ rule concatenate_pvalues:
         "../envs/qadabra-default.yaml"
     script:
         "../scripts/concatenate_pvalues.py"
+
+
+rule concatenate_all_results:
+    input:
+        concatenated_pvalues="results/{dataset}/concatenated_pvalues.tsv",
+        concatenated_differentials="results/{dataset}/concatenated_differentials.tsv",
+    output:
+        "results/{dataset}/qadabra_all_result.tsv",
+    log:
+        "log/{dataset}/qadabra_all_result.log",
+    conda:
+        "../envs/qadabra-default.yaml"
+    script:
+        "../scripts/concatenate_all_results.py"

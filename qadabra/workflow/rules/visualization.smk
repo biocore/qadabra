@@ -1,5 +1,6 @@
 stylesheet = config["stylesheet"]
 
+datasets = pd.read_table("config/datasets.tsv", sep="\t", index_col=0)
 
 rule plot_differentials:
     input:
@@ -198,6 +199,9 @@ rule plot_pvalue_volcanoes:
         ),
     log:
         "log/{dataset}/plot_pvalue_volcanoes.{tool}.log",
+    params:
+        pval_col=get_pvalue_tool_columns,
+        diff_ab_col=get_diffab_tool_columns,
     conda:
         "../envs/qadabra-default.yaml"
     script:
@@ -226,6 +230,30 @@ rule qurro:
             --ranks {input.ranks} \
             --table {input.table} \
             --sample-metadata {input.metadata} \
+            --output-dir {output} > {log} 2>&1
+        """
+
+
+rule empress:
+    input:
+        unpack(lambda wc: get_dataset_cfg(wc, ["tree"])),
+        ranks="results/{dataset}/qadabra_all_result.tsv",
+    output:
+        report(
+            directory("results/{dataset}/empress"),
+            caption="../report/empress.rst",
+            htmlindex="empress.html",
+            category="EMPress plot",
+        ),
+    log:
+        "log/{dataset}/empress.log",
+    conda:
+        "../envs/qadabra-empress.yaml"
+    shell:
+        """
+        empress tree-plot \
+            --tree {input.tree} \
+            --feature-metadata {input.ranks} \
             --output-dir {output} > {log} 2>&1
         """
 
