@@ -110,12 +110,12 @@ all_viz_files.extend(expand(
     pctile=config["log_ratio_feat_pcts"],
     location=["numerator", "denominator"],
 ))
-all_viz_files.extend(expand(
-    "figures/{dataset}/{curve}/{curve}.pctile_{pctile}.svg",
-    dataset=names,
-    pctile=config["log_ratio_feat_pcts"],
-    curve=["pr", "roc"],
-))
+# all_viz_files.extend(expand(
+#     "figures/{dataset}/{curve}/{curve}.pctile_{pctile}.svg",
+#     dataset=names,
+#     pctile=config["log_ratio_feat_pcts"],
+#     curve=["pr", "roc"],
+# ))
 
 all_input = all_differentials + all_pvalues + pvalue_volcanoes + all_viz_files + all_ml + all_diff_viz + all_results
 

@@ -67,13 +67,15 @@ rule plot_upset:
         numerator=report(
             "figures/{dataset}/upset/upset.pctile_{pctile}.numerator.svg",
             caption="../report/plot_upset.rst",
-            category="UpSet",
+            category="Differentials",
+            subcategory="UpSet plots",
             labels={"percentile": "{pctile}", "type": "numerator"},
         ),
         denominator=report(
             "figures/{dataset}/upset/upset.pctile_{pctile}.denominator.svg",
             caption="../report/plot_upset.rst",
-            category="UpSet",
+            category="Differentials",
+            subcategory="UpSet plots",
             labels={"percentile": "{pctile}", "type": "denominator"},
         ),
     wildcard_constraints:
