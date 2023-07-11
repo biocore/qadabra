@@ -225,7 +225,7 @@ rule qurro:
     log:
         "log/{dataset}/qurro.log",
     conda:
-        "../envs/qadabra-songbird.yaml"
+        "../envs/qadabra-qurro.yaml"
     shell:
         """
         qurro \
