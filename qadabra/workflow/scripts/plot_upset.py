@@ -37,14 +37,24 @@ denom_list = {
     for tool, df in feat_df_dict.items()
 }
 
-num_plt = UpSet(from_contents(num_list), subset_size="count",
-                show_counts=True).plot()
-plt.title(f"Numerator - {pctile}%")
-plt.savefig(snakemake.output["numerator"])
-logger.info(f"Saved to {snakemake.output['numerator']}")
+try:
+    num_plt = UpSet(from_contents(num_list), subset_size="count", show_counts=True).plot()
+    plt.title(f"Numerator - {pctile}%")
+except IndexError:
+    plt.figure()
+    plt.title(f"Numerator - {pctile}% (empty)")
+    logger.info("num_list is empty. Creating empty numerator plot.")
+finally:
+    plt.savefig(snakemake.output["numerator"])
+    logger.info(f"Saved to {snakemake.output['numerator']}")
 
-denom_plt = UpSet(from_contents(denom_list), subset_size="count",
-                  show_counts=True).plot()
-plt.title(f"Denominator - {pctile}%")
-plt.savefig(snakemake.output["denominator"])
-logger.info(f"Saved to {snakemake.output['denominator']}")
+try:
+    denom_plt = UpSet(from_contents(denom_list), subset_size="count", show_counts=True).plot()
+    plt.title(f"Denominator - {pctile}%")
+except IndexError:
+    plt.figure()
+    plt.title(f"Denominator - {pctile}% (empty)")
+    logger.info("denom_list is empty. Creating empty denominator plot.")
+finally:
+    plt.savefig(snakemake.output["denominator"])
+    logger.info(f"Saved to {snakemake.output['denominator']}")

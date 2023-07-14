@@ -37,8 +37,8 @@ def _validate_input(
     logger.info("Loading table...")
     tbl = biom.load_table(table)
     logger.info(f"Table shape: {tbl.shape}")
-    tbl_idx = set(tbl.ids())
-    md_idx = set(md.index)
+    tbl_idx = {str(item) for item in set(tbl.ids())}
+    md_idx = {str(item) for item in set(md.index)}
 
     if not tbl_idx.issubset(md_idx):
         raise ValueError("Table IDs are not a subset of metadata IDs!")

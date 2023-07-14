@@ -101,7 +101,7 @@ all_diff_viz = expand(
 all_viz_files = expand(
     "figures/{dataset}/{viz}",
     dataset=names,
-    viz=["kendall_diff_heatmap.svg", "kendall_pvalue_heatmap.svg", "rank_comparisons.html", "pvalue_pw_comparisons.html", "pca.svg"]
+    viz=["kendall_diff_heatmap.svg", "kendall_pvalue_heatmap.svg", "differential_pw_comparisons.html", "pvalue_pw_comparisons.html", "pca.svg"]
 )
 
 all_viz_files.extend(expand(
