@@ -1,0 +1,6 @@
+
+Gurobi 8.1.0 (mac64) logging started Tue Jul 11 13:22:37 2023
+
+
+ERROR 10009: No Gurobi license found (user yac027, host knightlab.local, hostid 9fe21529, cores 4)
+

@@ -10,7 +10,7 @@ rule plot_differentials:
             "figures/{dataset}/{tool}_differentials.html",
             caption="../report/plot_differentials.rst",
             category="Differentials",
-            subcategory="Rank Plots",
+            subcategory="Rank plots",
             labels={"tool": "{tool}"},
         ),
     log:
@@ -67,13 +67,15 @@ rule plot_upset:
         numerator=report(
             "figures/{dataset}/upset/upset.pctile_{pctile}.numerator.svg",
             caption="../report/plot_upset.rst",
-            category="UpSet",
+            category="Differentials",
+            subcategory="UpSet plots",
             labels={"percentile": "{pctile}", "type": "numerator"},
         ),
         denominator=report(
             "figures/{dataset}/upset/upset.pctile_{pctile}.denominator.svg",
             caption="../report/plot_upset.rst",
-            category="UpSet",
+            category="Differentials",
+            subcategory="UpSet plots",
             labels={"percentile": "{pctile}", "type": "denominator"},
         ),
     wildcard_constraints:
@@ -155,7 +157,7 @@ rule plot_rank_comparison:
         "results/{dataset}/concatenated_differentials.tsv",
     output:
         report(
-            "figures/{dataset}/rank_comparisons.html",
+            "figures/{dataset}/differential_pw_comparisons.html",
             caption="../report/plot_rank_comparison.rst",
             category="Differentials",
             subcategory="Comparison",
@@ -194,7 +196,7 @@ rule plot_pvalue_volcanoes:
             "figures/{dataset}/{tool}_pvalue_volcanoes.html",
             caption="../report/plot_pvalue_volcanoes.rst",
             category="P-values",
-            subcategory="Volcano Plots",
+            subcategory="Volcano plots",
             labels={"tool": "{tool}"},
         ),
     log:
@@ -223,7 +225,7 @@ rule qurro:
     log:
         "log/{dataset}/qurro.log",
     conda:
-        "../envs/qadabra-songbird.yaml"
+        "../envs/qadabra-qurro.yaml"
     shell:
         """
         qurro \
