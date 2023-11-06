@@ -8,7 +8,7 @@ names = datasets.index
 def get_dataset_cfg(wildcards, keys):
     d = datasets.loc[wildcards.dataset, keys].to_dict()
     if "confounders" in keys:
-        if not np.isnan(d["confounders"]):
+        if not np.isnull(d["confounders"]):
             d["confounders"] = d["confounders"].split(";")
         else:
             d["confounders"] = []
@@ -20,7 +20,7 @@ def get_songbird_formula(wildcards):
     covariate = d["factor_name"]
     reference = d["reference_level"]
     formula = f"C({covariate}, Treatment('{reference}'))"
-    if not np.isnan(d["confounders"]):
+    if not np.isnull(d["confounders"]):
         confounders = d["confounders"].split(";")
         formula = f"{formula} + {' + '.join(confounders)}"
     return formula
