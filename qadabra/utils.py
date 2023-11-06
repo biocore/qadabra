@@ -17,7 +17,7 @@ def _validate_input(
     confounders: List[str] = None,
 ):
     logger.info("Loading metadata...")
-    md = pd.read_table(metadata, sep="\t", index_col=0)
+    md = pd.read_table(metadata, sep="\t", index_col=0, dtype={0:'str'})
 
     if factor_name not in md.columns:
         raise ValueError(f"{factor_name} not found in metadata!")
