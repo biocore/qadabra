@@ -103,4 +103,4 @@ See the [tutorial](tutorial.md) page for a walkthroughon using Qadabra workflow 
 Coming soon: An [FAQs](FAQs.md) page of commonly asked question on the statistics and code pertaining to Qadabra.
 
 ## Citation
-The manuscript for Qadabra is currently in progress. Please cite this GitHub page if Qadabra is used for your analysis. This project is licensed under the MIT License. See the [license](LICENSE) file for details.
+The manuscript for Qadabra is currently in progress. Please cite this GitHub page if Qadabra is used for your analysis. This project is licensed under the BSD-3 License. See the [license](LICENSE) file for details.
