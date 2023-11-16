@@ -1,20 +1,21 @@
 # Qadabra tutorial
 Qadabra is a Snakemake workflow for running and comparing several differential abundance (DA) methods (tools) on the same microbiome dataset.
 
-In this tutorial, we will run Qadabra on a small dataset to guide you through its usage. This dataset comprises of skin microbiome samples swabbed from individuals with acne and sequenced by shotgun metagenomics. A clinical trial was conducted where a topical skin cream containing a strain of _Staphylococcus capitis_ producing a potent antimicrobial peptide against _Cutibacterium acnes_ (the bacteria most involved with acne) was applied on research volunteers to see if their acne improves. Let's investigate how the individuals' skin microbiome changes by differential abundance analysis of microbes pre- and post-treatment from this study using Qadabra.
+In this tutorial, we will run Qadabra on a small dataset to guide you through its usage. This dataset is comprised of skin microbiome samples swabbed from individuals with acne and sequenced by shotgun metagenomics. A clinical trial was conducted where a topical skin cream containing a strain of _Staphylococcus capitis_ that produces a potent antimicrobial peptide against _Cutibacterium acnes_ (the bacteria most involved with acne) was applied on research volunteers to see if their acne improved. This tutorial will investigate how the individuals' skin microbiome changed by differential abundance analysis of microbes pre- and post-treatment from this study using Qadabra.
 
 If you are interested in learning more about the skin microbiome in dermatological diseases, check out this [review paper](https://www.frontiersin.org/articles/10.3389/fimmu.2023.1151527/full). 
 
 
 ## 1. Installation
-We reccommend installing [mamba](https://anaconda.org/conda-forge/mamba) to manage your Qadabra environment. Once mamba is installed, create and activate your Qadabra environment:
+We recommend installing [mamba](https://mamba.readthedocs.io/en/latest/mamba-installation.html) to manage your Qadabra environment. (Note that mamba can interfere with existing conda environments; check [this StackOverflow thread](https://stackoverflow.com/questions/76514281/conda-environments-name-missing-after-mamba-installation) if planning to run both mamba and conda side by side.)  Once mamba is installed, create and activate your Qadabra environment:
 ```
 mamba create -n qadabra_env python=3.9
 mamba activate qadabra_env
+mamba install snakemake numpy cython
 ```
-Install Qadabra and it's dependencies using [pip](https://pypi.org/project/pip/):
+Install Qadabra and its additional dependencies using [pip](https://pypi.org/project/pip/):
 ```
-pip install qadabra snakemake click biom-format pandas numpy cython iow
+pip install qadabra click biom-format pandas iow
 ```
 
 ## 2. Create the workflow directory
@@ -30,7 +31,7 @@ Create a `data` directory to put your input files.
 mkdir data
 ```
 Navigate to the `tutorial_data` directory in the Qadabra GitHub repo:
-`qadabra/qadabra/tutorial_data/`.
+`qadabra/qadabra/test_data/`.
 Download `qadabra_tutorial_table.biom` and `qadabra_tutorial_metadata.tsv` and move these files to your newly created `data` directory.
 
 ## 4. Add your dataset to the Qadabra workflow
