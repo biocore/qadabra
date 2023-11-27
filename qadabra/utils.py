@@ -51,11 +51,7 @@ def _validate_input(
     joint_df = tbl_df.join(md)
     gb = joint_df.groupby(factor_name).sum(numeric_only=True)
     feat_presence = gb.apply(lambda x: x.all())
-    # if not feat_presence.all():
-    #     raise ValueError(
-    #         "Some taxa in the table perfectly discriminate factor groups. "
-    #         "Please filter out these taxa before running Qadabra."
-    #     )
+
     discriminating_feats = feat_presence[~feat_presence].index.tolist()
 
     if len(discriminating_feats) > 0:
