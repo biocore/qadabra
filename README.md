@@ -1,4 +1,4 @@
-![Main CI](https://github.com/gibsramen/qadabra/actions/workflows/main.yml/badge.svg)
+![Main CI](https://github.com/biocore/qadabra/actions/workflows/main.yml/badge.svg)
 
 # Qadabra: **Q**uantitative **A**nalysis of **D**ifferential **Ab**undance **Ra**nks
 
