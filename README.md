@@ -10,6 +10,8 @@ Importantly, Qadabra focuses on both FDR corrected p-values *and* [feature ranks
 
 ![Schematic](images/Qadabra_schematic.svg)
 
+Please note this software is currently a work in progress. Your patience is appreciated as we continue to develop and enhance its features. Please leave an issue on GitHub should you run into any errors.
+
 ## Installation
 ```
 pip install qadabra
@@ -97,7 +99,7 @@ This will create a zipped directory containing the report.
 Unzip this file and open the `report.html` file to view the report containing results and visualizations in your browser.
 
 ## Tutorial
-See the [tutorial](tutorial.md) page for a walkthroughon using Qadabra workflow with a microbiome dataset.
+See the [tutorial](tutorial.md) page for a walkthrough on using Qadabra workflow with a microbiome dataset.
 
 ## FAQs
 Coming soon: An [FAQs](FAQs.md) page of commonly asked question on the statistics and code pertaining to Qadabra.
