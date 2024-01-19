@@ -55,8 +55,8 @@ def _validate_input(
     discriminating_feats = feat_presence[~feat_presence].index.tolist()
 
     if len(discriminating_feats) > 0:
-        warning_msg = "Some features in the table perfectly discriminate factor groups:\n" + '\n'.join(discriminating_feats) + ".\nAutomatically filtering out these features before running Qadabra..."
-        print("Number of discriminating features: " + str(len(discriminating_feats)))
+        logger.warn("Number of discriminating features: " + str(len(discriminating_feats)))
+        warning_msg = f"Some features in the table perfectly discriminate factor groups. Automatically filtering out {len(discriminating_feats)} features before running Qadabra..."        
         warnings.warn(warning_msg, category=Warning)
 
         # Filtering out the discriminating features from the BIOM table
