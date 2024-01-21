@@ -4,7 +4,7 @@ from typing import List
 
 import biom
 import pandas as pd
-
+import warnings
 
 def _validate_input(
     logger: logging.Logger,
@@ -51,11 +51,18 @@ def _validate_input(
     joint_df = tbl_df.join(md)
     gb = joint_df.groupby(factor_name).sum(numeric_only=True)
     feat_presence = gb.apply(lambda x: x.all())
-    if not feat_presence.all():
-        raise ValueError(
-            "Some taxa in the table perfectly discriminate factor groups. "
-            "Please filter out these taxa before running Qadabra."
-        )
+
+    discriminating_feats = feat_presence[~feat_presence].index.tolist()
+
+    if len(discriminating_feats) > 0:
+        logger.warn("Number of discriminating features: " + str(len(discriminating_feats)))
+        warning_msg = f"Some features in the table perfectly discriminate factor groups. Automatically filtering out {len(discriminating_feats)} features before running Qadabra..."        
+        warnings.warn(warning_msg, category=Warning)
+
+        # Filtering out the discriminating features from the BIOM table
+        tbl = tbl.filter(lambda value, id_, metadata: id_ not in discriminating_feats, axis='observation', inplace=False)
+        logger.info(f"Table shape after filtering: {tbl.shape}")
+
 
     if tree:
         from bp import parse_newick, to_skbio_treenode

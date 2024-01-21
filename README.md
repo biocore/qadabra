@@ -10,7 +10,11 @@ Importantly, Qadabra focuses on both FDR corrected p-values *and* [feature ranks
 
 ![Schematic](images/Qadabra_schematic.svg)
 
+Please note this software is currently a work in progress. Your patience is appreciated as we continue to develop and enhance its features. Please leave an issue on GitHub should you run into any errors.
+
 ## Installation
+
+### Option 1: Pip install from [PyPI](https://pypi.org/project/qadabra/0.3.0a1/)
 ```
 pip install qadabra
 ```
@@ -24,12 +28,31 @@ Qadabra requires the following dependencies:
 * cython
 * iow
 
+Check out the [tutorial](tutorial.md) for more in-depth instructions on installation.
+
+
+### Option 2: Install from source (this GitHub repository)
+Prerequisites
+
+Before you begin, ensure you have Git and the necessary build tools installed on your system.
+
+Clone the Repository
+```
+git clone https://github.com/biocore/qadabra.git
+```
+
+Navigate to repo root directory where the `setup.py` file is located and then install QADABRA in editable mode
+```
+cd qadabra
+pip install -e .
+```
+
 ## Usage
 
 ### 1. Creating the workflow directory
 
 Qadabra can be used on multiple datasets at once.
-First, we want to create the workflow directory to perfrom differential abundance with all methods:
+First, we want to create the workflow directory to perform differential abundance with all methods:
 
 ```
 qadabra create-workflow --workflow-dest <directory_name>
@@ -97,7 +120,7 @@ This will create a zipped directory containing the report.
 Unzip this file and open the `report.html` file to view the report containing results and visualizations in your browser.
 
 ## Tutorial
-See the [tutorial](tutorial.md) page for a walkthroughon using Qadabra workflow with a microbiome dataset.
+See the [tutorial](tutorial.md) page for a walkthrough on using Qadabra workflow with a microbiome dataset.
 
 ## FAQs
 Coming soon: An [FAQs](FAQs.md) page of commonly asked question on the statistics and code pertaining to Qadabra.
