@@ -50,14 +50,24 @@ def get_pvalue_tool_columns(wildcards):
     target = d["target_level"]
     reference = d["reference_level"]
 
+    # columns = {
+    #     "edger": "PValue",
+    #     "deseq2": "pvalue",
+    #     "ancombc": "pvals",
+    #     "aldex2": f"model.{covariate}{target} Pr(>|t|)",
+    #     "maaslin2": "pval",
+    #     "metagenomeseq": "pvalues",
+    #     "corncob": "fit.p",
+    # }
+
     columns = {
-        "edger": "PValue",
-        "deseq2": "pvalue",
-        "ancombc": "pvals",
-        "aldex2": f"model.{covariate}{target} Pr(>|t|)",
-        "maaslin2": "pval",
-        "metagenomeseq": "pvalues",
-        "corncob": "fit.p",
+        "edger": "PValue_BH_adj",
+        "deseq2": "padj",
+        "ancombc": "qvals",
+        "aldex2": f"model.{covariate}{target} Pr(>|t|).BH",
+        "maaslin2": "pval_BH_adj",
+        "metagenomeseq": "adjPvalues",
+        "corncob": "adjusted_p_values",
     }
     return columns[wildcards.tool]
       
